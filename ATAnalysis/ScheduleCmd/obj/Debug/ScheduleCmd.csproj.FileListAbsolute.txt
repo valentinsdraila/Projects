@@ -1,0 +1,10 @@
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\bin\Debug\ScheduleCmd.exe.config
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\bin\Debug\ScheduleCmd.exe
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\bin\Debug\ScheduleCmd.pdb
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\bin\Debug\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\bin\Debug\SomeUtils.pdb
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\obj\Debug\ScheduleCmd.csproj.AssemblyReference.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\obj\Debug\ScheduleCmd.csproj.CoreCompileInputs.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\obj\Debug\ScheduleCmd.csproj.CopyComplete
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\obj\Debug\ScheduleCmd.exe
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\ScheduleCmd\obj\Debug\ScheduleCmd.pdb

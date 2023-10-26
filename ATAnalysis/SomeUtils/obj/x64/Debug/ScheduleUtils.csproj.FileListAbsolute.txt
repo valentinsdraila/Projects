@@ -1,0 +1,6 @@
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\bin\Debug\x64\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\bin\Debug\x64\SomeUtils.pdb
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x64\Debug\ScheduleUtils.csproj.AssemblyReference.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x64\Debug\ScheduleUtils.csproj.CoreCompileInputs.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x64\Debug\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x64\Debug\SomeUtils.pdb

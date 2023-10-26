@@ -1,0 +1,12 @@
+\\robavgfs001\Test\ROT\ForValentin\ScheduleCmd\SomeUtils\bin\Debug\x86\SomeUtils.dll
+\\robavgfs001\Test\ROT\ForValentin\ScheduleCmd\SomeUtils\bin\Debug\x86\SomeUtils.pdb
+\\robavgfs001\Test\ROT\ForValentin\ScheduleCmd\SomeUtils\obj\x86\Debug\SomeUtils.csproj.AssemblyReference.cache
+\\robavgfs001\Test\ROT\ForValentin\ScheduleCmd\SomeUtils\obj\x86\Debug\SomeUtils.csproj.CoreCompileInputs.cache
+\\robavgfs001\Test\ROT\ForValentin\ScheduleCmd\SomeUtils\obj\x86\Debug\SomeUtils.dll
+\\robavgfs001\Test\ROT\ForValentin\ScheduleCmd\SomeUtils\obj\x86\Debug\SomeUtils.pdb
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\bin\Debug\x86\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\bin\Debug\x86\SomeUtils.pdb
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x86\Debug\SomeUtils.csproj.AssemblyReference.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x86\Debug\SomeUtils.csproj.CoreCompileInputs.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x86\Debug\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\x86\Debug\SomeUtils.pdb

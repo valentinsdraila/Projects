@@ -1,0 +1,5 @@
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\bin\Debug\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\bin\Debug\SomeUtils.pdb
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\Debug\ScheduleUtils.csproj.CoreCompileInputs.cache
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\Debug\SomeUtils.dll
+C:\Workdir\hg\ToolsFromDevelopment\ATAnalysis\SomeUtils\obj\Debug\SomeUtils.pdb

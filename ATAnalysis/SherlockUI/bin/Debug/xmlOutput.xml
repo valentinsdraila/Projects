@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ATReport Version="1.0">
+  <ATGroup Name="24Debug64EN">
+    <LastBuildReported>230621203823_24A.230621_2022.23_debug_64_en</LastBuildReported>
+    <TestScenario Name="ROT_Neo_GUI\OnnxBlockCalculator">
+      <TestObject Name="ROT_Neo_GUI\OnnxBlockCalculator">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\OnnxBlockCalculator\Input</InputFolder>
+        <OutputFolder>\\BELEUTST11\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST11\ScenarioRuntimeID-4475686\TestObjectRuntimeID-6947734</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST11</HostName>
+      <ScenarioID>69060</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\ExtractSegmentsGUI">
+      <TestObject Name="ROT_Neo_GUI\ExtractSegmentsGUI">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\ExtractSegmentsGUI\Input</InputFolder>
+        <OutputFolder>\\BELEUTST12\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST12\ScenarioRuntimeID-4475689\TestObjectRuntimeID-6947737</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST12</HostName>
+      <ScenarioID>68902</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\SpMap_10018779">
+      <TestObject Name="ROT_Neo_GUI\SpMap_10018779_2Runs_1Ch">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\SpMap_10018779_2Runs_1Ch\Input</InputFolder>
+        <OutputFolder>\\BELEUTST02\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST02\ScenarioRuntimeID-4475685\TestObjectRuntimeID-6947730</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST02</HostName>
+      <ScenarioID>68921</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\SpMap_10018779">
+      <TestObject Name="ROT_Neo_GUI\SpMap_10018779_2Runs_4Ch">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\SpMap_10018779_2Runs_4Ch\Input</InputFolder>
+        <OutputFolder>\\BELEUTST02\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST02\ScenarioRuntimeID-4475685\TestObjectRuntimeID-6947733</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST02</HostName>
+      <ScenarioID>68921</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\FilterFRF">
+      <TestObject Name="ROT_Neo_GUI\FilterFRF">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\FilterFRF\Input</InputFolder>
+        <OutputFolder>\\BELEUTST12\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST12\ScenarioRuntimeID-4475691\TestObjectRuntimeID-6947740</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST12</HostName>
+      <ScenarioID>70175</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\SpectralMapVibrationOutputFormat">
+      <TestObject Name="ROT_Neo_GUI\SpectralMapVibrationOutputFormat">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\SpectralMapVibrationOutputFormat\Input</InputFolder>
+        <OutputFolder>\\BELEUTST11\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST11\ScenarioRuntimeID-4475690\TestObjectRuntimeID-6947739</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST11</HostName>
+      <ScenarioID>70153</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\OrderSectionsSegments">
+      <TestObject Name="ROT_Neo_GUI\OrderSectionsSegments">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\OrderSectionsSegments\Input</InputFolder>
+        <OutputFolder>\\BELEUTST16\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST16\ScenarioRuntimeID-4475741\TestObjectRuntimeID-6947853</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST16</HostName>
+      <ScenarioID>69504</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\SpectrumMapCheckSelector">
+      <TestObject Name="ROT_Neo_GUI\SpectrumMapCheckSelectorTrOnCh">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\SpectrumMapCheckSelectorTrOnCh\Input</InputFolder>
+        <OutputFolder>\\BELEUTST10\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST10\ScenarioRuntimeID-4475687\TestObjectRuntimeID-6947735</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>beleutst10</HostName>
+      <ScenarioID>68949</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\SpMap_10360103">
+      <TestObject Name="ROT_Neo_GUI\SpMap_10360103_TOC_UpDown">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\SpMap_10360103_TOC_UpDown\Input</InputFolder>
+        <OutputFolder>\\BELEUTST13\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST13\ScenarioRuntimeID-4475734\TestObjectRuntimeID-6947844</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST13</HostName>
+      <ScenarioID>70043</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\OnnxOrderSections">
+      <TestObject Name="ROT_Neo_GUI\OnnxOrderSections">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\OnnxOrderSections\Input</InputFolder>
+        <OutputFolder>\\BELEUTST15\LocalAutomatedTesting\24A\Output\2023-June-22,Thursday\BELEUTST15\ScenarioRuntimeID-4475256\TestObjectRuntimeID-6946843</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>beleutst15</HostName>
+      <ScenarioID>69061</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\SpectrumAveragingSpectrum">
+      <TestObject Name="ROT_Neo_GUI\SpectrumAveragingSpectrum">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\24A\TestMembers\TestObjects\ROT_Neo_GUI\SpectrumAveragingSpectrum\Input</InputFolder>
+        <OutputFolder>\\BELEUTST06\LocalAutomatedTesting\24A\Output\2023-June-23,Friday\BELEUTST06\ScenarioRuntimeID-4475684\TestObjectRuntimeID-6947729</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND</FrontEnd>
+      <HostName>BELEUTST06</HostName>
+      <ScenarioID>70154</ScenarioID>
+    </TestScenario>
+  </ATGroup>
+  <ATGroup Name="24Setup64EN">
+    <LastBuildReported>24A.230619_en_64Bit</LastBuildReported>
+  </ATGroup>
+  <ATGroup Name="24Debug64SYM">
+    <LastBuildReported>230508204308_24A.230508_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ATGroup Name="23Debug64EN">
+    <LastBuildReported>230622230914_23A.230622_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ATGroup Name="23Setup64EN">
+    <LastBuildReported>23A.230622_en_64Bit</LastBuildReported>
+    <TestScenario Name="ROT_Neo_GUI\OrderSectionsPerformance">
+      <TestObject Name="ROT_Neo_GUI\OrderSectionsPerformance">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\23A\TestMembers\TestObjects\ROT_Neo_GUI\OrderSectionsPerformance\Input</InputFolder>
+        <OutputFolder>\\BELEUTST05\LocalAutomatedTesting\23A\Output\2023-June-23,Friday\BELEUTST05\ScenarioRuntimeID-4475679\TestObjectRuntimeID-6947705</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND INST 05</FrontEnd>
+      <HostName>BELEUTST05</HostName>
+      <ScenarioID>66227</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\AngleMapRegressionDetector">
+      <TestObject Name="ROT_Neo_GUI\AngleMapRegressionDetector">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\23A\TestMembers\TestObjects\ROT_Neo_GUI\AngleMapRegressionDetector\Input</InputFolder>
+        <OutputFolder>\\BELEUTST05\LocalAutomatedTesting\23A\Output\2023-June-23,Friday\BELEUTST05\ScenarioRuntimeID-4475702\TestObjectRuntimeID-6947758</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND INST</FrontEnd>
+      <HostName>BELEUTST05</HostName>
+    </TestScenario>
+  </ATGroup>
+  <ATGroup Name="23Debug64SYM">
+    <LastBuildReported>230616233837_23A.230616_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ScenarioCount>13</ScenarioCount>
+  <ObjectCount>13</ObjectCount>
+</ATReport>

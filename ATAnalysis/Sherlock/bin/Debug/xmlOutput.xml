@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ATReport Version="1.0">
+  <ATGroup Name="24Debug64EN">
+    <LastBuildReported>230530084000_24A.230529_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ATGroup Name="24Debug64SYM">
+    <LastBuildReported>230508204308_24A.230508_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ATGroup Name="23Debug64EN">
+    <LastBuildReported>230529204903_23A.230529_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ATGroup Name="23Setup64EN">
+    <LastBuildReported>23A.230529_en_64Bit</LastBuildReported>
+    <TestScenario Name="ROT_Neo_GUI\OrderSectionsPerformance">
+      <TestObject Name="ROT_Neo_GUI\OrderSectionsPerformance">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\23A\TestMembers\TestObjects\ROT_Neo_GUI\OrderSectionsPerformance\Input</InputFolder>
+        <OutputFolder>\\BELEUTST05\LocalAutomatedTesting\23A\Output\2023-May-30,Tuesday\BELEUTST05\ScenarioRuntimeID-4425881\TestObjectRuntimeID-6870470</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND INST 05</FrontEnd>
+      <ScenarioID>66227</ScenarioID>
+    </TestScenario>
+    <TestScenario Name="ROT_Neo_GUI\AngleMapRegressionDetector">
+      <TestObject Name="ROT_Neo_GUI\AngleMapRegressionDetector">
+        <InputFolder>\\belnspdev001.net.plm.eds.com\AutomatedTestingVOB\23A\TestMembers\TestObjects\ROT_Neo_GUI\AngleMapRegressionDetector\Input</InputFolder>
+        <OutputFolder>\\BELEUTST05\LocalAutomatedTesting\23A\Output\2023-May-30,Tuesday\BELEUTST05\ScenarioRuntimeID-4425917\TestObjectRuntimeID-6870546</OutputFolder>
+        <Status>OK</Status>
+      </TestObject>
+      <FrontEnd>NO FRONTEND INST</FrontEnd>
+    </TestScenario>
+  </ATGroup>
+  <ATGroup Name="23Debug64SYM">
+    <LastBuildReported>230526234353_23A.230526_2022.23_debug_64_en</LastBuildReported>
+  </ATGroup>
+  <ScenarioCount>2</ScenarioCount>
+  <ObjectCount>2</ObjectCount>
+</ATReport>
