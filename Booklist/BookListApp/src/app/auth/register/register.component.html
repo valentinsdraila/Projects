@@ -1,0 +1,85 @@
+<div id="register-page">
+    <div class="header">
+      <h1>REGISTER</h1>
+    </div>
+  
+    <form [formGroup]="registerForm" >
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          placeholder="Enter first name"
+          formControlName="firstName"
+          required
+          name="firstName"
+          autocomplete="on"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          placeholder="Enter last name"
+          formControlName="lastName"
+          required
+          name="lastName"
+          autocomplete="on"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Enter email"
+          formControlName="email"
+          required
+          name="email"
+          autocomplete="on"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        />
+      </mat-form-field>
+  
+      <mat-form-field hintLabel="Min 6 characters" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          #input minlength="6"
+          placeholder="Enter password"
+          formControlName="password"
+          required
+          name="password"
+          autocomplete="on"          
+        />
+        <mat-hint align="end">{{input.value?.length || 0}}/6</mat-hint>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input
+          type="password"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="Enter password"
+          formControlName="confirmedPassword"
+          required
+          name="confirmedPassword"
+          autocomplete="on"
+        />        
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <a [routerLink]="'/auth/login'">Already have an account? Login!</a>
+      <button id="register" mat-raised-button color="primary" type="submit" (click)="postUser()" >REGISTER</button>
+    </form>
+  </div>
+  

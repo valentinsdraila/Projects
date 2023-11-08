@@ -1,0 +1,18 @@
+#main-page{
+    background-color: aliceblue;
+    width: 50vw;
+    height: 50vw;
+    .header{
+        font-family: 'Times New Roman', Times, serif;
+        text-align: center;
+        align-items: center;
+    }
+
+    table{
+        width: 100%;
+        th.mat-header-cell{
+            width: 10vw;
+        }
+    }
+   
+}

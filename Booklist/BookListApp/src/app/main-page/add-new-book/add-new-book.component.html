@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Add New Book</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form" (ngSubmit)="addBook()">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter book title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter book apparition year</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="book year"
+        formControlName="year"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter book description</mat-label>
+      <input
+        matInput
+        placeholder="book description"
+        formControlName="description"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select book rating</mat-label>
+      <mat-select formControlName="rating">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Enter book author</mat-label>
+        <input
+          matInput
+          placeholder="book author"
+          formControlName="author"
+          required
+        />
+      </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    (click)="addBook()"
+  >
+    Confirm
+  </button>
+</mat-dialog-actions>

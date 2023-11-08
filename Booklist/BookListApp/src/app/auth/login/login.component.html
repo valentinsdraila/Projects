@@ -1,0 +1,37 @@
+<div id="login-page">
+  <div class="header">
+    <h1>LOGIN</h1>
+  </div>
+
+  <form [formGroup]="logInForm" (ngSubmit)="logIn()">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Enter email"
+        formControlName="email"
+        required
+        name="email"
+        autocomplete="on"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        type="password"
+        matInput
+        placeholder="Enter password"
+        formControlName="password"
+        required
+        name="password"
+        autocomplete="on"
+      />
+    </mat-form-field>
+
+    <mat-checkbox class="checkbox" (change)="rememberMe($event)">Remember Me</mat-checkbox>
+
+    <a [routerLink]="'/auth/register'">Don't have an account? Register now!</a>
+    <button mat-raised-button color="primary" type="submit">LOG IN</button>
+  </form>
+</div>

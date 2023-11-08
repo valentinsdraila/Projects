@@ -1,0 +1,27 @@
+#register-page {
+    background-color: #fff;
+    width: 35vw;
+    padding: 4rem 2rem;
+    border-radius: 10px;
+    margin-top: -10rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  
+    .header {
+      text-align: center;
+  
+      h1 {
+        font-weight: 500;
+      }
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      margin: 2rem 4rem;
+  
+      #register {
+        margin: 2rem 0 0;
+      }
+    }
+  }
+  

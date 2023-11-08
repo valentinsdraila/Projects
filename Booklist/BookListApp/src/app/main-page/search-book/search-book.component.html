@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Search Book</h2>
+
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="form" (ngSubmit)="searchBook()">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter book title</mat-label>
+        <input
+          matInput
+          formControlName="bookTitle"
+          required
+        />
+      </mat-form-field>
+  
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-button
+      [mat-dialog-close]="true"
+      cdkFocusInitial
+      (click)="searchBook()"
+    >
+      Confirm
+    </button>
+  </mat-dialog-actions>
