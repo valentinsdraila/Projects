@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DatabaseUtil">
+      <UniqueIdentifier>{16e71143-ea2d-45ae-8a52-be230b02f033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes">
+      <UniqueIdentifier>{abc1604e-e53f-471e-8c1b-13ad63d56ebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DatabaseUtil">
+      <UniqueIdentifier>{cd4ab8a1-6ffa-4afb-86ac-e3530d722b52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{936c44b7-c92e-423c-b19e-ffb20a584e53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MainClass">
+      <UniqueIdentifier>{190f2c68-fbb5-4656-82f2-659dc6d2f620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MainClass">
+      <UniqueIdentifier>{840ae5d4-87ce-4d07-a214-bb994e141ce3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PriorityQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentService.cpp">
+      <Filter>Source Files\DatabaseUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseConnection.cpp">
+      <Filter>Source Files\DatabaseUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="FriendsService.cpp">
+      <Filter>Source Files\DatabaseUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="TweetService.cpp">
+      <Filter>Source Files\DatabaseUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="UserService.cpp">
+      <Filter>Source Files\DatabaseUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="RetweetService.cpp">
+      <Filter>Source Files\DatabaseUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Tweet.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Retweet.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Comment.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Like.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Twitter.cpp">
+      <Filter>Source Files\MainClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files\MainClass</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PriorityQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Features.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentService.h">
+      <Filter>Header Files\DatabaseUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseConnection.h">
+      <Filter>Header Files\DatabaseUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendsService.h">
+      <Filter>Header Files\DatabaseUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="RetweetService.h">
+      <Filter>Header Files\DatabaseUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="TweetService.h">
+      <Filter>Header Files\DatabaseUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="UserService.h">
+      <Filter>Header Files\DatabaseUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Tweet.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Comment.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Like.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Retweet.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Twitter.h">
+      <Filter>Header Files\MainClass</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+﻿<Application x:Class="Hangman.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Hangman" xmlns:viewmodel="clr-namespace:Hangman.ViewModel"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <viewmodel:GameViewModel x:Key="LetterKey"/>
+       
+    </Application.Resources>
+</Application>

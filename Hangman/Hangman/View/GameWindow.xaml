@@ -1,0 +1,53 @@
+﻿<Window x:Class="Hangman.View.GameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hangman.View" xmlns:viewmodel="clr-namespace:Hangman.ViewModel"
+        mc:Ignorable="d"
+        Title="GameWindow" DataContext="{StaticResource LetterKey}" Height="750" Width="1350">
+
+    <Grid x:Name="GameGrid">
+        <Button Content="New Game" HorizontalAlignment="Right" Width="100" Height="50" Command="{Binding NewGame, Mode=OneWay}"/>
+        <ItemsControl ItemsSource="{Binding Letters}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="100">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Letter}" Command="{Binding LetterPressed, Mode=OneWay, Source={StaticResource LetterKey}}" CommandParameter="{Binding}"  IsEnabled="{Binding Enable}" Width="50" Height="50"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding Word}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="" IsEnabled="False" Width="50" Height="50"></Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding Word}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Letter}" FontSize="30" Visibility="{Binding Visible}"  Width="50" Height="50"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Image Source="{Binding CurrentImage, Mode=TwoWay}" Width="200" Height="200" Margin="713,35,437,199"></Image>
+        <TextBlock Text="Lives left:" Visibility="{Binding Visibility}" FontSize="30" Width="200" Height="100" Margin="1061,50,89,284"></TextBlock>
+        <TextBlock Text="{Binding Lives}" Visibility="{Binding Visibility}" FontSize="30" Width="200" Height="100" Margin="1183,50,-33,284"></TextBlock>
+        <TextBlock Text="{Binding Delay}" Visibility="{Binding Visibility}" FontSize="30" Width="200" Height="100" Margin="1045,185,105,149"></TextBlock>
+    </Grid>
+</Window>

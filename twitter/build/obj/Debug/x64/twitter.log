@@ -1,0 +1,77 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\build\obj\Debug\x64\) contains files shared from another project (TwitterClient.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Source.cpp
+  Twitter.cpp
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(47,57): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(56,57): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(68,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(130,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(140,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(176,51): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(182,51): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(188,58): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(193,58): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(198,58): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(203,58): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(208,58): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(224,78): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(320,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(338,63): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(356,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(382,72): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(393,63): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(398,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(409,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(427,63): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(431,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(442,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(459,63): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(464,50): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(474,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(492,49): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(501,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(518,49): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(24,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(23): message : while compiling class template member function 'int PriorityQueue<std::string>::Size(void) const'
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(310): message : see reference to function template instantiation 'int PriorityQueue<std::string>::Size(void) const' being compiled
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\User.h(48): message : see reference to class template instantiation 'PriorityQueue<std::string>' being compiled
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(41,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(36): message : while compiling class template member function 'void PriorityQueue<std::string>::Insert(const T &)'
+          with
+          [
+              T=std::string
+          ]
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(330): message : see reference to function template instantiation 'void PriorityQueue<std::string>::Insert(const T &)' being compiled
+          with
+          [
+              T=std::string
+          ]
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(54,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(53): message : while compiling class template member function 'void PriorityQueue<std::string>::ExtractMax(void)'
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(311): message : see reference to function template instantiation 'void PriorityQueue<std::string>::ExtractMax(void)' being compiled
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(83,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(79): message : while compiling class template member function 'void PriorityQueue<std::string>::MaxHeapfy(const int &)'
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(57): message : see reference to function template instantiation 'void PriorityQueue<std::string>::MaxHeapfy(const int &)' being compiled
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\PriorityQueue.h(36): message : while compiling class template member function 'void PriorityQueue<std::string>::Insert(const T &)'
+          with
+          [
+              T=std::string
+          ]
+C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\twitter\Twitter.cpp(330): message : see reference to function template instantiation 'void PriorityQueue<std::string>::Insert(const T &)' being compiled
+          with
+          [
+              T=std::string
+          ]
+  Generating Code...
+  twitter.vcxproj -> C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\build\bin\Debug\x64\twitter.exe
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\openal32.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-audio-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-audio-d-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-graphics-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-graphics-d-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-network-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-network-d-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-system-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-system-d-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-window-2.dll
+  C:\Users\Tinu\Desktop\Laboratoare\PAC\twitterapp\twitter\ThirdParty\bin\x64\sfml-window-d-2.dll
+  11 File(s) copied
