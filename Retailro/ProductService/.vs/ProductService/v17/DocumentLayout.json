@@ -1,0 +1,165 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\model\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\model\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\datalayer\\productdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\datalayer\\productdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\servicelayer\\productsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\servicelayer\\productsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\servicelayer\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\servicelayer\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\datalayer\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\datalayer\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|c:\\users\\valen\\desktop\\disertatie\\productservice\\productservice\\datalayer\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1373B70D-0304-4F15-80C6-7C783BF64FC3}|ProductService\\ProductService.csproj|solutionrelative:productservice\\datalayer\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\appsettings.json",
+              "RelativeDocumentMoniker": "ProductService\\appsettings.json",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\appsettings.json",
+              "RelativeToolTip": "ProductService\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-24T15:14:40.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "ProductService\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "ProductService\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:13:32.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\Model\\Product.cs",
+              "RelativeDocumentMoniker": "ProductService\\Model\\Product.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\Model\\Product.cs",
+              "RelativeToolTip": "ProductService\\Model\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:11:46.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\DataLayer\\ProductDbContext.cs",
+              "RelativeDocumentMoniker": "ProductService\\DataLayer\\ProductDbContext.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\DataLayer\\ProductDbContext.cs",
+              "RelativeToolTip": "ProductService\\DataLayer\\ProductDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:10:26.213Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductsService.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ServiceLayer\\ProductsService.cs",
+              "RelativeDocumentMoniker": "ProductService\\ServiceLayer\\ProductsService.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ServiceLayer\\ProductsService.cs",
+              "RelativeToolTip": "ProductService\\ServiceLayer\\ProductsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:09:35.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ServiceLayer\\IProductService.cs",
+              "RelativeDocumentMoniker": "ProductService\\ServiceLayer\\IProductService.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ServiceLayer\\IProductService.cs",
+              "RelativeToolTip": "ProductService\\ServiceLayer\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:09:25.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\DataLayer\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "ProductService\\DataLayer\\ProductRepository.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\DataLayer\\ProductRepository.cs",
+              "RelativeToolTip": "ProductService\\DataLayer\\ProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:08:56.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\DataLayer\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "ProductService\\DataLayer\\IProductRepository.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\DataLayer\\IProductRepository.cs",
+              "RelativeToolTip": "ProductService\\DataLayer\\IProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:08:35.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\Program.cs",
+              "RelativeDocumentMoniker": "ProductService\\Program.cs",
+              "ToolTip": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\Program.cs",
+              "RelativeToolTip": "ProductService\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T14:50:35.15Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
