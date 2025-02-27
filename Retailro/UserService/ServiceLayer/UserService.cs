@@ -17,7 +17,6 @@ public class UsersService : IUserService
         if (existentUser != null)
             return;
         user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        Console.WriteLine("HashPassword going to db:" + user.Password);
         await this.userRepository.Add(user);
     }
 

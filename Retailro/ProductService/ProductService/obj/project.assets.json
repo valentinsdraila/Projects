@@ -4782,11 +4782,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ProductService.csproj",
+      "projectUniqueName": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\ProductService\\ProductService\\ProductService.csproj",
       "projectName": "ProductService",
-      "projectPath": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ProductService.csproj",
+      "projectPath": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\ProductService\\ProductService\\ProductService.csproj",
       "packagesPath": "C:\\Users\\valen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\obj\\",
+      "outputPath": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\ProductService\\ProductService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EKlPgPLL0xk=",
+  "dgSpecHash": "+z+5Xsp5Tdw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\valen\\Desktop\\Disertatie\\ProductService\\ProductService\\ProductService.csproj",
+  "projectFilePath": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\ProductService\\ProductService\\ProductService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\valen\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\valen\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -1,19 +1,33 @@
 import { useEffect, useState } from "react";
+import { data } from "react-router-dom";
 
 const HomePage = () => {
   const [username, setUsername] = useState("");
-
   useEffect(() => {
     console.log("Fetching");
     fetch("https://localhost:7007/api/user/me", {
       method: "GET",
-      credentials: "include" // Ensure cookies are sent with request
+      credentials: "include"
     })
       .then(response => {
         if (!response.ok) throw new Error("Failed to fetch username");
         return response.json();
       })
       .then(data => setUsername(data.username))
+      .catch(error => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    console.log("Fetching products");
+    fetch("https://localhost:7007/api/products", {
+      method: "GET",
+      credentials: "include"
+    })
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to fetch products");
+        return response.json();
+      })
+      .then(console.log(data))
       .catch(error => console.error(error));
   }, []);
 

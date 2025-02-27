@@ -37,7 +37,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// Middleware to extract JWT from cookie and add it to the Authorization header
 app.Use(async (context, next) =>
 {
     if (context.Request.Cookies.ContainsKey("jwt"))

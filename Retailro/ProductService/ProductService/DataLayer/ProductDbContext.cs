@@ -12,6 +12,6 @@ namespace ProductService.DataLayer
         protected ProductDbContext()
         {
         }
-        DbSet<Product> products { get; set; }
+        DbSet<Product> Products { get; set; }
     }
 }

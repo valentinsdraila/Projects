@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\valen\\Desktop\\Disertatie\\APIGateway\\APIGateway\\APIGateway.csproj": {}
+    "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\APIGateway\\APIGateway\\APIGateway.csproj": {}
   },
   "projects": {
-    "C:\\Users\\valen\\Desktop\\Disertatie\\APIGateway\\APIGateway\\APIGateway.csproj": {
+    "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\APIGateway\\APIGateway\\APIGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\valen\\Desktop\\Disertatie\\APIGateway\\APIGateway\\APIGateway.csproj",
+        "projectUniqueName": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\APIGateway\\APIGateway\\APIGateway.csproj",
         "projectName": "APIGateway",
-        "projectPath": "C:\\Users\\valen\\Desktop\\Disertatie\\APIGateway\\APIGateway\\APIGateway.csproj",
+        "projectPath": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\APIGateway\\APIGateway\\APIGateway.csproj",
         "packagesPath": "C:\\Users\\valen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\valen\\Desktop\\Disertatie\\APIGateway\\APIGateway\\obj\\",
+        "outputPath": "C:\\Users\\valen\\Documents\\GitHub\\Projects\\Retailro\\APIGateway\\APIGateway\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
