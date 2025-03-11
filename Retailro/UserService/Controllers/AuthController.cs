@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
         _jwtService = jwtService;
         _userService = userService;
     }
-
+    
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UsersService.LoginRequest request)
     {
@@ -29,7 +29,7 @@ public class AuthController : ControllerBase
 
         var cookieOptions = new CookieOptions
         {
-            HttpOnly = true,  // Prevent XSS
+            HttpOnly = true, 
             Secure=true,
             SameSite = SameSiteMode.None,
             Expires = DateTime.UtcNow.AddMinutes(60)
@@ -42,7 +42,17 @@ public class AuthController : ControllerBase
     [HttpPost("logout")]
     public IActionResult Logout()
     {
-        Response.Cookies.Delete("jwt");
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Path = "/",
+            Expires = DateTime.UtcNow.AddDays(-1)
+        };
+
+        Response.Cookies.Append("jwt", "", cookieOptions);
         return Ok(new { message = "Logged out successfully" });
     }
+
 }

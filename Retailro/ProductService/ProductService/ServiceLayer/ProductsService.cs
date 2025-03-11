@@ -32,7 +32,7 @@ namespace ProductService.ServiceLayer
             return await this._productRepository.GetAll();
         }
 
-        public async Task<Product> GetProduct(Guid productId)
+        public async Task<Product?> GetProduct(Guid productId)
         {
             return await this._productRepository.GetById(productId);
         }

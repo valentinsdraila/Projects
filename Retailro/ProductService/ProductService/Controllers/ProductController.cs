@@ -11,9 +11,9 @@ namespace ProductService.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService userService)
+        public ProductController(IProductService productService)
         {
-            this._productService = userService;
+            this._productService = productService;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts()

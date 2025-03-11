@@ -4,7 +4,7 @@ namespace ProductService.DataLayer
 {
     public interface IProductRepository
     {
-        Task<Product> GetById(Guid id);
+        Task<Product?> GetById(Guid id);
         Task<List<Product>> GetAll();
         Task Add(Product product);
         Task Update(Product product);

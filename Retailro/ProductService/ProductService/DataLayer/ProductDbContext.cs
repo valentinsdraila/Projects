@@ -13,5 +13,6 @@ namespace ProductService.DataLayer
         {
         }
         DbSet<Product> Products { get; set; }
+        DbSet<Cart> Carts { get; set; }
     }
 }

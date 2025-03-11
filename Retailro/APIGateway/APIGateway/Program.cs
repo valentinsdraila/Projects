@@ -1,3 +1,4 @@
+using APIGateway;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
@@ -51,5 +52,6 @@ app.Use(async (context, next) =>
 app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<ExtractUserIdMiddleware>();
 await app.UseOcelot();
 app.Run();
