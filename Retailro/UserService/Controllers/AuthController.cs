@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
         var user = await _userService.AuthenticateUser(request.Username, request.Password);
         if (user == null)
         {
-            return Unauthorized("Invalid username or password.");
+            return Unauthorized(new { message = "Invalid username or password." });
         }
         var token = _jwtService.GenerateToken(user.Id.ToString(), user.Username, user.Role);
 

@@ -25,7 +25,7 @@ namespace ProductService.Controllers
             var userId = Request.Headers["x-user-id"].FirstOrDefault();
             if (string.IsNullOrEmpty(userId))
             {
-                return Unauthorized("User ID not found in request.");
+                return Unauthorized(new { message = "User ID not found in request." });
             }
 
             Guid userIdGuid = Guid.Parse(userId);
@@ -40,12 +40,12 @@ namespace ProductService.Controllers
                 var userId = Request.Headers["x-user-id"].FirstOrDefault();
                 if (string.IsNullOrEmpty(userId))
                 {
-                    return Unauthorized("User ID not found in request.");
+                    return Unauthorized(new { message = "User ID not found in request." });
                 }
 
                 Guid userIdGuid = Guid.Parse(userId);
                 await _cartService.AddItemToCart(productId, userIdGuid, _productService);
-                return Ok("The product has been added to the cart.");
+                return Ok(new { status = "success", message = "The product has been added to the cart." });
             }
             catch (Exception ex)
             {
@@ -60,16 +60,16 @@ namespace ProductService.Controllers
                 var userId = Request.Headers["x-user-id"].FirstOrDefault();
                 if (string.IsNullOrEmpty(userId))
                 {
-                    return Unauthorized("User ID not found in request.");
+                    return Unauthorized(new { message = "User ID not found in request." });
                 }
 
                 Guid userIdGuid = Guid.Parse(userId);
                 await this._cartService.RemoveProductFromCart(productId, userIdGuid);
-                return Ok("The item was removed from the cart.");
+                return Ok(new { message = "The item was removed from the cart." });
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
         [HttpGet("{id}")]
@@ -92,7 +92,7 @@ namespace ProductService.Controllers
             }
             catch (ValidationException)
             {
-                return BadRequest("The product data is invalid.");
+                return BadRequest(new { message = "The product data is invalid." });
             }
         }
         [HttpDelete("{id}")]

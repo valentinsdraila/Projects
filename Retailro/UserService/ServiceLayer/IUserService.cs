@@ -5,7 +5,7 @@ public interface IUserService
 {
     /// <summary>Adds the user.</summary>
     /// <param name="user">The user.</param>
-    Task AddUser(User user);
+    Task<bool> AddUser(User user);
 
     /// <summary>Updates the user.</summary>
     /// <param name="user">The user.</param>

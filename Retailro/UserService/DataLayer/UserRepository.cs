@@ -47,6 +47,7 @@ namespace UserService.Data
         public async Task Update(User entity)
         {
             this.context.Entry<User>(entity).State = EntityState.Modified;
+            this.context.Entry<User>(entity).Property(x => x.CreatedAt).IsModified = false;
             await this.SaveChangesAsync();
         }
 

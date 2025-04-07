@@ -11,13 +11,14 @@ public class UsersService : IUserService
         this.userRepository = userRepository;
     }
 
-    public async Task AddUser(User user)
+    public async Task<bool> AddUser(User user)
     {
         var existentUser = await this.userRepository.GetByUsername(user.Username);
         if (existentUser != null)
-            return;
+            return true;
         user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
         await this.userRepository.Add(user);
+        return false;
     }
 
     public async Task DeleteUser(User user)
@@ -42,6 +43,7 @@ public class UsersService : IUserService
 
     public async Task UpdateUser(User user)
     {
+        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
         await this.userRepository.Update(user);
     }
 

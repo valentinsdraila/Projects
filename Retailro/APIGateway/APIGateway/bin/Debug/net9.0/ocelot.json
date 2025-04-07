@@ -14,6 +14,19 @@
       "CorsPolicy": "AllowSpecificOrigin"
     },
     {
+      "DownstreamPathTemplate": "/api/user/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7270
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/",
+      "UpstreamHttpMethod": ["Post"],
+      "CorsPolicy": "AllowSpecificOrigin"
+    },
+    {
       "DownstreamPathTemplate": "/api/user/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

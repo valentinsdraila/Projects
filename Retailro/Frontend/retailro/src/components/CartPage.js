@@ -45,7 +45,7 @@ const CartPage = () => {
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
-                    <strong>${item.unitPrice?.toFixed(2)}</strong>
+                    <strong>${item.totalPrice?.toFixed(2)}</strong>
                   </p>
                   <button
                     className="btn btn-danger"

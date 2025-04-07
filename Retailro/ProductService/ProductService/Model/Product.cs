@@ -8,6 +8,6 @@
         public int Quantity { get; set; }
         public decimal? UnitPrice { get; set; }
         public string? Image { get; set; }
-        public virtual List<Cart>? Carts { get; set; }
+        public virtual List<CartItem>? CartItems { get; set; } = new();
     }
 }

@@ -42,12 +42,19 @@ namespace UserService.Controllers
         {
             try
             {
-                await this._userService.AddUser(user);
-                return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+                bool userExists = await this._userService.AddUser(user);
+                if (!userExists)
+                {
+                    return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+                }
+                else
+                {
+                    return Conflict(new {error = "UserExists", message = "The username/email is already in use!"});
+                }
             }
             catch (ValidationException)
             {
-                return BadRequest("The user data is invalid.");
+                return BadRequest(new { error = "ValidationError", message = "The user data is invalid." });
             }
         }
 

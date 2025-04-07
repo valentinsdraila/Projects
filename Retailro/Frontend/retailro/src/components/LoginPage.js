@@ -1,39 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
-const handleLogin = async (e) => {
-    e.preventDefault();
-    setError(''); // Clear any previous error
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setError('');
 
-    try {
-        const response = await fetch('https://localhost:7007/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-            credentials: 'include', // Include credentials in the request
-        });
+        try {
+            const response = await fetch('https://localhost:7007/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+                credentials: 'include',
+            });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Login successful:', data);
-            navigate('/home');
-        } else {
-            const errorData = await response.json();
-            setError(errorData.message || 'Login failed');
+            if (response.ok) {
+                navigate('/home');
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message || 'Login failed');
+            }
+        } catch (error) {
+            setError('Network error: ' + error.message);
         }
-    } catch (error) {
-        setError('Network error: ' + error.message);
-    }
-};
-
+    };
 
     return (
         <div className="container mt-5">
@@ -62,6 +57,9 @@ const handleLogin = async (e) => {
                 <button type="submit" className="btn btn-primary w-100">Login</button>
                 {error && <p className="text-danger">{error}</p>}
             </form>
+            <p className="text-center mt-3">
+                Don't have an account? <Link to="/register">Sign up</Link>
+            </p>
         </div>
     );
 };

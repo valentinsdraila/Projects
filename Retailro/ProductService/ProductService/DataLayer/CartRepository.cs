@@ -69,7 +69,15 @@ namespace ProductService.DataLayer
         {
             
             Cart cart = await context.Set<Cart>().FirstOrDefaultAsync(c=>c.UserId==userId);
-            await context.Entry(cart).Collection(c => c.Products).LoadAsync();
+            if (cart != null)
+            {
+                await context.Entry(cart)
+                .Collection(c => c.Products).LoadAsync();
+                foreach (var cartItem in cart.Products)
+                {
+                    await context.Entry(cartItem).Reference(ci => ci.Product).LoadAsync();
+                }
+            }
             return cart;
         }
 

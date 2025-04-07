@@ -41,7 +41,7 @@ namespace ProductService.Controllers
             }
             catch (ValidationException)
             {
-                return BadRequest("The product data is invalid.");
+                return BadRequest(new { message = "The product data is invalid." });
             }
         }
         [HttpDelete("{id}")]
