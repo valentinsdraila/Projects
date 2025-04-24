@@ -1,0 +1,153 @@
+import { useEffect, useState } from "react";
+
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    fetch("https://localhost:7007/api/cart/products", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch cart items");
+        return response.json();
+      })
+      .then((data) =>
+        setCartItems(
+          data.map((item) => ({
+            ...item,
+            totalPrice: Number(item.totalPrice ?? 0),
+            quantity: Number(item.quantity ?? 1),
+            price: Number(item.totalPrice/item.quantity ?? 0),
+          }))
+        )
+      )
+      
+      .catch((error) => console.error(error));
+  }, []);
+
+  const updateQuantity = (productId, delta) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) => {
+        if (item.id !== productId) return item;
+  
+        const newQuantity = Math.max(1, (item.quantity ?? 1) + delta);
+  
+        return {
+          ...item,
+          quantity: newQuantity,
+          totalPrice: item.price * newQuantity,
+        };
+      })
+    );
+  };
+  
+
+  const handleRemove = (productId) => {
+    fetch(`https://localhost:7007/api/cart/products/${productId}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to remove product");
+        return response.text();
+      })
+      .then(() => {
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handlePlaceOrder = () => {
+    const productInfos = cartItems.map((item) => ({
+      productId: item.id,
+      name: item.name,
+      quantityOrdered: item.quantity,
+      priceAtPurchase: item.price.toFixed(2),
+      image: item.image,
+    }));
+
+    fetch("https://localhost:7007/api/order", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productInfos),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Order failed");
+        return response.text();
+      })
+      .then((msg) => {
+        alert("Order placed successfully!");
+        setCartItems([]);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const totalCartPrice = cartItems.reduce(
+    (sum, item) => sum + item.totalPrice,
+    0
+  ).toFixed(2);
+
+  return (
+    <div className="container mt-5">
+      <h2>Your Shopping Cart</h2>
+      <div className="row mt-4">
+        {cartItems.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          cartItems.map((item) => (
+            <div key={item.id} className="col-md-3 mb-4">
+              <div className="card h-100">
+                <img src={`/images/${item.image}`} alt={item.name} className="img-fluid" />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <div className="d-flex align-items-center mb-2">
+                    <button
+                      className="btn btn-sm btn-outline-secondary me-2"
+                      onClick={() => updateQuantity(item.id, -1)}
+                    >
+                      −
+                    </button>
+                    <span>Quantity: {item.quantity}</span>
+                    <button
+                      className="btn btn-sm btn-outline-secondary ms-2"
+                      onClick={() => updateQuantity(item.id, 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p className="card-text fw-bold">
+                  Total: ${(item.price * item.quantity).toFixed(2)}
+                  </p>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleRemove(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {cartItems.length > 0 && (
+        <>
+          <hr />
+          <div className="d-flex justify-content-between align-items-center">
+          <p className="card-text fw-bold">Total: ${totalCartPrice}</p>
+            <button className="btn btn-primary" onClick={handlePlaceOrder}>
+              Place Order
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default CartPage;
