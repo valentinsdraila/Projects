@@ -20,7 +20,7 @@ namespace ProductService.Controllers
             this._productService = productService;
         }
         [HttpGet("products")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsInCart()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProductsInCart()
         {
             var userId = Request.Headers["x-user-id"].FirstOrDefault();
             if (string.IsNullOrEmpty(userId))
