@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderService.Model;
+using System.Security.Cryptography;
 
 namespace OrderService.DataLayer
 {
@@ -46,7 +47,9 @@ namespace OrderService.DataLayer
 
         public async Task<Order?> GetById(Guid id)
         {
-            return await this.context.Set<Order>().FindAsync(id);
+            return await this.context.Set<Order>()
+                .Include(o => o.Products)
+                .FirstOrDefaultAsync(o => o.Id == id);
         }
 
         public async Task<bool> SaveChangesAsync()

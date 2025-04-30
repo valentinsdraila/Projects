@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import './App.css';
 import OrderPage from './components/OrderPage';
+import AddProductPage from './components/AddProductPage';
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path="/products/:productId" element={<ProductPage/>}/>
                 <Route path="/myorders" element={<MyOrders/>}/>
                 <Route path="/order/:orderId" element={<OrderPage/>}/>
+                <Route path="/products/add" element={<AddProductPage/>}/>
             </Routes>
         </Router>
     );

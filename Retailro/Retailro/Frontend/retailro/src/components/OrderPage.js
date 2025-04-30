@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const orderStatusMap = {
   0: "None",
@@ -13,6 +13,7 @@ const OrderPage = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://localhost:7007/api/order/${orderId}`, {
@@ -48,6 +49,38 @@ const OrderPage = () => {
       <p>
         <strong>Total:</strong> ${order.totalPrice.toFixed(2)}
       </p>
+
+      <h4 className="mt-4">Products</h4>
+      {order.products?.length > 0 ? (
+        <div className="row">
+          {order.products.map((product) => (
+            <div
+              key={product.id}
+              className="col-md-4 mb-3"
+              onClick={() => navigate(`/products/${product.productId}`)}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="card h-100">
+                <img
+                  src={`https://localhost:7181/images/${product.image}`}
+                  className="card-img-top"
+                  alt={product.name}
+                  style={{ objectFit: "cover", height: "200px" }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">
+                    Price: ${product.priceAtPurchase.toFixed(2)} <br />
+                    Quantity: {product.quantityOrdered}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No products found in this order.</p>
+      )}
     </div>
   );
 };

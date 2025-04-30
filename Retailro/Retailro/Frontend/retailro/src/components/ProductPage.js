@@ -47,7 +47,7 @@ const ProductPage = () => {
       <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>Back</button>
       <div className="row">
         <div className="col-md-6">
-          <img src={`/images/${product.image}`} alt={product.name} className="img-fluid" />
+          <img src={`https://localhost:7181/images/${product.image}`} alt={product.name} className="img-fluid" />
         </div>
         <div className="col-md-6">
           <h2>{product.name}</h2>

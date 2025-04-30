@@ -78,7 +78,6 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Products List */}
       <div className="row mt-4">
         {currentProducts.map(product => (
           <div key={product.id} className="col-md-3 mb-4">
@@ -88,7 +87,7 @@ const HomePage = () => {
               style={{ cursor: "pointer" }}
             >
               <img 
-                src={`/images/${product.image}`} 
+                src={`https://localhost:7181/images/${product.image}`} 
                 alt={product.name} 
                 className="img-fluid" 
               />

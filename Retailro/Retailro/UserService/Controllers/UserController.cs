@@ -88,13 +88,14 @@ namespace UserService.Controllers
 
             // Retrieve the username using ClaimTypes.Name
             var username = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrEmpty(username))
             {
                 return Unauthorized(new { message = "Invalid token" });
             }
 
-            return Ok(new { username });
+            return Ok(new { username, role});
         }
     }
 }

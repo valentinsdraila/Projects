@@ -4,7 +4,7 @@ namespace ProductService.ServiceLayer
 {
     public interface IProductService
     {
-        Task AddProduct(Product product);
+        Task AddProduct(AddProductDto product, IFormFile image);
         Task<List<Product>> GetAllProducts();
         Task<Product?> GetProduct(Guid productId);
         Task DeleteProduct(Product product);

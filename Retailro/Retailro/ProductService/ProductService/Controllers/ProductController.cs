@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductService.Model;
 using ProductService.ServiceLayer;
 using System.ComponentModel.DataAnnotations;
@@ -32,18 +34,13 @@ namespace ProductService.Controllers
             return Ok(product);
         }
         [HttpPost]
-        public async Task<ActionResult> AddProduct(Product product)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddProduct([FromForm] AddProductDto dto, IFormFile image)
         {
-            try
-            {
-                await this._productService.AddProduct(product);
-                return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
-            }
-            catch (ValidationException)
-            {
-                return BadRequest(new { message = "The product data is invalid." });
-            }
+            await _productService.AddProduct(dto, image);
+            return Ok(dto);
         }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProductById(Guid id)
         {

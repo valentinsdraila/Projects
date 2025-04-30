@@ -6,12 +6,11 @@ namespace ProductService.DataLayer
 {
     public class ProductRepository : IProductRepository
     {
+        private ProductDbContext context;
         public ProductRepository(ProductDbContext context)
         {
             this.context = context;
         }
-
-        public ProductDbContext context { get; set; }
         public async Task Add(Product product)
         {
             await context.AddAsync(product);
