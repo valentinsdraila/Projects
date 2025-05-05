@@ -11,6 +11,7 @@ builder.Services.AddDbContext<OrderDbContext>(options => options.UseSqlServer(co
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrdersService>();
 builder.Services.AddScoped<IProductInfoRepository, ProductInfoRepository>();
+builder.Services.AddSingleton<RabbitMQPublisher>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 

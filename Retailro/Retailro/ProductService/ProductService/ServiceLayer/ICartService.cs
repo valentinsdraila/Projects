@@ -16,5 +16,6 @@ namespace ProductService.ServiceLayer
         Task AddItemToCart(Guid productId, Guid userId, IProductService productService);
         Task<List<ProductDto>> GetProductsInCart(Guid userId);
         Task RemoveProductFromCart(Guid productId, Guid userId);
+        Task ClearCart(Guid userId);
     }
 }

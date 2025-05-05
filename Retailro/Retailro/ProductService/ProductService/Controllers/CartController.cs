@@ -101,5 +101,25 @@ namespace ProductService.Controllers
             await this._cartService.DeleteCartById(id);
             return NoContent();
         }
+        [HttpDelete("clear")]
+        public async Task<IActionResult> ClearCart()
+        {
+            try
+            {
+                var userId = Request.Headers["x-user-id"].FirstOrDefault();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized(new { message = "User ID not found in request." });
+                }
+
+                Guid userIdGuid = Guid.Parse(userId);
+                await this._cartService.ClearCart(userIdGuid);
+                return Ok(new { message = "The cart was cleared." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

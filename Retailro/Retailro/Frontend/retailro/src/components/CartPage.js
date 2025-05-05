@@ -82,6 +82,10 @@ const CartPage = () => {
       .then((msg) => {
         alert("Order placed successfully!");
         setCartItems([]);
+        return fetch(`https://localhost:7007/api/cart/clear`, {
+          method: "DELETE",
+          credentials: "include",
+        });
       })
       .catch((error) => console.error(error));
   };

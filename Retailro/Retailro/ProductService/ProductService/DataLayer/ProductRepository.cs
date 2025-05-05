@@ -63,5 +63,15 @@ namespace ProductService.DataLayer
             this.context.Entry<Product>(product).State = EntityState.Modified;
             await this.SaveChangesAsync();
         }
+        public async Task<bool> ReduceStock(Guid productId, int quantity)
+        {
+            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null || product.Quantity < quantity)
+                return false;
+
+            product.Quantity -= quantity;
+            return true;
+        }
     }
 }

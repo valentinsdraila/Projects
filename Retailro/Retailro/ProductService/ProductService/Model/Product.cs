@@ -1,4 +1,6 @@
-﻿namespace ProductService.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProductService.Model
 {
     public class Product
     {
@@ -8,6 +10,8 @@
         public int Quantity { get; set; }
         public decimal? UnitPrice { get; set; }
         public string? Image { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
         public virtual List<CartItem>? CartItems { get; set; } = new();
     }
 }

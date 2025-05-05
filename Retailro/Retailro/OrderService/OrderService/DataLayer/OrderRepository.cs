@@ -71,5 +71,11 @@ namespace OrderService.DataLayer
             this.context.Entry<Order>(order).State = EntityState.Modified;
             await this.SaveChangesAsync();
         }
+        public async Task<int> GetLastOrderNumber()
+        {
+            return await this.context.Set<Order>().OrderByDescending(o => o.OrderNumber)
+                .Select(o => o.OrderNumber)
+                .FirstOrDefaultAsync();
+        }
     }
 }

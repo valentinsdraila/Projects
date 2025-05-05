@@ -7,11 +7,13 @@ namespace OrderService.ServiceLayer
     {
         private readonly IOrderRepository orderRepository;
         private readonly IProductInfoRepository productInfoRepository;
+        private readonly RabbitMQPublisher rabbitMQPublisher;
 
-        public OrdersService(IOrderRepository repository, IProductInfoRepository productInfoRepository)
+        public OrdersService(IOrderRepository repository, IProductInfoRepository productInfoRepository, RabbitMQPublisher rabbitMQPublisher)
         {
             this.orderRepository = repository;
             this.productInfoRepository = productInfoRepository;
+            this.rabbitMQPublisher = rabbitMQPublisher;
         }
 
         public async Task AddOrder(List<ProductInfo> productInfos, Guid userId)
@@ -24,9 +26,13 @@ namespace OrderService.ServiceLayer
                 Products = productInfos,
                 TotalPrice = totalPrice,
                 UserId = userId,
-                OrderNumber = 1 //To be changed
+                OrderNumber = await this.orderRepository.GetLastOrderNumber() + 1
             };
+
             await this.orderRepository.Add(order);
+            var orderStockMessagesList = new List<OrderStockUpdateMessage>();
+            orderStockMessagesList = order.Products.Select(p => new OrderStockUpdateMessage() { ProductId = p.ProductId, Quantity = p.QuantityOrdered }).ToList();
+            await rabbitMQPublisher.SendStockUpdate(orderStockMessagesList);
         }
 
         public async Task DeleteOrder(Order order)

@@ -11,6 +11,7 @@ namespace OrderService.DataLayer
         Task Delete(Order order);
         Task Update(Order order);
         Task<List<Order>> GetAllOrdersForUser(Guid userId);
+        Task<int> GetLastOrderNumber();
         Task<bool> SaveChangesAsync();
     }
 }
