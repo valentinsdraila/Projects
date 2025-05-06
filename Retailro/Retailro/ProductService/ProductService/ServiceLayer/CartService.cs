@@ -107,5 +107,12 @@ namespace ProductService.ServiceLayer
             cart.Products.RemoveAll(p=>p.ProductId == productId);
             await cartRepository.Update(cart);
         }
+
+        public async Task ClearCart(Guid userId)
+        {
+            var cart = await cartRepository.GetByUserId(userId);
+            cart.Products = new List<CartItem>();
+            await cartRepository.Update(cart);
+        }
     }
 }

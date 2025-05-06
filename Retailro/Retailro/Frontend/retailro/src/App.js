@@ -11,6 +11,8 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import './App.css';
 import OrderPage from './components/OrderPage';
 import AddProductPage from './components/AddProductPage';
+import PaymentForm from './components/PaymentForm';
+import Checkout from './components/Checkout';
 
 
 const App = () => {
@@ -25,6 +27,7 @@ const App = () => {
                 <Route path="/myorders" element={<MyOrders/>}/>
                 <Route path="/order/:orderId" element={<OrderPage/>}/>
                 <Route path="/products/add" element={<AddProductPage/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
         </Router>
     );
