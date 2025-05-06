@@ -31,7 +31,7 @@ namespace OrderService.ServiceLayer
 
             await this.orderRepository.Add(order);
             var orderStockMessagesList = new List<OrderStockUpdateMessage>();
-            orderStockMessagesList = order.Products.Select(p => new OrderStockUpdateMessage() { ProductId = p.ProductId, Quantity = p.QuantityOrdered }).ToList();
+            orderStockMessagesList = order.Products.Select(p => new OrderStockUpdateMessage() { ProductId = p.ProductId, Quantity = p.QuantityOrdered, UnitPrice = p.PriceAtPurchase }).ToList();
             await rabbitMQPublisher.SendStockUpdate(orderStockMessagesList);
         }
 

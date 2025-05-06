@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Connections;
 using ProductService.DataLayer;
+using ProductService.Model.Exceptions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -49,7 +50,7 @@ namespace ProductService.ServiceLayer
                         foreach (var stockUpdate in stockUpdateMessages)
                         {
 
-                            var success = await productRepository.ReduceStock(stockUpdate.ProductId, stockUpdate.Quantity);
+                            var success = await productRepository.ReduceStock(stockUpdate.ProductId, stockUpdate.Quantity, stockUpdate.UnitPrice);
                             if(!success)
                             {
                                 allSuccessful = false;
@@ -66,7 +67,8 @@ namespace ProductService.ServiceLayer
                         }
                         else
                         {
-                            //The stock was not enough for some of the products, Order should get cancelled.
+                            //The stock was not enough for some of the products, or some products were not found.
+                            //Order should get cancelled.
                             await transaction.RollbackAsync();
                             await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
                         }
@@ -76,6 +78,13 @@ namespace ProductService.ServiceLayer
                         //Concurrency issue when saving the changes, the transaction is retried.
                         await transaction.RollbackAsync();
                         await channel.BasicNackAsync(deliveryTag: ea.DeliveryTag, multiple: false, requeue: true);
+                    }
+                    catch (PriceNotMatchingException ex)
+                    {
+                        //A message indicating the order fails will be sent
+                        await transaction.RollbackAsync();
+                        await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+                        Console.WriteLine(ex.Message);
                     }
                 }
             };
@@ -100,7 +109,7 @@ namespace ProductService.ServiceLayer
             }
         }
 
-        private record StockUpdateMessage(Guid ProductId, int Quantity);
+        private record StockUpdateMessage(Guid ProductId, int Quantity, decimal UnitPrice);
     }
 
 }

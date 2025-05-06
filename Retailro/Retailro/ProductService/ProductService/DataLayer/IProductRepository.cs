@@ -10,7 +10,7 @@ namespace ProductService.DataLayer
         Task Update(Product product);
         Task DeleteById(Guid id);
         Task Delete(Product product);
-        Task<bool> ReduceStock(Guid productId, int quantity);
+        Task<bool> ReduceStock(Guid productId, int quantity, decimal price);
         Task<bool> SaveChangesAsync();
     }
 }
