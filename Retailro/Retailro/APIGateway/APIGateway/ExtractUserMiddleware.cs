@@ -2,6 +2,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
+/// <summary>
+/// Middleware used for passing the userId in the request header.
+/// </summary>
 public class ExtractUserIdMiddleware
 {
     private readonly RequestDelegate _next;

@@ -5,6 +5,10 @@ using System.Security.Claims;
 
 namespace OrderService.Controllers
 {
+    /// <summary>
+    /// Controller used for handling orders.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
     [Route("api/order")]
     public class OrderController : ControllerBase
@@ -15,7 +19,11 @@ namespace OrderService.Controllers
         {
             _orderService = orderService;
         }
-
+        /// <summary>
+        /// Places the order.
+        /// </summary>
+        /// <param name="productInfos">The product infos.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(List<ProductInfo> productInfos)
         {
@@ -36,6 +44,10 @@ namespace OrderService.Controllers
                 return BadRequest(new {message = "An error occured while placing the order.", error = ex.Message});
             }
         }
+        /// <summary>
+        /// Gets the user orders.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetUserOrders()
         {
@@ -56,6 +68,11 @@ namespace OrderService.Controllers
                 return BadRequest(new { message = "An error occured while fetching the user orders the order.", error = ex.Message });
             }
         }
+        /// <summary>
+        /// Gets the order.
+        /// </summary>
+        /// <param name="orderId">The order identifier.</param>
+        /// <returns></returns>
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrder(Guid orderId)
         {

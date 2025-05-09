@@ -1,5 +1,8 @@
 ﻿namespace ProductService.Model
 {
+    /// <summary>
+    /// CartItem entity from the database.
+    /// </summary>
     public class CartItem
     {
         public Guid ProductId { get; set; }

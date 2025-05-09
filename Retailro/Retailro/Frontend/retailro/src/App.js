@@ -11,7 +11,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import './App.css';
 import OrderPage from './components/OrderPage';
 import AddProductPage from './components/AddProductPage';
-import PaymentForm from './components/PaymentForm';
 import Checkout from './components/Checkout';
 
 

@@ -45,7 +45,7 @@ namespace OrderService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("OrderService.Model.ProductInfo", b =>
@@ -76,7 +76,7 @@ namespace OrderService.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("ProductInfos");
+                    b.ToTable("ProductInfos", (string)null);
                 });
 
             modelBuilder.Entity("OrderService.Model.ProductInfo", b =>

@@ -11,6 +11,10 @@ using System.Threading.Channels;
 
 namespace ProductService.ServiceLayer
 {
+    /// <summary>
+    /// Hosted service used for handling the communication with other services through the RabbitMQ amqp.
+    /// </summary>
+    /// <seealso cref="Microsoft.Extensions.Hosting.IHostedService" />
     public class StockUpdateConsumer : IHostedService
     {
         private readonly IServiceProvider serviceProvider;
@@ -21,21 +25,28 @@ namespace ProductService.ServiceLayer
         {
             this.serviceProvider = serviceProvider;
         }
-
+        /// <summary>
+        /// Triggered when the application host is ready to start the service.
+        /// Declares callbacks used to treat the events sent by other services.
+        /// Also sends messages to other services asynchronously after it finishes its job.
+        /// </summary>
+        /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory { HostName = "localhost", Port=5672 };
+            var factory = new ConnectionFactory { HostName = "localhost", Port = 5672 };
             connection = await factory.CreateConnectionAsync();
             channel = await connection.CreateChannelAsync();
 
-            await channel.QueueDeclareAsync(queue: "stock_update", durable: true, exclusive: false, autoDelete: false, arguments: null);
+            await channel.ExchangeDeclareAsync("stock_confirmation_exchange", ExchangeType.Fanout);
 
+            await channel.QueueDeclareAsync(queue: "stock_update", durable: true, exclusive: false, autoDelete: false, arguments: null);
+            
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.ReceivedAsync += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-                var stockUpdateMessages = JsonSerializer.Deserialize<List<StockUpdateMessage>>(message);
+                var stockUpdateMessage = JsonSerializer.Deserialize<StockUpdateMessage>(message);
 
                 Console.WriteLine($"[ProductService] Received stock update for Order");
                 using (var scope = serviceProvider.CreateScope())
@@ -47,28 +58,43 @@ namespace ProductService.ServiceLayer
                     using var transaction = await dbContext.Database.BeginTransactionAsync();
                     try
                     {
-                        foreach (var stockUpdate in stockUpdateMessages)
+                        foreach (var stockUpdate in stockUpdateMessage.StockUpdates)
                         {
 
                             var success = await productRepository.ReduceStock(stockUpdate.ProductId, stockUpdate.Quantity, stockUpdate.UnitPrice);
-                            if(!success)
+                            if (!success)
                             {
                                 allSuccessful = false;
                                 break;
-                            }    
+                            }
 
                         }
-                        if(allSuccessful)
+                        if (allSuccessful)
                         {
                             //The stocks for all products were successfully updated.
                             await dbContext.SaveChangesAsync();
                             await transaction.CommitAsync();
-                            await channel.BasicAckAsync(deliveryTag:ea.DeliveryTag, multiple:false);
+                            await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+                            var stockUpdateResponse = new StockConfirmation(stockUpdateMessage.OrderId, true);
+                            var json = JsonSerializer.Serialize(stockUpdateResponse);
+                            var bodyToSend = Encoding.UTF8.GetBytes(json);
+
+                            await channel.BasicPublishAsync(exchange: "stock_confirmation_exchange",
+                                routingKey: string.Empty,
+                                body: bodyToSend);
+
                         }
                         else
                         {
                             //The stock was not enough for some of the products, or some products were not found.
                             //Order should get cancelled.
+                            var stockUpdateResponse = new StockConfirmation(stockUpdateMessage.OrderId, false);
+                            var json = JsonSerializer.Serialize(stockUpdateResponse);
+                            var bodyToSend = Encoding.UTF8.GetBytes(json);
+                            await channel.BasicPublishAsync(exchange: "stock_confirmation_exchange",
+                                routingKey: string.Empty,
+                                body: bodyToSend);
+
                             await transaction.RollbackAsync();
                             await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
                         }
@@ -94,6 +120,11 @@ namespace ProductService.ServiceLayer
             Console.WriteLine("[ProductService] Waiting for stock update messages...");
         }
 
+        /// <summary>
+        /// Triggered when the application host is performing a graceful shutdown.
+        /// Releases the resources of the channel and connection instances.
+        /// </summary>
+        /// <param name="cancellationToken">Indicates that the shutdown process should no longer be graceful.</param>
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             if (channel != null)
@@ -109,7 +140,12 @@ namespace ProductService.ServiceLayer
             }
         }
 
-        private record StockUpdateMessage(Guid ProductId, int Quantity, decimal UnitPrice);
+        /// <summary>
+        /// Records used for parsing and sending messages.
+        /// </summary>
+        private record StockUpdate(Guid ProductId, int Quantity, decimal UnitPrice);
+        private record StockUpdateMessage(Guid OrderId, List<StockUpdate> StockUpdates);
+        private record StockConfirmation(Guid OrderId, bool Success);
     }
 
 }

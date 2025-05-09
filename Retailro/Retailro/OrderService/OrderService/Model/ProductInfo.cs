@@ -2,6 +2,9 @@
 
 namespace OrderService.Model
 {
+    /// <summary>
+    /// ProductInfo entity from the database.
+    /// </summary>
     public class ProductInfo
     {
         public Guid Id { get; set; }

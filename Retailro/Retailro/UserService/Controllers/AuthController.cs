@@ -3,6 +3,9 @@ using System;
 using System.Threading.Tasks;
 using UserService.Service;
 
+/// <summary>
+/// Controller used in handling user authentication.
+/// </summary>
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase
@@ -15,7 +18,11 @@ public class AuthController : ControllerBase
         _jwtService = jwtService;
         _userService = userService;
     }
-    
+    /// <summary>
+    /// Handles user login.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns></returns>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UsersService.LoginRequest request)
     {
@@ -38,7 +45,10 @@ public class AuthController : ControllerBase
         Response.Cookies.Append("jwt", token, cookieOptions);
         return Ok(new { message = "Logged in successfully" });
     }
-
+    /// <summary>
+    /// Handles the user logout.
+    /// </summary>
+    /// <returns></returns>
     [HttpPost("logout")]
     public IActionResult Logout()
     {

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UserService.Controllers
 {
@@ -18,8 +19,12 @@ namespace UserService.Controllers
         {
             this._userService = userService;
         }
-
+        /// <summary>
+        /// Gets all users.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             var users = await this._userService.GetAllUsers();
@@ -36,7 +41,11 @@ namespace UserService.Controllers
             }
             return Ok(user);
         }
-
+        /// <summary>
+        /// Adds the user (register).
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> AddUser(User user)
         {
@@ -57,7 +66,12 @@ namespace UserService.Controllers
                 return BadRequest(new { error = "ValidationError", message = "The user data is invalid." });
             }
         }
-
+        /// <summary>
+        /// Updates the user.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(Guid id, User user)
         {
@@ -71,7 +85,10 @@ namespace UserService.Controllers
             await this._userService.DeleteUserById(id);
             return NoContent();
         }
-
+        /// <summary>
+        /// Gets the current user.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("me")]
         public IActionResult GetCurrentUser()
         {

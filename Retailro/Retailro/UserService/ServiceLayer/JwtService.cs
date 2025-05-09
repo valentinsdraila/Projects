@@ -6,6 +6,9 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
+/// <summary>
+/// Service class used for handling JWT tokens.
+/// </summary>
 public class JwtService
 {
     private readonly string _secret;
@@ -20,7 +23,13 @@ public class JwtService
         _audience = config["JwtSettings:Audience"];
         _expiryMinutes = int.Parse(config["JwtSettings:ExpiryMinutes"]);
     }
-
+    /// <summary>
+    /// Generates the JWT token used for authentication.
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="username">The username.</param>
+    /// <param name="role">The role.</param>
+    /// <returns></returns>
     public string GenerateToken(string userId, string username, string role)
     {
         var claims = new[]
@@ -41,7 +50,11 @@ public class JwtService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
+    /// <summary>
+    /// Validates the token.
+    /// </summary>
+    /// <param name="token">The token.</param>
+    /// <returns></returns>
     public ClaimsPrincipal? ValidateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();

@@ -1,18 +1,19 @@
 using Braintree;
 using PaymentService.Services;
 using Microsoft.Extensions.Configuration;
+using PaymentService.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.Configure<BraintreeSettings>(
-    builder.Configuration.GetSection("Braintree")
-);
+
+builder.Services.Configure<BraintreeSettings>(builder.Configuration.GetSection("Braintree"));
+builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redis"));
+builder.Services.AddSingleton<RedisService>();
+builder.Services.AddHostedService<EventsConsumer>();
 
 builder.Services.AddSingleton<BraintreeGatewayFactory>();
 builder.Services.AddCors(options =>
@@ -28,7 +29,6 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

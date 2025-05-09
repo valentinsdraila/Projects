@@ -1,9 +1,11 @@
 ﻿namespace OrderService.Model
 {
+    /// <summary>
+    /// Model class used for sending messages to the ProductService.
+    /// </summary>
     public class OrderStockUpdateMessage
     {
-        public Guid ProductId { get; set; }
-        public decimal UnitPrice {  get; set; }
-        public int Quantity { get; set; }
+        public Guid OrderId { get; set; }
+        public List<StockUpdate> StockUpdates { get; set; } = new List<StockUpdate>();
     }
 }

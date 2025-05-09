@@ -30,9 +30,10 @@ namespace OrderService.ServiceLayer
             };
 
             await this.orderRepository.Add(order);
-            var orderStockMessagesList = new List<OrderStockUpdateMessage>();
-            orderStockMessagesList = order.Products.Select(p => new OrderStockUpdateMessage() { ProductId = p.ProductId, Quantity = p.QuantityOrdered, UnitPrice = p.PriceAtPurchase }).ToList();
-            await rabbitMQPublisher.SendStockUpdate(orderStockMessagesList);
+            var orderStockMessage = new OrderStockUpdateMessage { OrderId = order.Id };
+            orderStockMessage.StockUpdates = order.Products.Select(p => new StockUpdate() { ProductId = p.ProductId, Quantity = p.QuantityOrdered, UnitPrice = p.PriceAtPurchase }).ToList();
+            await rabbitMQPublisher.SendOrderCreated(new OrderCreatedMessage { OrderId = order.Id, Status = order.Status, Total = order.TotalPrice });
+            await rabbitMQPublisher.SendStockUpdate(orderStockMessage);
         }
 
         public async Task DeleteOrder(Order order)

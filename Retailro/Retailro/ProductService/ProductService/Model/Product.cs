@@ -2,6 +2,9 @@
 
 namespace ProductService.Model
 {
+    /// <summary>
+    /// Product entity from the database.
+    /// </summary>
     public class Product
     {
         public Guid Id { get; set; }

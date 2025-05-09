@@ -1,5 +1,8 @@
 ﻿namespace OrderService.Model
 {
+    /// <summary>
+    /// Used for adding or displaying an order.
+    /// </summary>
     public class OrderDTO
     {
         public Guid Id { get; set; }

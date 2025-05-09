@@ -20,6 +20,10 @@ namespace PaymentService.Services
             _settings = settings.Value;
         }
 
+        /// <summary>
+        /// Creates an instance based on the braintree account settings.
+        /// </summary>
+        /// <returns></returns>
         public BraintreeGateway Create()
         {
             return new BraintreeGateway(

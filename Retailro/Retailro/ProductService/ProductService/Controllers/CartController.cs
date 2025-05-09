@@ -8,6 +8,10 @@ using System.Security.Claims;
 
 namespace ProductService.Controllers
 {
+    /// <summary>
+    /// Controller used in handling cart functionality.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
     [Route("api/cart")]
     public class CartController : ControllerBase
@@ -19,6 +23,10 @@ namespace ProductService.Controllers
             this._cartService = cartService;
             this._productService = productService;
         }
+        /// <summary>
+        /// Gets all products in cart.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("products")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProductsInCart()
         {
@@ -32,6 +40,11 @@ namespace ProductService.Controllers
             var products = await _cartService.GetProductsInCart(userIdGuid);
             return Ok(products);
         }
+        /// <summary>
+        /// Adds the product to cart.
+        /// </summary>
+        /// <param name="productId">The product identifier.</param>
+        /// <returns></returns>
         [HttpPost("products/{productId}")]
         public async Task<ActionResult> AddProductToCart(Guid productId)
         {
@@ -52,6 +65,11 @@ namespace ProductService.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Removes the product from cart.
+        /// </summary>
+        /// <param name="productId">The product identifier.</param>
+        /// <returns></returns>
         [HttpDelete("products/{productId}")]
         public async Task<ActionResult> RemoveProductFromCart(Guid productId)
         {
@@ -72,6 +90,11 @@ namespace ProductService.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        /// <summary>
+        /// Gets the cart.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Cart>> GetCart(Guid id)
         {
@@ -82,6 +105,11 @@ namespace ProductService.Controllers
             }
             return Ok(cart);
         }
+        /// <summary>
+        /// Adds the cart.
+        /// </summary>
+        /// <param name="cart">The cart.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> AddCart(Cart cart)
         {
@@ -95,12 +123,21 @@ namespace ProductService.Controllers
                 return BadRequest(new { message = "The product data is invalid." });
             }
         }
+        /// <summary>
+        /// Deletes the cart by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCartById(Guid id)
         {
             await this._cartService.DeleteCartById(id);
             return NoContent();
         }
+        /// <summary>
+        /// Clears the cart.
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete("clear")]
         public async Task<IActionResult> ClearCart()
         {

@@ -1,6 +1,9 @@
 ﻿
 namespace OrderService.Model
 {
+    /// <summary>
+    /// Order entity from the database.
+    /// </summary>
     public class Order
     {
         public Guid Id { get; set; }
@@ -18,6 +21,7 @@ namespace OrderService.Model
         Paid,
         Shipping,
         Completed,
-        Cancelled
+        Cancelled,
+        Valid
     }
 }

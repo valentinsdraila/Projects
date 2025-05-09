@@ -1,5 +1,8 @@
 ﻿namespace ProductService.Model
 {
+    /// <summary>
+    /// Data transfer object used for adding a product to the database.
+    /// </summary>
     public class AddProductDto
     {
         public string? Name { get; set; }

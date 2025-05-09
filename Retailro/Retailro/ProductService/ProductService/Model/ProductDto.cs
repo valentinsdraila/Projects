@@ -1,5 +1,8 @@
 ﻿namespace ProductService.Model
 {
+    /// <summary>
+    /// Data transfer object used for displaying products for the user.
+    /// </summary>
     public class ProductDto
     {
         public Guid Id { get; set; }
