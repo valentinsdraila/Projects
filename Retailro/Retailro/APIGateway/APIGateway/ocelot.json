@@ -101,6 +101,27 @@
       },
       "CorsPolicy": "AllowSpecificOrigin"
 
+    },
+    {
+      "DownstreamPathTemplate": "/api/braintree/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7085
+        }
+      ],
+      "UpstreamPathTemplate": "/api/braintree/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "AddHeadersToRequest": {
+        "x-user-id": "{UserId}"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "CorsPolicy": "AllowSpecificOrigin"
+
     }
   ],
   "GlobalConfiguration": {

@@ -7,6 +7,8 @@ const orderStatusMap = {
   2: "Shipping",
   3: "Completed",
   4: "Cancelled",
+  5: "Valid",
+  6: "Processing"
 };
 
 const MyOrders = () => {

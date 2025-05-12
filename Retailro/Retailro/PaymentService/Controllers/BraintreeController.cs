@@ -1,5 +1,6 @@
 ﻿using Braintree;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using PaymentService.Model;
 using PaymentService.Services;
 
@@ -14,10 +15,11 @@ namespace PaymentService.Controllers
     public class BraintreeController : ControllerBase
     {
         private readonly BraintreeGateway _gateway;
-
-        public BraintreeController(BraintreeGatewayFactory factory)
+        private readonly RabbitMQPublisher _rabbitMQPublisher;
+        public BraintreeController(BraintreeGatewayFactory factory, RabbitMQPublisher rabbitMQPublisher)
         {
             _gateway = factory.Create();
+            _rabbitMQPublisher = rabbitMQPublisher;
         }
 
         /// <summary>
@@ -60,7 +62,8 @@ namespace PaymentService.Controllers
 
             if (result.IsSuccess())
             {
-                // Publish PaymentSucceeded event
+                var message = new PaymentStatusUpdateMessage { Id = request.OrderId, Status = OrderStatus.Paid };
+                await _rabbitMQPublisher.SendPaymentStatus(message);
                 return Ok(result.Target);
             }
 

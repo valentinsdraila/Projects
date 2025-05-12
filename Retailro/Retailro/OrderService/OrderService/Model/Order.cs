@@ -22,6 +22,7 @@ namespace OrderService.Model
         Shipping,
         Completed,
         Cancelled,
-        Valid
+        Valid,
+        Processing
     }
 }

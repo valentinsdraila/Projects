@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetch("https://localhost:7007/api/cart/products", {
@@ -58,37 +60,42 @@ const CartPage = () => {
       .catch((error) => console.error(error));
   };
 
-  const handlePlaceOrder = () => {
-    const productInfos = cartItems.map((item) => ({
-      productId: item.id,
-      name: item.name,
-      quantityOrdered: item.quantity,
-      priceAtPurchase: item.price.toFixed(2),
-      image: item.image,
-    }));
+const handlePlaceOrder = () => {
+  const productInfos = cartItems.map((item) => ({
+    productId: item.id,
+    name: item.name,
+    quantityOrdered: item.quantity,
+    priceAtPurchase: item.price.toFixed(2),
+    image: item.image,
+  }));
 
-    fetch("https://localhost:7007/api/order", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productInfos),
+  fetch("https://localhost:7007/api/order", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(productInfos),
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error("Order failed");
+      return response.json();
     })
-      .then((response) => {
-        if (!response.ok) throw new Error("Order failed");
-        return response.text();
-      })
-      .then((msg) => {
-        alert("Order placed successfully!");
-        setCartItems([]);
-        return fetch(`https://localhost:7007/api/cart/clear`, {
-          method: "DELETE",
-          credentials: "include",
-        });
-      })
-      .catch((error) => console.error(error));
-  };
+    .then(({ order }) => {
+      const orderId = order.id;
+      const amount = order.totalPrice;
+
+    return fetch("https://localhost:7007/api/cart/clear", {
+    method: "DELETE",
+    credentials: "include",
+  }).then(() => {
+    navigate("/checkout", {
+      state: { orderId, amount },
+    });
+  });
+})
+};
+
 
   const totalCartPrice = cartItems.reduce(
     (sum, item) => sum + item.totalPrice,

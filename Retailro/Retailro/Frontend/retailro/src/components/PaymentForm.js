@@ -1,24 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import dropin from "braintree-web-drop-in";
 
-function PaymentForm({ amount }) {
-  useEffect(() => {
-    let dropinInstance;
+function PaymentForm({ amount, orderId }) {
+  const [dropinInstance, setDropinInstance] = useState(null);
 
-    fetch("https://localhost:7085/api/braintree/client-token")
+  useEffect(() => {
+    let instance;
+
+    fetch("https://localhost:7007/api/braintree/client-token", {
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data) => {
         dropin.create(
           {
             authorization: data.clientToken,
-            container: "#dropin-container"
+            container: "#dropin-container",
           },
-          (err, instance) => {
+          (err, createdInstance) => {
             if (err) {
               console.error(err);
               return;
             }
-            dropinInstance = instance;
+            instance = createdInstance;
+            setDropinInstance(instance);
 
             document
               .getElementById("submit-button")
@@ -26,13 +31,15 @@ function PaymentForm({ amount }) {
                 instance.requestPaymentMethod((err, payload) => {
                   if (err) return console.error(err);
 
-                  fetch("https://localhost:7085/api/braintree/checkout", {
+                  fetch("https://localhost:7007/api/braintree/checkout", {
                     method: "POST",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                       amount,
-                      nonce: payload.nonce
-                    })
+                      nonce: payload.nonce,
+                      orderId,
+                    }),
                   })
                     .then((res) => res.json())
                     .then((result) => {
@@ -46,11 +53,11 @@ function PaymentForm({ amount }) {
       });
 
     return () => {
-      if (dropinInstance) {
-        dropinInstance.teardown();
+      if (instance) {
+        instance.teardown();
       }
     };
-  }, [amount]);
+  }, [amount, orderId]);
 
   return (
     <div>

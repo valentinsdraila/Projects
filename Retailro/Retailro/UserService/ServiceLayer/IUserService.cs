@@ -33,5 +33,11 @@ public interface IUserService
     /// <summary>Makes the user an admin.</summary>
     /// <param name="user">The user.</param>
     Task MakeAdmin(User user);
+    /// <summary>
+    /// Authenticates the user.
+    /// </summary>
+    /// <param name="username">The username.</param>
+    /// <param name="password">The password.</param>
+    /// <returns></returns>
     Task<User?> AuthenticateUser(string username, string password);
 }

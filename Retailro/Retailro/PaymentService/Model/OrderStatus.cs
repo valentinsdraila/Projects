@@ -10,6 +10,7 @@
         Shipping,
         Completed,
         Cancelled,
-        Valid
+        Valid,
+        Processing
     }
 }

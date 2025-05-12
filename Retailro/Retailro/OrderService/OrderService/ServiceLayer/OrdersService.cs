@@ -16,13 +16,13 @@ namespace OrderService.ServiceLayer
             this.rabbitMQPublisher = rabbitMQPublisher;
         }
 
-        public async Task AddOrder(List<ProductInfo> productInfos, Guid userId)
+        public async Task<OrderDTO> AddOrder(List<ProductInfo> productInfos, Guid userId)
         {
             var totalPrice = productInfos.Sum(p => p.PriceAtPurchase * p.QuantityOrdered);
             var order = new Order()
             {
                 CreatedAt = DateTime.Now,
-                Status = OrderStatus.Paid,
+                Status = OrderStatus.Processing,
                 Products = productInfos,
                 TotalPrice = totalPrice,
                 UserId = userId,
@@ -34,6 +34,11 @@ namespace OrderService.ServiceLayer
             orderStockMessage.StockUpdates = order.Products.Select(p => new StockUpdate() { ProductId = p.ProductId, Quantity = p.QuantityOrdered, UnitPrice = p.PriceAtPurchase }).ToList();
             await rabbitMQPublisher.SendOrderCreated(new OrderCreatedMessage { OrderId = order.Id, Status = order.Status, Total = order.TotalPrice });
             await rabbitMQPublisher.SendStockUpdate(orderStockMessage);
+            return new OrderDTO()
+            {
+                Id = order.Id,
+                TotalPrice = order.TotalPrice
+            };
         }
 
         public async Task DeleteOrder(Order order)

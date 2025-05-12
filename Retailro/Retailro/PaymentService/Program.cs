@@ -13,20 +13,11 @@ builder.Services.AddOpenApi();
 builder.Services.Configure<BraintreeSettings>(builder.Configuration.GetSection("Braintree"));
 builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redis"));
 builder.Services.AddSingleton<RedisService>();
+builder.Services.AddSingleton<RabbitMQPublisher>();
 builder.Services.AddHostedService<EventsConsumer>();
 
 builder.Services.AddSingleton<BraintreeGatewayFactory>();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:3000")
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-                   .AllowCredentials();
-        });
-});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -36,10 +27,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
-
-app.UseCors("AllowSpecificOrigin");
 
 app.Run();

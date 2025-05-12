@@ -36,8 +36,8 @@ namespace OrderService.Controllers
                 }
 
                 Guid userGuid = Guid.Parse(userId);
-                await _orderService.AddOrder(productInfos, userGuid);
-                return Ok(new { message = "The order has been placed!" });
+                var orderResponse = await _orderService.AddOrder(productInfos, userGuid);
+                return Ok(new { message = "The order has been placed!", order = orderResponse });
             }
             catch (Exception ex)
             {

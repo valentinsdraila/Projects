@@ -10,7 +10,7 @@ namespace OrderService.ServiceLayer
         /// <param name="productInfos">The product infos.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public Task AddOrder(List<ProductInfo> productInfos, Guid userId);
+        public Task<OrderDTO> AddOrder(List<ProductInfo> productInfos, Guid userId);
         /// <summary>
         /// Deletes the order.
         /// </summary>

@@ -30,7 +30,11 @@ namespace UserService.Controllers
             var users = await this._userService.GetAllUsers();
             return Ok(users);
         }
-
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {

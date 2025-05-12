@@ -3,6 +3,7 @@ using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 using OrderService.DataLayer;
+using OrderService.Model;
 
 namespace OrderService.ServiceLayer
 {
@@ -10,13 +11,13 @@ namespace OrderService.ServiceLayer
     /// Hosted service used for handling Stock Confirmation messages
     /// </summary>
     /// <seealso cref="Microsoft.Extensions.Hosting.IHostedService" />
-    public class StockConfirmationConsumer : IHostedService
+    public class EventsConsumer : IHostedService
     {
         private readonly IServiceProvider serviceProvider;
         private IConnection connection;
         private IChannel channel;
 
-        public StockConfirmationConsumer(IServiceProvider serviceProvider)
+        public EventsConsumer(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
@@ -34,14 +35,14 @@ namespace OrderService.ServiceLayer
             await channel.QueueDeclareAsync(queue: "order_stock_confirmation", durable: true, exclusive: false, autoDelete: false, arguments: null);
             await channel.QueueBindAsync("order_stock_confirmation", "stock_confirmation_exchange", routingKey: string.Empty);
 
-            var consumer = new AsyncEventingBasicConsumer(channel);
-            consumer.ReceivedAsync += async (model, ea) =>
+            var stockConfirmationConsumer = new AsyncEventingBasicConsumer(channel);
+            stockConfirmationConsumer.ReceivedAsync += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 var stockConfirmationMessage = JsonSerializer.Deserialize<StockConfirmationMessage>(message);
 
-                Console.WriteLine($"Received stock confirmation from ProductService for order{stockConfirmationMessage.OrderId}");
+                Console.WriteLine($"Received stock confirmation from ProductService for order {stockConfirmationMessage.OrderId}");
                 using (var scope = serviceProvider.CreateScope())
                 {
                     var orderRepository = scope.ServiceProvider.GetRequiredService<IOrderRepository>();
@@ -53,7 +54,30 @@ namespace OrderService.ServiceLayer
                     }
                 }
             };
-            await channel.BasicConsumeAsync(queue: "order_stock_confirmation", autoAck: true, consumer: consumer);
+            await channel.BasicConsumeAsync(queue: "order_stock_confirmation", autoAck: true, consumer: stockConfirmationConsumer);
+
+
+            var paymentUpdateConsumer = new AsyncEventingBasicConsumer(channel);
+            paymentUpdateConsumer.ReceivedAsync += async (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                var paymentUpdateMessage = JsonSerializer.Deserialize<PaymentUpdateMessage>(message);
+
+                Console.WriteLine($"Received payment update message from PaymentService for order {paymentUpdateMessage.Id}");
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    var orderRepository = scope.ServiceProvider.GetRequiredService<IOrderRepository>();
+                    var order = await orderRepository.GetById(paymentUpdateMessage.Id);
+                    if (order != null)
+                    {
+                        order.Status = paymentUpdateMessage.Status;
+                        await orderRepository.Update(order);
+                    }
+                }
+            };
+            await channel.BasicConsumeAsync(queue: "payment_update", autoAck: true, consumer: paymentUpdateConsumer);
+
             Console.WriteLine("[OrderService] Waiting for messages...");
         }
         /// <summary>
@@ -76,5 +100,6 @@ namespace OrderService.ServiceLayer
             }
         }
         private record StockConfirmationMessage(Guid OrderId, bool Success);
+        private record PaymentUpdateMessage(Guid Id, OrderStatus Status);
     }
 }
