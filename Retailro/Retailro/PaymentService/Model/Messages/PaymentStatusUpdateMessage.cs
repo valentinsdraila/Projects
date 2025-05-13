@@ -1,4 +1,4 @@
-﻿namespace PaymentService.Model
+﻿namespace PaymentService.Model.Messages
 {
     public class PaymentStatusUpdateMessage
     {

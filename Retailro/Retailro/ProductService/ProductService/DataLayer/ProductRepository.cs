@@ -64,18 +64,5 @@ namespace ProductService.DataLayer
             this.context.Entry<Product>(product).State = EntityState.Modified;
             await this.SaveChangesAsync();
         }
-        public async Task<bool> ReduceStock(Guid productId, int quantity, decimal price)
-        {
-            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == productId);
-
-            if (product == null || product.Quantity < quantity)
-                return false;
-
-            if (product.UnitPrice != price)
-                throw new PriceNotMatchingException($"The price is not the same as the original for product {productId}");
-
-            product.Quantity -= quantity;
-            return true;
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace PaymentService.Services
     /// <summary>
     /// Hosted service that contains methods for consuming events over the RabbitMQ amqp.
     /// </summary>
-    public class EventsConsumer : IHostedService
+    public class EventsConsumer : IHostedService, IDisposable
     {
         private readonly IServiceProvider serviceProvider;
         private IConnection connection;
@@ -85,15 +85,25 @@ namespace PaymentService.Services
             if (channel != null)
             {
                 await channel.CloseAsync();
-                channel.Dispose();
             }
 
             if (connection != null)
             {
                 await connection.CloseAsync();
+            }
+        }
+        public void Dispose()
+        {
+            if (channel != null)
+            {
+                channel.Dispose();
+            }
+            if (connection != null)
+            {
                 connection.Dispose();
             }
         }
+
         private record StockConfirmationMessage(Guid OrderId, bool Success);
         private record OrderCreatedMessage(Guid OrderId, decimal Total, OrderStatus Status);
     }

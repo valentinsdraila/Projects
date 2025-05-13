@@ -20,6 +20,9 @@ builder.Services.AddSingleton<BraintreeGatewayFactory>();
 
 var app = builder.Build();
 
+var publisher = app.Services.GetRequiredService<RabbitMQPublisher>();
+await publisher.InitializeAsync();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

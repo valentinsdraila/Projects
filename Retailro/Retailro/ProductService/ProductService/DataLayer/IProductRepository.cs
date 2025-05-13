@@ -40,14 +40,6 @@ namespace ProductService.DataLayer
         /// <returns></returns>
         Task Delete(Product product);
         /// <summary>
-        /// Reduces the stock of a given product.
-        /// </summary>
-        /// <param name="productId">The product identifier.</param>
-        /// <param name="quantity">The quantity.</param>
-        /// <param name="price">The price.</param>
-        /// <returns></returns>
-        Task<bool> ReduceStock(Guid productId, int quantity, decimal price);
-        /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>

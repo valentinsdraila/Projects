@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using PaymentService.Model;
+using PaymentService.Model.Messages;
 using PaymentService.Services;
 
 namespace PaymentService.Controllers
@@ -47,27 +48,43 @@ namespace PaymentService.Controllers
             if (status is null)
                 return BadRequest("Order not found");
 
-            if (status != OrderStatus.Valid)
-                return BadRequest("Order is not validated for payment");
-
-            var result = await _gateway.Transaction.SaleAsync(new TransactionRequest
+            switch (status)
             {
-                Amount = request.Amount,
-                PaymentMethodNonce = request.Nonce,
-                Options = new TransactionOptionsRequest
-                {
-                    SubmitForSettlement = true
-                }
-            });
+                case OrderStatus.Valid:
+                    {
+                        var result = await _gateway.Transaction.SaleAsync(new TransactionRequest
+                        {
+                            Amount = request.Amount,
+                            PaymentMethodNonce = request.Nonce,
+                            Options = new TransactionOptionsRequest
+                            {
+                                SubmitForSettlement = true
+                            }
+                        });
 
-            if (result.IsSuccess())
-            {
-                var message = new PaymentStatusUpdateMessage { Id = request.OrderId, Status = OrderStatus.Paid };
-                await _rabbitMQPublisher.SendPaymentStatus(message);
-                return Ok(result.Target);
+                        if (result.IsSuccess())
+                        {
+                            await redis.SetOrderStatusAsync(request.OrderId, OrderStatus.Paid, request.Amount);
+                            var message = new PaymentStatusUpdateMessage { Id = request.OrderId, Status = OrderStatus.Paid };
+                            await _rabbitMQPublisher.SendPaymentStatus(message);
+                            return Ok(result.Target);
+                        }
+
+                        return BadRequest(result.Message);
+                    }
+                case OrderStatus.Cancelled:
+                    {
+                        return BadRequest(new { message = "The stock could not be confirmed so the order was cancelled" });
+                    }
+                case OrderStatus.Processing:
+                    {
+                        return BadRequest(new { message = "The stock has not been confirmed yet, please try again later!" });
+                    }
+                default:
+                    {
+                        return BadRequest(new { message = "The order has been paid already!" });
+                    }
             }
-
-            return BadRequest(result.Message);
         }
         /// <summary>
         /// Gets the order status.

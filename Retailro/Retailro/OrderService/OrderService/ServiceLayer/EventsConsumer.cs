@@ -11,7 +11,7 @@ namespace OrderService.ServiceLayer
     /// Hosted service used for handling Stock Confirmation messages
     /// </summary>
     /// <seealso cref="Microsoft.Extensions.Hosting.IHostedService" />
-    public class EventsConsumer : IHostedService
+    public class EventsConsumer : IHostedService, IDisposable
     {
         private readonly IServiceProvider serviceProvider;
         private IConnection connection;
@@ -21,6 +21,7 @@ namespace OrderService.ServiceLayer
         {
             this.serviceProvider = serviceProvider;
         }
+
         /// <summary>
         /// Triggered when the application host is ready to start the service.
         /// Handles Stock Confirmation messages coming from the ProductService to update the status of the order.
@@ -90,15 +91,26 @@ namespace OrderService.ServiceLayer
             if (channel != null)
             {
                 await channel.CloseAsync();
-                channel.Dispose();
             }
 
             if (connection != null)
             {
                 await connection.CloseAsync();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (channel != null)
+            {
+                channel.Dispose();
+            }
+            if (connection != null)
+            {
                 connection.Dispose();
             }
         }
+
         private record StockConfirmationMessage(Guid OrderId, bool Success);
         private record PaymentUpdateMessage(Guid Id, OrderStatus Status);
     }

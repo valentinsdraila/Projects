@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Connections;
+using Microsoft.EntityFrameworkCore;
 using ProductService.DataLayer;
+using ProductService.Model;
 using ProductService.Model.Exceptions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -15,7 +17,7 @@ namespace ProductService.ServiceLayer
     /// Hosted service used for handling the communication with other services through the RabbitMQ amqp.
     /// </summary>
     /// <seealso cref="Microsoft.Extensions.Hosting.IHostedService" />
-    public class StockUpdateConsumer : IHostedService
+    public class StockUpdateConsumer : IHostedService, IDisposable
     {
         private readonly IServiceProvider serviceProvider;
         private IConnection connection;
@@ -25,6 +27,8 @@ namespace ProductService.ServiceLayer
         {
             this.serviceProvider = serviceProvider;
         }
+
+
         /// <summary>
         /// Triggered when the application host is ready to start the service.
         /// Declares callbacks used to treat the events sent by other services.
@@ -60,13 +64,18 @@ namespace ProductService.ServiceLayer
                     {
                         foreach (var stockUpdate in stockUpdateMessage.StockUpdates)
                         {
+                            var product = await dbContext.Products.FirstOrDefaultAsync(p => p.Id == stockUpdate.ProductId);
 
-                            var success = await productRepository.ReduceStock(stockUpdate.ProductId, stockUpdate.Quantity, stockUpdate.UnitPrice);
-                            if (!success)
+                            if (product == null || product.Quantity < stockUpdate.Quantity)
                             {
                                 allSuccessful = false;
                                 break;
                             }
+
+                            if (product.UnitPrice != stockUpdate.UnitPrice)
+                                throw new PriceNotMatchingException($"The price is not the same as the original for product {stockUpdate.ProductId}");
+
+                            product.Quantity -= stockUpdate.Quantity;
 
                         }
                         if (allSuccessful)
@@ -130,14 +139,24 @@ namespace ProductService.ServiceLayer
             if (channel != null)
             {
                 await channel.CloseAsync();
-                channel.Dispose();
             }
 
             if (connection != null)
             {
                 await connection.CloseAsync();
+            }
+        }
+        public void Dispose()
+        {
+            if (channel != null)
+            {
+                channel.Dispose();
+            }
+            if (connection != null)
+            {
                 connection.Dispose();
             }
+
         }
 
         /// <summary>
