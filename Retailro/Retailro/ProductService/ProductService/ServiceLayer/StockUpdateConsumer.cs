@@ -44,6 +44,8 @@ namespace ProductService.ServiceLayer
             await channel.ExchangeDeclareAsync("stock_confirmation_exchange", ExchangeType.Fanout);
 
             await channel.QueueDeclareAsync(queue: "stock_update", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+            await channel.QueueDeclareAsync(queue: "stock_rollback", durable:true, exclusive:false, autoDelete: false, arguments: null);
             
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.ReceivedAsync += async (model, ea) =>
@@ -126,6 +128,62 @@ namespace ProductService.ServiceLayer
 
             await channel.BasicConsumeAsync(queue: "stock_update", autoAck: false, consumer: consumer);
 
+            var stockRollbackConsumer = new AsyncEventingBasicConsumer(channel);
+            stockRollbackConsumer.ReceivedAsync += async (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                var stockRollbackMessage = JsonSerializer.Deserialize<StockRollbackMessage>(message);
+
+                Console.WriteLine($"[ProductService] Received stock rollback for Order {stockRollbackMessage.OrderId}");
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
+                    var productRepository = scope.ServiceProvider.GetRequiredService<IProductRepository>();
+                    bool allSuccessful = true;
+
+                    using var transaction = await dbContext.Database.BeginTransactionAsync();
+                    try
+                    {
+                        foreach (var stockUpdate in stockRollbackMessage.StockUpdates)
+                        {
+                            var product = await dbContext.Products.FirstOrDefaultAsync(p => p.Id == stockUpdate.ProductId);
+
+                            if (product == null)
+                            {
+                                allSuccessful = false;
+                                break;
+                            }
+
+                            product.Quantity += stockUpdate.Quantity;
+
+                        }
+                        if (allSuccessful)
+                        {
+                            //The stocks for all products were successfully updated.
+                            await dbContext.SaveChangesAsync();
+                            await transaction.CommitAsync();
+                            await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+                        }
+                        else
+                        {
+                            //Some of the ProductIds were invalid, the transaction fails.
+                            await transaction.RollbackAsync();
+                            await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+                        }
+                    }
+                    catch (DBConcurrencyException)
+                    {
+                        //Concurrency issue when saving the changes, the transaction is retried.
+                        await transaction.RollbackAsync();
+                        await channel.BasicNackAsync(deliveryTag: ea.DeliveryTag, multiple: false, requeue: true);
+                    }
+                }
+            };
+
+            await channel.BasicConsumeAsync(queue: "stock_rollback", autoAck: false, consumer: stockRollbackConsumer);
+
+
             Console.WriteLine("[ProductService] Waiting for stock update messages...");
         }
 
@@ -165,6 +223,8 @@ namespace ProductService.ServiceLayer
         private record StockUpdate(Guid ProductId, int Quantity, decimal UnitPrice);
         private record StockUpdateMessage(Guid OrderId, List<StockUpdate> StockUpdates);
         private record StockConfirmation(Guid OrderId, bool Success);
+        private record StockRollbackMessage(Guid OrderId, List<StockUpdate> StockUpdates);
+
     }
 
 }

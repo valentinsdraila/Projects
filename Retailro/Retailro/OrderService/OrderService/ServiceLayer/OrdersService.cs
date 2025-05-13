@@ -32,7 +32,7 @@ namespace OrderService.ServiceLayer
             await this.orderRepository.Add(order);
             var orderStockMessage = new OrderStockUpdateMessage { OrderId = order.Id };
             orderStockMessage.StockUpdates = order.Products.Select(p => new StockUpdate() { ProductId = p.ProductId, Quantity = p.QuantityOrdered, UnitPrice = p.PriceAtPurchase }).ToList();
-            await rabbitMQPublisher.SendOrderCreated(new OrderCreatedMessage { OrderId = order.Id, Status = order.Status, Total = order.TotalPrice });
+            await rabbitMQPublisher.SendOrderCreated(new OrderCreatedMessage { OrderId = order.Id, Status = order.Status, Total = order.TotalPrice, StockUpdates = orderStockMessage.StockUpdates });
             await rabbitMQPublisher.SendStockUpdate(orderStockMessage);
             return new OrderDTO()
             {

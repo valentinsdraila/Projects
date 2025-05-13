@@ -15,6 +15,7 @@ builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redi
 builder.Services.AddSingleton<RedisService>();
 builder.Services.AddSingleton<RabbitMQPublisher>();
 builder.Services.AddHostedService<EventsConsumer>();
+builder.Services.AddHostedService<OrderExpirationService>();
 
 builder.Services.AddSingleton<BraintreeGatewayFactory>();
 

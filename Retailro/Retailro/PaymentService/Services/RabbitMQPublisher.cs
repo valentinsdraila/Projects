@@ -39,6 +39,17 @@ namespace PaymentService.Services
             Console.WriteLine($"[PaymentService] Sent payment status update for the Order {paymentStatusUpdateMessage.Id}");
         }
 
+        public async Task SendStockRollback(StockRollbackMessage stockRollbackMessage)
+        {
+            var json = JsonSerializer.Serialize(stockRollbackMessage);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            await _channel.BasicPublishAsync(exchange: string.Empty,
+                                      routingKey: "stock_rollback",
+                                      body: body);
+            Console.WriteLine($"[PaymentService] Sent stock rollback for the Order {stockRollbackMessage.OrderId}");
+        }
+
         public async ValueTask DisposeAsync()
         {
             if (_channel != null)

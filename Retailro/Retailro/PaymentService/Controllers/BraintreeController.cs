@@ -64,7 +64,7 @@ namespace PaymentService.Controllers
 
                         if (result.IsSuccess())
                         {
-                            await redis.SetOrderStatusAsync(request.OrderId, OrderStatus.Paid, request.Amount);
+                            await redis.UpdateOrderStatusAsync(request.OrderId, OrderStatus.Paid, TimeSpan.FromMinutes(1));
                             var message = new PaymentStatusUpdateMessage { Id = request.OrderId, Status = OrderStatus.Paid };
                             await _rabbitMQPublisher.SendPaymentStatus(message);
                             return Ok(result.Target);

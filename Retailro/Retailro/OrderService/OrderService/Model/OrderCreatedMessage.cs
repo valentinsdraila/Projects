@@ -8,5 +8,6 @@
         public Guid OrderId { get; set; }
         public decimal Total {  get; set; }
         public OrderStatus Status { get; set; }
+        public List<StockUpdate> StockUpdates { get; set; } = new List<StockUpdate>();
     }
 }
