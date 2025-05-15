@@ -14,7 +14,7 @@ public interface IUserService
     /// <summary>Gets the user.</summary>
     /// <param name="id">The identifier.</param>
     /// <returns>The user.</returns>
-    Task<User> GetUser(Guid id);
+    Task<UserDTO> GetUser(Guid id);
 
     /// <summary>Deletes the user by identifier.</summary>
     /// <param name="id">The identifier.</param>

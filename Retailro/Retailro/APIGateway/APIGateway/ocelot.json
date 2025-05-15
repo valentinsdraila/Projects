@@ -23,8 +23,28 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post" ],
       "CorsPolicy": "AllowSpecificOrigin"
+    },
+    {
+      "DownstreamPathTemplate": "/api/user/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7270
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AddHeadersToRequest": {
+        "x-user-id": "{UserId}"
+      },
+      "CorsPolicy": "AllowSpecificOrigin",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/user/{everything}",
@@ -37,6 +57,26 @@
       ],
       "UpstreamPathTemplate": "/api/user/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "CorsPolicy": "AllowSpecificOrigin",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/address/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7270
+        }
+      ],
+      "UpstreamPathTemplate": "/api/address/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "AddHeadersToRequest": {
+        "x-user-id": "{UserId}"
+      },
       "CorsPolicy": "AllowSpecificOrigin",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

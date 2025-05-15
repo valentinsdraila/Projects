@@ -46,7 +46,7 @@ namespace PaymentService.Controllers
             var status = await redis.GetOrderStatusAsync(request.OrderId);
 
             if (status is null)
-                return BadRequest("Order not found");
+                return BadRequest(new { message = "Order not found" });
 
             switch (status)
             {

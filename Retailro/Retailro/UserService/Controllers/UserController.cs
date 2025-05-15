@@ -23,6 +23,7 @@ namespace UserService.Controllers
         /// Gets all users.
         /// </summary>
         /// <returns></returns>
+        /*
         [HttpGet]
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
@@ -30,6 +31,7 @@ namespace UserService.Controllers
             var users = await this._userService.GetAllUsers();
             return Ok(users);
         }
+        */
         /// <summary>
         /// Gets the user.
         /// </summary>
@@ -90,11 +92,11 @@ namespace UserService.Controllers
             return NoContent();
         }
         /// <summary>
-        /// Gets the current user.
+        /// Gets the current username and the role.
         /// </summary>
         /// <returns></returns>
         [HttpGet("me")]
-        public IActionResult GetCurrentUser()
+        public IActionResult GetCurrentUsernameAndRole()
         {
             // Get the JWT from the HTTP-only cookie
             var token = Request.Cookies["jwt"];
@@ -117,6 +119,20 @@ namespace UserService.Controllers
             }
 
             return Ok(new { username, role});
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userId = Request.Headers["x-user-id"].FirstOrDefault();
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User ID not found in request." });
+            }
+
+            Guid userGuid = Guid.Parse(userId);
+            var user = await _userService.GetUser(userGuid);
+            return Ok(user);
+
         }
     }
 }

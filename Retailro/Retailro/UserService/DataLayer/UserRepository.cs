@@ -41,7 +41,9 @@ namespace UserService.Data
 
         public async Task<User?> GetById(Guid id)
         {
-            return await this.context.Set<User>().FindAsync(id);
+            return await this.context.Set<User>()
+                .Include(u => u.DeliveryAddresses)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task Update(User entity)

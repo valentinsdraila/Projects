@@ -12,6 +12,7 @@ import './App.css';
 import OrderPage from './components/OrderPage';
 import AddProductPage from './components/AddProductPage';
 import Checkout from './components/Checkout';
+import ProfilePage from './components/ProfilePage';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path="/order/:orderId" element={<OrderPage/>}/>
                 <Route path="/products/add" element={<AddProductPage/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
+                <Route path="/profile" element={<ProfilePage/>}/>
             </Routes>
         </Router>
     );

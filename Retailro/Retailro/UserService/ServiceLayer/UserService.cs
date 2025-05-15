@@ -36,9 +36,28 @@ public class UsersService : IUserService
         return await this.userRepository.GetAll();
     }
 
-    public async Task<User?> GetUser(Guid id)
+    public async Task<UserDTO> GetUser(Guid id)
     {
-        return await this.userRepository.GetById(id);
+        var user = await this.userRepository.GetById(id);
+        var userDTO = new UserDTO()
+        {
+            Username = user.Username,
+            Email = user.Email,
+            CreatedAt = user.CreatedAt,
+            FirstName = user.FirstName,
+            Name = user.Name,
+            PhoneNumber = user.PhoneNumber,
+            DeliveryAddresses = user.DeliveryAddresses.Select(a => new DeliveryAddressDTO
+            {
+                Address = a.Address,
+                City = a.City,
+                County = a.County,
+                FullName = a.FullName,
+                Id = a.Id,
+                ZipCode = a.ZipCode,
+            }).ToList()
+        };
+        return userDTO;
     }
 
     public async Task UpdateUser(User user)
