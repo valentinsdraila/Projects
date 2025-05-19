@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using PaymentService.Model;
+using PaymentService.Model.Entities;
 using PaymentService.Model.Messages;
 using PaymentService.Services;
 
@@ -17,10 +18,12 @@ namespace PaymentService.Controllers
     {
         private readonly BraintreeGateway _gateway;
         private readonly RabbitMQPublisher _rabbitMQPublisher;
-        public BraintreeController(BraintreeGatewayFactory factory, RabbitMQPublisher rabbitMQPublisher)
+        private readonly IPaymentService _paymentService;
+        public BraintreeController(BraintreeGatewayFactory factory, RabbitMQPublisher rabbitMQPublisher, IPaymentService paymentService)
         {
             _gateway = factory.Create();
             _rabbitMQPublisher = rabbitMQPublisher;
+            _paymentService = paymentService;
         }
 
         /// <summary>
@@ -48,6 +51,14 @@ namespace PaymentService.Controllers
             if (status is null)
                 return BadRequest(new { message = "Order not found" });
 
+            var userId = Request.Headers["x-user-id"].FirstOrDefault();
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User ID not found in request." });
+            }
+
+            Guid userIdGuid = Guid.Parse(userId);
+
             switch (status)
             {
                 case OrderStatus.Valid:
@@ -66,6 +77,8 @@ namespace PaymentService.Controllers
                         {
                             await redis.UpdateOrderStatusAsync(request.OrderId, OrderStatus.Paid, TimeSpan.FromMinutes(1));
                             var message = new PaymentStatusUpdateMessage { Id = request.OrderId, Status = OrderStatus.Paid };
+                            Payment newPayment = new Payment { Amount = request.Amount, OrderId = request.OrderId, Status = PaymentStatus.Completed, Date = DateTime.UtcNow, UserId = userIdGuid };
+                            await _paymentService.AddPayment(newPayment);
                             await _rabbitMQPublisher.SendPaymentStatus(message);
                             return Ok(result.Target);
                         }

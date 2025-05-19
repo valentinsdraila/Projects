@@ -51,7 +51,7 @@ const MyOrders = () => {
             onClick={() => navigate(`/order/${order.id}`)}
           >
             <div className="card-body">
-              <h5 className="card-title">Order #{order.id}</h5>
+              <h5 className="card-title">Order #{order.orderNumber}</h5>
               <p className="card-text">
                 <strong>Placed on:</strong>{" "}
                 {new Date(order.createdAt).toLocaleString()}

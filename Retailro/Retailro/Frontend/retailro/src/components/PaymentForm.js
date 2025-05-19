@@ -62,7 +62,7 @@ function PaymentForm({ amount, orderId }) {
   return (
     <div>
       <div id="dropin-container"></div>
-      <button id="submit-button">Pay ${amount}</button>
+      <button class="btn btn-outline-primary mt-2" id="submit-button">Pay ${amount}</button>
     </div>
   );
 }

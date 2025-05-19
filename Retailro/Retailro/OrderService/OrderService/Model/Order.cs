@@ -12,6 +12,7 @@ namespace OrderService.Model
         public OrderStatus Status { get; set; } 
         public DateTime CreatedAt { get; set; }
         public virtual List<ProductInfo> Products { get; set; } = new();
+        public DeliveryAddress DeliveryAddress { get; set; } = new();
         public decimal TotalPrice { get; set; } 
     }
 

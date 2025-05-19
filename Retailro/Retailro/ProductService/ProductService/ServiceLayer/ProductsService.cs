@@ -18,11 +18,11 @@ namespace ProductService.ServiceLayer
 
         public async Task AddProduct(AddProductDto dto, IFormFile image)
         {
-            string imageUrl = null;
+            string imageUrl = string.Empty;
 
             if (image != null && image.Length > 0)
             {
-                var fileName = Path.GetRandomFileName() + Path.GetExtension(image.FileName);
+                var fileName = Path.GetFileName(image.FileName);
                 var savePath = Path.Combine(_env.WebRootPath, "images", fileName);
 
                 using (var stream = new FileStream(savePath, FileMode.Create))
@@ -30,7 +30,7 @@ namespace ProductService.ServiceLayer
                     await image.CopyToAsync(stream);
                 }
 
-                imageUrl = $"/images/{fileName}";
+                imageUrl = $"{fileName}";
             }
 
             var product = new Product

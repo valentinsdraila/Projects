@@ -25,7 +25,7 @@ namespace OrderService.Controllers
         /// <param name="productInfos">The product infos.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(List<ProductInfo> productInfos)
+        public async Task<IActionResult> PlaceOrder(AddOrderDTO addOrderDTO)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace OrderService.Controllers
                 }
 
                 Guid userGuid = Guid.Parse(userId);
-                var orderResponse = await _orderService.AddOrder(productInfos, userGuid);
+                var orderResponse = await _orderService.AddOrder(addOrderDTO, userGuid);
                 return Ok(new { message = "The order has been placed!", order = orderResponse });
             }
             catch (Exception ex)

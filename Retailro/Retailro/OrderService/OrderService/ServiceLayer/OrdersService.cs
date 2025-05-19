@@ -16,17 +16,18 @@ namespace OrderService.ServiceLayer
             this.rabbitMQPublisher = rabbitMQPublisher;
         }
 
-        public async Task<OrderDTO> AddOrder(List<ProductInfo> productInfos, Guid userId)
+        public async Task<OrderDTO> AddOrder(AddOrderDTO addOrderDTO, Guid userId)
         {
-            var totalPrice = productInfos.Sum(p => p.PriceAtPurchase * p.QuantityOrdered);
+            var totalPrice = addOrderDTO.ProductInfos.Sum(p => p.PriceAtPurchase * p.QuantityOrdered);
             var order = new Order()
             {
                 CreatedAt = DateTime.Now,
                 Status = OrderStatus.Processing,
-                Products = productInfos,
+                Products = addOrderDTO.ProductInfos,
                 TotalPrice = totalPrice,
                 UserId = userId,
-                OrderNumber = await this.orderRepository.GetLastOrderNumber() + 1
+                OrderNumber = await this.orderRepository.GetLastOrderNumber() + 1,
+                DeliveryAddress = addOrderDTO.DeliveryAddress
             };
 
             await this.orderRepository.Add(order);
@@ -58,7 +59,7 @@ namespace OrderService.ServiceLayer
         public async Task<List<OrderDTO>> GetAllOrdersForUser(Guid userId)
         {
             var orders = await this.orderRepository.GetAllOrdersForUser(userId);
-            return orders.Select(o => new OrderDTO()
+            var orderDtos = orders.Select(o => new OrderDTO()
             {
                 OrderNumber = o.OrderNumber,
                 CreatedAt = o.CreatedAt,
@@ -67,7 +68,8 @@ namespace OrderService.ServiceLayer
                 TotalPrice = o.TotalPrice,
                 UserId = o.UserId
             }).ToList();
-
+            orderDtos.Reverse();
+            return orderDtos;
         }
         public async Task<Order> GetOrderById(Guid id)
         {

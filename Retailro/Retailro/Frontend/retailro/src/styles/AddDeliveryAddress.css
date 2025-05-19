@@ -99,7 +99,7 @@ input, select {
 }
 
 
-button {
+.add-delivery-button {
   margin-top: 1rem;
   padding: 10px;
   background-color: #4caf50;

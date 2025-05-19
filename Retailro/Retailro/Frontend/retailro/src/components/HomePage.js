@@ -37,7 +37,7 @@ const HomePage = () => {
   const handleLogout = () => {
     fetch("https://localhost:7007/api/auth/logout", {
         method: "POST",
-        credentials: "include" // Ensures the cookie is sent with the request
+        credentials: "include"
     })
     .then(response => {
         if (response.ok) {
@@ -53,12 +53,24 @@ const HomePage = () => {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
+  const getStockMessage = (stock) => {
+  if (stock > 10) return "In stock";
+  if (stock > 0) return "Stock running low";
+  return "Out of stock";
+};
+
+const getStockClass = (stock) => {
+  if (stock > 10) return "text-success";
+  if (stock > 0) return "text-warning";
+  return "text-danger";
+};
+
+
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center">
         <h2>Welcome to the Store!</h2>
 
-        {/* Dropdown with Username */}
         <div className="dropdown">
           <button 
             className="btn btn-secondary dropdown-toggle" 
@@ -87,20 +99,22 @@ const HomePage = () => {
               style={{ cursor: "pointer" }}
             >
               <img 
-                src={`https://localhost:7181/images/${product.image}`} 
+                src={`https://localhost:7007/images/${product.image}`} 
                 alt={product.name} 
                 className="img-fluid" 
               />
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text"><strong>${product.unitPrice?.toFixed(2)}</strong></p>
+                 <p className={`fw-semibold ${getStockClass(product.quantity)}`}>
+                    {getStockMessage(product.quantity)}
+                </p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Pagination Controls */}
       {products.length > productsPerPage && (
         <nav>
           <ul className="pagination justify-content-center">

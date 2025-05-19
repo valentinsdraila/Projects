@@ -127,7 +127,7 @@ const AddDeliveryAddress = ({ onClose, onAddressAdded }) => {
           </select>
 
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="add-delivery-button" disabled={loading}>
             {loading ? "Submitting..." : "Submit"}
           </button>
         </form>

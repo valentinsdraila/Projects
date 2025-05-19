@@ -84,6 +84,26 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/address/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7270
+        }
+      ],
+      "UpstreamPathTemplate": "/api/address/",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "AddHeadersToRequest": {
+        "x-user-id": "{UserId}"
+      },
+      "CorsPolicy": "AllowSpecificOrigin",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/products/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -162,6 +182,18 @@
       },
       "CorsPolicy": "AllowSpecificOrigin"
 
+    },
+    {
+      "DownstreamPathTemplate": "/images/{file}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7181
+        }
+      ],
+      "UpstreamPathTemplate": "/images/{file}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {

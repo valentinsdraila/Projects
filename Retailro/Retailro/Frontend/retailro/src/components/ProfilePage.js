@@ -85,7 +85,7 @@ const ProfilePage = () => {
         )}
 
         <div className="mt-4">
-          <Button onClick={() => setShowModal(true)}>Add New Address</Button>
+          <button className="add-delivery-button" onClick={() => setShowModal(true)}>Add New Address</button>
         </div>
 
         {showModal && (

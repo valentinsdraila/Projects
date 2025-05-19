@@ -13,6 +13,7 @@ import OrderPage from './components/OrderPage';
 import AddProductPage from './components/AddProductPage';
 import Checkout from './components/Checkout';
 import ProfilePage from './components/ProfilePage';
+import CartCheckout from './components/CartCheckout';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
                 <Route path="/products/add" element={<AddProductPage/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
+                <Route path="/cart/checkout" element={<CartCheckout/>}/>
             </Routes>
         </Router>
     );

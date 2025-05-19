@@ -39,6 +39,18 @@ const ProductPage = () => {
     });
   };
   
+  const getStockMessage = (stock) => {
+  if (stock > 10) return "In stock";
+  if (stock > 0) return "Stock running low";
+  return "Out of stock";
+};
+
+const getStockClass = (stock) => {
+  if (stock > 10) return "text-success";
+  if (stock > 0) return "text-warning";
+  return "text-danger";
+};
+
 
   if (!product) return <div>Loading...</div>;
 
@@ -47,16 +59,18 @@ const ProductPage = () => {
       <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>Back</button>
       <div className="row">
         <div className="col-md-6">
-          <img src={`https://localhost:7181/images/${product.image}`} alt={product.name} className="img-fluid" />
+          <img src={`https://localhost:7007/images/${product.image}`} alt={product.name} className="img-fluid" />
         </div>
         <div className="col-md-6">
           <h2>{product.name}</h2>
           <p className="lead">{product.description}</p>
           <h4>${product.unitPrice?.toFixed(2)}</h4>
-          <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+          <p className={`fw-semibold ${getStockClass(product.quantity)}`}>
+                    {getStockMessage(product.quantity)}
+          </p>
+          <button className="btn btn-primary" disabled={product.quantity == 0} onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
-       {/* Notification Popup */}
        {notification && (
         <div className="notification">
           {notification}

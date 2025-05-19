@@ -43,6 +43,15 @@ const CartPage = () => {
       })
     );
   };
+
+  const handleNextStep = () => {
+  navigate("/cart/checkout", {
+    state: {
+      cartItems
+    }
+  });
+};
+
   
 
   const handleRemove = (productId) => {
@@ -151,9 +160,10 @@ const handlePlaceOrder = () => {
           <hr />
           <div className="d-flex justify-content-between align-items-center">
           <p className="card-text fw-bold">Total: ${totalCartPrice}</p>
-            <button className="btn btn-primary" onClick={handlePlaceOrder}>
-              Place Order
+            <button className="btn btn-primary" onClick={handleNextStep}>
+            Next Step
             </button>
+
           </div>
         </>
       )}
