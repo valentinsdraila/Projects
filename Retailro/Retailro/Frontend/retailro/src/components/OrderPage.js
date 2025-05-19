@@ -62,7 +62,7 @@ const OrderPage = () => {
             >
               <div className="card h-100">
                 <img
-                  src={`https://localhost:7181/images/${product.image}`}
+                  src={`https://localhost:7007/images/${product.image}`}
                   className="card-img-top"
                   alt={product.name}
                   style={{ objectFit: "cover", height: "200px" }}
