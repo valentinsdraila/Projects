@@ -17,6 +17,7 @@ public class User
         this.PhoneNumber = string.Empty;
         this.CreatedAt = DateTime.Now;
         this.Role = "User";
+        this.DeliveryAddresses = new List<DeliveryAddress>();
     }
 
     /// <summary>Initializes a new instance of the <see cref="User" /> class.</summary>
@@ -26,7 +27,7 @@ public class User
     /// <param name="firstName">The first name.</param>
     /// <param name="email">The email.</param>
     /// <param name="phoneNumber">The phone number.</param>
-    public User(string username, string password, string name, string firstName, string email, string phoneNumber)
+    public User(string username, string password, string name, string firstName, string email, string phoneNumber, List<DeliveryAddress> deliveryAddresses)
     {
         this.Username = username;
         this.Password = password;
@@ -36,6 +37,7 @@ public class User
         this.PhoneNumber = phoneNumber;
         this.CreatedAt = DateTime.Now;
         this.Role = "User";
+        this.DeliveryAddresses = deliveryAddresses;
     }
 
     /// <summary>Gets or sets the identifier.</summary>

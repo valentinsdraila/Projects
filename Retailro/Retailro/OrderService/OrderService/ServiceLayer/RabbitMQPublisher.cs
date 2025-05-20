@@ -17,7 +17,7 @@ public class RabbitMQPublisher : IAsyncDisposable
 
     public async Task InitializeAsync()
     {
-        var factory = new ConnectionFactory { HostName = "localhost", Port = 5672 };
+        var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672 };
         _connection = await factory.CreateConnectionAsync();
         _channel = await _connection.CreateChannelAsync();
 

@@ -16,7 +16,7 @@ namespace PaymentService.Services
 
         public async Task InitializeAsync()
         {
-            var factory = new ConnectionFactory { HostName = "localhost", Port = 5672 };
+            var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672 };
             _connection = await factory.CreateConnectionAsync();
             _channel = await _connection.CreateChannelAsync();
             await _channel.QueueDeclareAsync(queue: "payment_update", durable: true, exclusive: false, autoDelete: false, arguments: null);

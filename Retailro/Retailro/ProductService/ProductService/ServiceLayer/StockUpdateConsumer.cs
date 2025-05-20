@@ -37,7 +37,7 @@ namespace ProductService.ServiceLayer
         /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory { HostName = "localhost", Port = 5672 };
+            var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672 };
             connection = await factory.CreateConnectionAsync();
             channel = await connection.CreateChannelAsync();
 

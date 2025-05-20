@@ -29,12 +29,15 @@ namespace PaymentService.Services
         /// <returns></returns>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory { HostName = "localhost", Port = 5672 };
+            var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672 };
             connection = await factory.CreateConnectionAsync();
             channel = await connection.CreateChannelAsync();
 
+            await channel.ExchangeDeclareAsync("stock_confirmation_exchange", ExchangeType.Fanout);
+
             await channel.QueueDeclareAsync(queue: "order_created", durable: true, exclusive: false, autoDelete: false, arguments: null);
             await channel.QueueDeclareAsync(queue: "payment_stock_confirmation", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
             await channel.QueueBindAsync("payment_stock_confirmation", "stock_confirmation_exchange", routingKey: string.Empty);
 
             var stockConfirmationConsumer = new AsyncEventingBasicConsumer(channel);

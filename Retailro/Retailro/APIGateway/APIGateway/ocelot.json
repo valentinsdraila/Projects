@@ -2,11 +2,11 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/auth/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7270
+          "Host": "userservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/auth/{everything}",
@@ -15,11 +15,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/user/",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7270
+          "Host": "userservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/user/",
@@ -28,11 +28,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/user/",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7270
+          "Host": "userservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/user/",
@@ -48,11 +48,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/user/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7270
+          "Host": "userservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/user/{everything}",
@@ -65,11 +65,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/address/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7270
+          "Host": "userservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/address/{everything}",
@@ -85,11 +85,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/address/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7270
+          "Host": "userservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/address/",
@@ -105,11 +105,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/products/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7181
+          "Host": "productsservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/products/{everything}",
@@ -122,11 +122,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/cart/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7181
+          "Host": "productsservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/cart/{everything}",
@@ -143,11 +143,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/order/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7069
+          "Host": "orderservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/order/{everything}",
@@ -164,11 +164,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/braintree/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7085
+          "Host": "paymentservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/api/braintree/{everything}",
@@ -185,11 +185,11 @@
     },
     {
       "DownstreamPathTemplate": "/images/{file}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7181
+          "Host": "productsservice",
+          "Port": 5000
         }
       ],
       "UpstreamPathTemplate": "/images/{file}",
