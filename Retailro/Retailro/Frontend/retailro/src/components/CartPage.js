@@ -121,7 +121,7 @@ const handlePlaceOrder = () => {
           cartItems.map((item) => (
             <div key={item.id} className="col-md-3 mb-4">
               <div className="card h-100">
-                <img src={`https://localhost:7181/images/${item.image}`} alt={item.name} className="img-fluid" />
+                <img src={`https://localhost:7007/images/${item.image}`} alt={item.name} className="img-fluid" />
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <div className="d-flex align-items-center mb-2">
