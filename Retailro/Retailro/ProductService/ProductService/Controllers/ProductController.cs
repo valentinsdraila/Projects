@@ -71,5 +71,16 @@ namespace ProductService.Controllers
             await this._productService.DeleteProductById(id);
             return NoContent();
         }
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchProducts([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest("Query parameter is required.");
+            }
+
+            var products = await _productService.SearchProducts(query);
+            return Ok(products);
+        }
     }
 }

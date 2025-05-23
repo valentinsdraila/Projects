@@ -15,41 +15,54 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
     const validate = () => {
-        const newErrors = {};
+    const newErrors = {};
 
-        if (formData.username.length < 4) {
-            newErrors.username = 'Username must be at least 4 characters long.';
+    if (formData.username.length < 4) {
+        newErrors.username = 'Username must be at least 4 characters long.';
+    }
+
+    if (formData.password.length < 6) {
+        newErrors.password = 'Password must be at least 6 characters long.';
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = 'Passwords do not match.';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+        newErrors.email = 'Invalid email format.';
+    }
+
+    const phoneRegex = /^\+?[0-9]{7,15}$/;
+    if (!phoneRegex.test(formData.phone)) {
+        newErrors.phone = 'Invalid phone number.';
+    }
+
+    if (!formData.firstName.trim()) {
+        newErrors.firstName = 'First name is required.';
+    } else {
+        if (!/^[A-Z]/.test(formData.firstName)) {
+            newErrors.firstName = 'The first name must begin with an uppercase character.';
         }
-        
-        if (formData.password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters long.';
+    }
+
+    if (!formData.name.trim()) {
+        newErrors.name = 'Last name is required.';
+    } else {
+        if (formData.name.length < 2) {
+            newErrors.name = 'The last name must be at least 2 characters long.';
+        } else if (!/^[A-Z]/.test(formData.name)) {
+            newErrors.name = 'The last name must begin with an uppercase character.';
+        } else if (/\s/.test(formData.name)) {
+            newErrors.name = 'The last name must not contain spaces.';
         }
-        
-        if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = 'Passwords do not match.';
-        }
-        
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            newErrors.email = 'Invalid email format.';
-        }
-        
-        const phoneRegex = /^\+?[0-9]{7,15}$/;
-        if (!phoneRegex.test(formData.phone)) {
-            newErrors.phone = 'Invalid phone number.';
-        }
-        
-        if (!formData.firstName.trim()) {
-            newErrors.firstName = 'First name is required.';
-        }
-        
-        if (!formData.name.trim()) {
-            newErrors.name = 'Last name is required.';
-        }
-        
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+};
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

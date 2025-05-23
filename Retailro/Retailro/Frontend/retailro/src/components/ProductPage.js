@@ -68,7 +68,7 @@ const getStockClass = (stock) => {
           <p className={`fw-semibold ${getStockClass(product.quantity)}`}>
                     {getStockMessage(product.quantity)}
           </p>
-          <button className="btn btn-primary" disabled={product.quantity == 0} onClick={handleAddToCart}>Add to Cart</button>
+          <button className="btn btn-primary" disabled={product.quantity === 0} onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
        {notification && (

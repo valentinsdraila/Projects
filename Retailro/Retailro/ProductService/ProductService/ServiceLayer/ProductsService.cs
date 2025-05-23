@@ -64,6 +64,12 @@ namespace ProductService.ServiceLayer
             return await this._productRepository.GetById(productId);
         }
 
+        public async Task<List<Product>> SearchProducts(string query)
+        {
+            query = query.ToLower();
+            return await _productRepository.SearchProducts(query);
+        }
+
         public async Task UpdateProduct(Product product)
         {
             await this._productRepository.Update(product);

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const AddProductPage = () => {
   const navigate = useNavigate();
-  const [userRole, setUserRole] = useState(null);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -19,8 +18,6 @@ const AddProductPage = () => {
       .then((data) => {
         if (data.role !== "Admin") {
           navigate("/unauthorized");
-        } else {
-          setUserRole(data.role);
         }
       })
       .catch(() => navigate("/login"));

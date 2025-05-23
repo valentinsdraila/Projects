@@ -44,5 +44,12 @@ namespace ProductService.DataLayer
         /// </summary>
         /// <returns></returns>
         Task<bool> SaveChangesAsync();
+
+        /// <summary>
+        /// Searches the products.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns></returns>
+        Task<List<Product>> SearchProducts(string query);
     }
 }

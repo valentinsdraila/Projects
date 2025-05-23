@@ -40,5 +40,11 @@ namespace ProductService.ServiceLayer
         /// <param name="product">The product.</param>
         /// <returns></returns>
         Task UpdateProduct(Product product);
+        /// <summary>
+        /// Searches the products.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns></returns>
+        Task<List<Product>> SearchProducts(string query);
     }
 }

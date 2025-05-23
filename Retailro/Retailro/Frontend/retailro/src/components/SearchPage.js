@@ -1,30 +1,37 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from "react-router-dom";
 
-const HomePage = () => {
+const SearchPage = () => {
+  const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const query = searchParams.get("query");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const productsPerPage = 20;
 
   useEffect(() => {
-    fetch("https://localhost:7007/api/products", {
+    if (!query) return;
+
+    setLoading(true);
+    fetch(`https://localhost:7007/api/products/search?query=${encodeURIComponent(query)}`, {
       method: "GET",
       credentials: "include"
     })
       .then(response => {
-        if (!response.ok) throw new Error("Failed to fetch products");
+        if (!response.ok) throw new Error("Search failed");
         return response.json();
       })
       .then(data => setProducts(data))
-      .catch(error => console.error(error));
-  }, []);
+      .catch(error => console.error(error))
+      .finally(() => setLoading(false));
+  }, [query]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const getStockMessage = (stock) => {
+    const getStockMessage = (stock) => {
   if (stock > 10) return "In stock";
   if (stock > 0) return "Stock running low";
   return "Out of stock";
@@ -36,9 +43,15 @@ const getStockClass = (stock) => {
   return "text-danger";
 };
 
-
   return (
-    <div className="container mt-5">
+    <div className="container mt-4">
+      <h3>Search results for: <em>{query}</em></h3>
+      {loading ? (
+        <p>Loading...</p>
+      ) : products.length === 0 ? (
+        <p>No products found.</p>
+      ) : (
+        <div className="container mt-5">
       <div className="row mt-4">
         {currentProducts.map(product => (
           <div key={product.id} className="col-md-3 mb-4">
@@ -81,7 +94,9 @@ const getStockClass = (stock) => {
         </nav>
       )}
     </div>
+      )}
+    </div>
   );
 };
 
-export default HomePage;
+export default SearchPage;

@@ -58,6 +58,32 @@ namespace ProductService.DataLayer
                 return false;
             }
         }
+        public async Task<List<Product>> SearchProducts(string query)
+        {
+            var results = await context.Set<Product>()
+                .Select(p => new
+                {
+                    Product = p,
+                    Score =
+                        (p.Name.ToLower().Contains(query) ? 2 : 0) +
+                        (p.Description.ToLower().Contains(query) ? 1 : 0)
+                })
+               .Where(p => p.Score > 0)
+               .OrderByDescending(p => p.Score)
+               .Select(p => new Product
+               {
+                   Id = p.Product.Id,
+                   Name = p.Product.Name,
+                   UnitPrice = p.Product.UnitPrice,
+                   Image = p.Product.Image,
+                   Quantity = p.Product.Quantity,
+                   Description = p.Product.Description,
+               })
+               .ToListAsync();
+            return results;
+        }
+
+
 
         public async Task Update(Product product)
         {

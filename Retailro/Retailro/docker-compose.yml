@@ -4,7 +4,6 @@ services:
   apigateway:
     build:
       context: ./APIGateway/APIGateway
-
     ports:
       - "7007:443"
     volumes:
@@ -12,14 +11,12 @@ services:
     environment:
       ASPNETCORE_Kestrel__Endpoints__Https__Url: "https://+:443"
       ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/aspnetapp.pfx"
-      ASPNETCORE_Kestrel__Certificates__Default__Password: "DevPassword!"
-      JWT_SECRET: eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9
-      JWT_ISSUER: https://localhost:7007
-      JWT_AUDIENCE: https://localhost:7007   
-
+      ASPNETCORE_Kestrel__Certificates__Default__Password: ${CERT_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_AUDIENCE: ${JWT_AUDIENCE}
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
     depends_on:
       - userservice
       - orderservice
@@ -32,10 +29,10 @@ services:
     build:
       context: ./UserService
     environment:
-      - ConnectionStrings__DefaultConnection=Server=userdb;Database=UsersDatabase;User=sa;Password=Str0NgPassWord;Encrypt=True;TrustServerCertificate=True
-      - JwtSettings__Secret=eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9
-      - JwtSettings__Issuer=https://localhost:7007
-      - JwtSettings__Audience=https://localhost:7007
+      - ConnectionStrings__DefaultConnection=Server=userdb;Database=UsersDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+      - JwtSettings__Secret=${JWT_SECRET}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
       - JwtSettings__ExpiryMinutes=60
     depends_on:
       - userdb
@@ -45,10 +42,10 @@ services:
   userdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "Str0NgPassWord"
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
-    - "1433:1433"
+      - "1433:1433"
     networks:
       - app-network
 
@@ -56,7 +53,7 @@ services:
     build:
       context: ./OrderService/OrderService
     environment:
-      - ConnectionStrings__DefaultConnection=Server=orderdb;Database=OrdersDatabase;User=sa;Password=Str0NgPassWord;Encrypt=True;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=orderdb;Database=OrdersDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
     depends_on:
       - orderdb
       - rabbitmq
@@ -66,10 +63,10 @@ services:
   orderdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "Str0NgPassWord"
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
-    - "1434:1433"
+      - "1434:1433"
     networks:
       - app-network
 
@@ -77,25 +74,25 @@ services:
     build:
       context: ./ProductService/ProductService
     environment:
-      - ConnectionStrings__DefaultConnection=Server=productsdb;Database=ProductsDatabase;User=sa;Password=Str0NgPassWord;Encrypt=True;TrustServerCertificate=True
-      - JWT_SECRET=eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9
-      - JWT_ISSUER=https://localhost:7007
-      - JWT_AUDIENCE=https://localhost:7007
+      - ConnectionStrings__DefaultConnection=Server=productsdb;Database=ProductsDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ISSUER=${JWT_ISSUER}
+      - JWT_AUDIENCE=${JWT_AUDIENCE}
     depends_on:
       - productsdb
       - rabbitmq
     volumes:
-    - ./ProductService/wwwroot/images:/app/wwwroot/images
+      - ./ProductService/wwwroot/images:/app/wwwroot/images
     networks:
       - app-network
 
   productsdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "Str0NgPassWord"
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
-    - "1435:1433"
+      - "1435:1433"
     networks:
       - app-network
 
@@ -103,11 +100,11 @@ services:
     build:
       context: ./PaymentService
     environment:
-      - ConnectionStrings__DefaultConnection=Server=paymentdb;Database=PaymentsDatabase;User=sa;Password=Str0NgPassWord;Encrypt=True;TrustServerCertificate=True
-      - Braintree__Environment=sandbox
-      - Braintree__MerchantId=cmv32jhm9q9c297x
-      - Braintree__PublicKey=7wd6hksf7xscy8q3
-      - Braintree__PrivateKey=7bc9081cff4a161006e2ce6f73334b69
+      - ConnectionStrings__DefaultConnection=Server=paymentdb;Database=PaymentsDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+      - Braintree__Environment=${BRAINTREE_ENVIRONMENT}
+      - Braintree__MerchantId=${BRAINTREE_MERCHANT_ID}
+      - Braintree__PublicKey=${BRAINTREE_PUBLIC_KEY}
+      - Braintree__PrivateKey=${BRAINTREE_PRIVATE_KEY}
       - Redis__ConnectionString=redis:6379
     depends_on:
       - paymentdb
@@ -119,10 +116,10 @@ services:
   paymentdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "Str0NgPassWord"
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
-    - "1436:1433"
+      - "1436:1433"
     networks:
       - app-network
 
