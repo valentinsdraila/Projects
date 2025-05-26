@@ -92,12 +92,12 @@ namespace ProductService.ServiceLayer
             }
         }
 
-        public async Task<List<ProductDto>> GetProductsInCart(Guid userId)
+        public async Task<List<CartItemDto>> GetProductsInCart(Guid userId)
         {
             var cart = await cartRepository.GetByUserId(userId);
             if (cart.Products == null)
                 cart.Products=new List<CartItem>();
-            List<ProductDto> productDtos = cart.Products.Select(p => ProductsFactory.CreateProductDto(p)).ToList();
+            List<CartItemDto> productDtos = cart.Products.Select(p => ProductsFactory.CreateProductDto(p)).ToList();
             return productDtos;
         }
 

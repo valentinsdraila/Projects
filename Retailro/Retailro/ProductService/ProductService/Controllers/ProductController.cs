@@ -66,21 +66,27 @@ namespace ProductService.Controllers
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteProductById(Guid id)
         {
             await this._productService.DeleteProductById(id);
             return NoContent();
         }
         [HttpGet("search")]
-        public async Task<IActionResult> SearchProducts([FromQuery] string query)
+        public async Task<IActionResult> SearchProducts(
+            string query,
+            decimal? minPrice,
+            decimal? maxPrice,
+            string category = "",
+            string brand = "",
+            string sort = "relevance")
         {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                return BadRequest("Query parameter is required.");
-            }
+            if(string.IsNullOrEmpty(query))
+                return BadRequest(new { message = "The search string is empty!"});
+            var products = await _productService.SearchProducts(query, category, brand, minPrice, maxPrice, sort);
 
-            var products = await _productService.SearchProducts(query);
-            return Ok(products);
+            return Ok(new { products });
         }
+
     }
 }

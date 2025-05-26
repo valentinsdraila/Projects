@@ -3,7 +3,7 @@
     /// <summary>
     /// Data transfer object used for displaying products for the user.
     /// </summary>
-    public class ProductDto
+    public class CartItemDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

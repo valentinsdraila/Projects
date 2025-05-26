@@ -28,7 +28,7 @@ namespace ProductService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("products")]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProductsInCart()
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetAllProductsInCart()
         {
             var userId = Request.Headers["x-user-id"].FirstOrDefault();
             if (string.IsNullOrEmpty(userId))

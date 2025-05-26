@@ -58,32 +58,25 @@ namespace ProductService.DataLayer
                 return false;
             }
         }
-        public async Task<List<Product>> SearchProducts(string query)
+        public IQueryable<Product> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice)
         {
-            var results = await context.Set<Product>()
-                .Select(p => new
-                {
-                    Product = p,
-                    Score =
-                        (p.Name.ToLower().Contains(query) ? 2 : 0) +
-                        (p.Description.ToLower().Contains(query) ? 1 : 0)
-                })
-               .Where(p => p.Score > 0)
-               .OrderByDescending(p => p.Score)
-               .Select(p => new Product
-               {
-                   Id = p.Product.Id,
-                   Name = p.Product.Name,
-                   UnitPrice = p.Product.UnitPrice,
-                   Image = p.Product.Image,
-                   Quantity = p.Product.Quantity,
-                   Description = p.Product.Description,
-               })
-               .ToListAsync();
-            return results;
+            var products = context.Products.AsQueryable();
+            if (!string.IsNullOrEmpty(query))
+                products = products.Where(p => p.Name.ToLower().Contains(query) || p.Description.ToLower().Contains(query));
+
+            if (!string.IsNullOrEmpty(category))
+                products = products.Where(p => p.Category.ToLower() == category.ToLower());
+
+            if(!string.IsNullOrEmpty(brand))
+                products = products.Where(p => p.Brand.ToLower() == brand.ToLower());
+
+            if (minPrice.HasValue)
+                products = products.Where(p => p.UnitPrice >= minPrice.Value);
+
+            if (maxPrice.HasValue)
+                products = products.Where(p => p.UnitPrice <= maxPrice.Value);
+            return products;
         }
-
-
 
         public async Task Update(Product product)
         {

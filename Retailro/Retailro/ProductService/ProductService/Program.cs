@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductsService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IProductRatingRepository, ProductRatingRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddHostedService<StockUpdateConsumer>();
 builder.Services.AddControllers();

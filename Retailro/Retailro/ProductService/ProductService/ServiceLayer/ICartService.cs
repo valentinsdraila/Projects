@@ -65,7 +65,7 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        Task<List<ProductDto>> GetProductsInCart(Guid userId);
+        Task<List<CartItemDto>> GetProductsInCart(Guid userId);
         /// <summary>
         /// Removes the product from cart.
         /// </summary>

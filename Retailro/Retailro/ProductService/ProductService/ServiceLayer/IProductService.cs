@@ -45,6 +45,6 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns></returns>
-        Task<List<Product>> SearchProducts(string query);
+        Task<List<Product>> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice, string sort);
     }
 }
