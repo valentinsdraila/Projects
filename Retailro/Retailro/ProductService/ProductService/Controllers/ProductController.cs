@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductService.Model;
 using ProductService.ServiceLayer;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace ProductService.Controllers
 {
@@ -28,8 +29,15 @@ namespace ProductService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts()
         {
-            var products = await _productService.GetAllProducts();
-            return Ok(products);
+            try
+            {
+                var products = await _productService.GetAllProducts();
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error while trying to fetch the products!", error = ex.Message });
+            }
         }
         /// <summary>
         /// Gets the product.
@@ -39,12 +47,19 @@ namespace ProductService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(Guid id)
         {
-            var product = await _productService.GetProduct(id);
-            if (product == null)
+            try
             {
-                return NotFound();
+                var product = await _productService.GetProduct(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                return Ok(product);
             }
-            return Ok(product);
+            catch (Exception ex) {
+                return BadRequest(new { message = "Error while trying to fetch the product!", error = ex.Message });
+            }
+
         }
         /// <summary>
         /// Adds the product.
@@ -57,8 +72,15 @@ namespace ProductService.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct([FromForm] AddProductDto dto, IFormFile image)
         {
-            await _productService.AddProduct(dto, image);
-            return Ok(dto);
+            try
+            {
+                await _productService.AddProduct(dto, image);
+                return Ok(new { message = "The product has been added!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error while trying to add the product!", error = ex.Message });
+            }
         }
         /// <summary>
         /// Deletes the product by identifier.
@@ -81,11 +103,18 @@ namespace ProductService.Controllers
             string brand = "",
             string sort = "relevance")
         {
-            if(string.IsNullOrEmpty(query))
-                return BadRequest(new { message = "The search string is empty!"});
-            var products = await _productService.SearchProducts(query, category, brand, minPrice, maxPrice, sort);
+            try
+            {
+                if (string.IsNullOrEmpty(query))
+                    return BadRequest(new { message = "The search string is empty!" });
+                var products = await _productService.SearchProducts(query, category, brand, minPrice, maxPrice, sort);
 
-            return Ok(new { products });
+                return Ok(new { products });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error while fetching the products!", error = ex.Message });
+            }
         }
 
     }

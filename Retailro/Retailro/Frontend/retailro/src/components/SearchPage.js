@@ -209,6 +209,7 @@ const SearchPage = () => {
                   <p className={`fw-semibold ${getStockClass(product.quantity)}`}>
                     {getStockMessage(product.quantity)}
                   </p>
+                  <p>{product.rating.averageRating}/5({product.rating.totalReviews})</p>
                 </div>
               </div>
             </div>

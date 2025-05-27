@@ -121,6 +121,23 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/review/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productsservice",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/api/review/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "CorsPolicy": "AllowSpecificOrigin",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/cart/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

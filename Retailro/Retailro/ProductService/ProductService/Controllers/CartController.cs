@@ -30,15 +30,22 @@ namespace ProductService.Controllers
         [HttpGet("products")]
         public async Task<ActionResult<IEnumerable<CartItemDto>>> GetAllProductsInCart()
         {
-            var userId = Request.Headers["x-user-id"].FirstOrDefault();
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                return Unauthorized(new { message = "User ID not found in request." });
-            }
+                var userId = Request.Headers["x-user-id"].FirstOrDefault();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized(new { message = "User ID not found in request." });
+                }
 
-            Guid userIdGuid = Guid.Parse(userId);
-            var products = await _cartService.GetProductsInCart(userIdGuid);
-            return Ok(products);
+                Guid userIdGuid = Guid.Parse(userId);
+                var products = await _cartService.GetProductsInCart(userIdGuid);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error while trying to get all products in the cart!", error = ex.Message });
+            }
         }
         /// <summary>
         /// Adds the product to cart.
@@ -62,7 +69,7 @@ namespace ProductService.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = "Error while trying to add the product to the cart!", error = ex.Message });
             }
         }
         /// <summary>
@@ -98,12 +105,19 @@ namespace ProductService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cart>> GetCart(Guid id)
         {
-            var cart = await _cartService.GetCart(id);
-            if (cart == null)
+            try
             {
-                return NotFound();
+                var cart = await _cartService.GetCart(id);
+                if (cart == null)
+                {
+                    return NotFound();
+                }
+                return Ok(cart);
             }
-            return Ok(cart);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error while trying to fetch the cart!", error = ex.Message });
+            }
         }
         /// <summary>
         /// Adds the cart.
@@ -131,8 +145,15 @@ namespace ProductService.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCartById(Guid id)
         {
-            await this._cartService.DeleteCartById(id);
-            return NoContent();
+            try
+            {
+                await this._cartService.DeleteCartById(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error while trying to delete the cart!", error = ex.Message });
+            }
         }
         /// <summary>
         /// Clears the cart.

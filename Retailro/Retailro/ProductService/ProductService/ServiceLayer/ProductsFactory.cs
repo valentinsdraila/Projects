@@ -26,12 +26,11 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <param name="product">The product.</param>
         /// <returns>The cart item.</returns>
-        public static CartItem CreateCartItem(Product product)
+        public static CartItem CreateCartItem(ProductDto product)
         {
             return new CartItem
             {
                 ProductId = product.Id,
-                Product = product,
                 Quantity = 1
             };
         }

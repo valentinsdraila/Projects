@@ -4,6 +4,9 @@ using UserService.ServiceLayer;
 
 namespace UserService.Controllers
 {
+    /// <summary>
+    /// Controller class managing delivery address functionality
+    /// </summary>
     [ApiController]
     [Route("api/address")]
     public class AddressController : ControllerBase
@@ -14,6 +17,11 @@ namespace UserService.Controllers
         {
             _addressService = addressService;
         }
+        /// <summary>
+        /// Endpoint used to add an address for the logged in user
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> AddCurrentUserAddress(DeliveryAddress address)
         {
@@ -32,6 +40,10 @@ namespace UserService.Controllers
             }
             return BadRequest(new { message= "The delivery address is not valid!"});
         }
+        /// <summary>
+        /// Endpoint used for fetching all of a user's addresses from the database
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetCurrentUserAddresses()
         {
@@ -45,6 +57,11 @@ namespace UserService.Controllers
             var addresses = await _addressService.GetAddressesForUser(userGuid);
             return Ok(addresses);
         }
+        /// <summary>
+        ///  Endpoint used for deleting delivery addresses
+        /// </summary>
+        /// <param name="addressId"></param>
+        /// <returns></returns>
         [HttpDelete("{addressId}")]
         public async Task<IActionResult> DeleteAddress(Guid addressId)
         {

@@ -66,12 +66,40 @@ namespace ProductService.ServiceLayer
             return await this._productRepository.GetAll();
         }
 
-        public async Task<Product?> GetProduct(Guid productId)
+        public async Task<ProductDto> GetProduct(Guid productId)
         {
-            return await this._productRepository.GetById(productId);
+            var product = await this._productRepository.GetById(productId);
+            if (product != null)
+            {
+                return new ProductDto
+                {
+                    Id = product.Id,
+                    Description = product.Description,
+                    Image = product.Image,
+                    Name = product.Name,
+                    UnitPrice = product.UnitPrice,
+                    Quantity = product.Quantity,
+                    Rating = new ProductRatingDto
+                    {
+                        AverageRating = product.Rating.AverageRating,
+                        TotalReviews = product.Rating.TotalReviews
+                    },
+                    Reviews = product.Reviews.Select(r => new DisplayReviewDto
+                    {
+                        Id = r.Id,
+                        ProductId = r.ProductId,
+                        UserId = r.UserId,
+                        Username = r.Username,
+                        Rating = r.Rating,
+                        Comment = r.Comment,
+                        CreatedAt = r.CreatedAt
+                    }).ToList()
+                };
+            }
+            throw new Exception("Product not found!");
         }
 
-        public async Task<List<Product>> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice, string sort)
+        public async Task<List<ProductDto>> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice, string sort)
         {
             query = query.ToLower();
             var products = _productRepository.SearchProducts(query, category, brand, minPrice, maxPrice);
@@ -91,7 +119,20 @@ namespace ProductService.ServiceLayer
 
             var result = products
                 .ToList();
-            return result;
+            return result.Select(p => new ProductDto()
+            {
+                Description = p.Description,
+                Id = p.Id,
+                Image = p.Image,
+                Name = p.Name,
+                Quantity = p.Quantity,
+                UnitPrice = p.UnitPrice,
+                Rating = new ProductRatingDto
+                {
+                    AverageRating = p.Rating.AverageRating,
+                    TotalReviews = p.Rating.TotalReviews
+                }
+            }).ToList();
         }
 
         public async Task UpdateProduct(Product product)

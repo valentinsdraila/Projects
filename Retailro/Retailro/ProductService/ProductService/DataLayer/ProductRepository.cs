@@ -42,7 +42,10 @@ namespace ProductService.DataLayer
 
         public async Task<Product?> GetById(Guid id)
         {
-            return await context.Set<Product>().FindAsync(id);
+            return await context.Set<Product>()
+                .Include(p => p.Reviews)
+                .Include(p => p.Rating)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -75,7 +78,7 @@ namespace ProductService.DataLayer
 
             if (maxPrice.HasValue)
                 products = products.Where(p => p.UnitPrice <= maxPrice.Value);
-            return products;
+            return products.Include(p => p.Rating);
         }
 
         public async Task Update(Product product)

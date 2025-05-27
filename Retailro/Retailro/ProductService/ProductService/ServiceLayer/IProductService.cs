@@ -21,7 +21,7 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <param name="productId">The product identifier.</param>
         /// <returns>The product</returns>
-        Task<Product?> GetProduct(Guid productId);
+        Task<ProductDto> GetProduct(Guid productId);
         /// <summary>
         /// Deletes the product.
         /// </summary>
@@ -45,6 +45,6 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns></returns>
-        Task<List<Product>> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice, string sort);
+        Task<List<ProductDto>> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice, string sort);
     }
 }

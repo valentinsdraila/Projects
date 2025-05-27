@@ -15,6 +15,8 @@ builder.Services.AddScoped<IProductService, ProductsService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IProductRatingRepository, ProductRatingRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddHostedService<StockUpdateConsumer>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -34,6 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
         };
+        
     });
 
 builder.WebHost.UseWebRoot("wwwroot");

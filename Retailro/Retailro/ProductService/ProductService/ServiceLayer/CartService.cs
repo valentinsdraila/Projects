@@ -76,7 +76,7 @@ namespace ProductService.ServiceLayer
                     cart.Products = new List<CartItem>();
                 }
 
-                Product product = await productService.GetProduct(productId);
+                ProductDto product = await productService.GetProduct(productId);
                 if (product == null)
                 {
                     Console.WriteLine("Product not found: " + productId);
