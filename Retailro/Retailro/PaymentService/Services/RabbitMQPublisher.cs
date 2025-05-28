@@ -17,7 +17,7 @@ namespace PaymentService.Services
         public async Task InitializeAsync()
         {
             var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672 };
-            _connection = await factory.CreateConnectionAsync();
+            _connection = await RetryAsync(() => factory.CreateConnectionAsync());
             _channel = await _connection.CreateChannelAsync();
             await _channel.QueueDeclareAsync(queue: "payment_update", durable: true, exclusive: false, autoDelete: false, arguments: null);
 
@@ -62,6 +62,28 @@ namespace PaymentService.Services
                 await _connection.CloseAsync();
                 _connection.Dispose();
             }
+        }
+        private async Task<T> RetryAsync<T>(Func<Task<T>> operation, int maxAttempts = 5)
+        {
+            var delay = TimeSpan.FromSeconds(10);
+            var random = new Random();
+
+            for (int attempt = 1; attempt <= maxAttempts; attempt++)
+            {
+                try
+                {
+                    return await operation();
+                }
+                catch (Exception ex) when (attempt < maxAttempts)
+                {
+                    int jitter = random.Next(0, 1000);
+                    Console.WriteLine($"Retry {attempt}/{maxAttempts} failed: {ex.Message}. Retrying in {delay.TotalSeconds + jitter / 1000.0}s...");
+                    await Task.Delay(delay + TimeSpan.FromMilliseconds(jitter));
+                    delay *= 2;
+                }
+            }
+
+            return await operation();
         }
     }
 }

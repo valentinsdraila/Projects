@@ -89,19 +89,28 @@ const ProductPage = () => {
   };
 
   const renderStars = (rating, clickable = false, onClick = () => {}) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <i
-          key={i}
-          className={`bi ${i <= rating ? "bi-star-fill text-warning" : "bi-star text-secondary"} ${clickable ? "cursor-pointer" : ""}`}
-          style={{ cursor: clickable ? "pointer" : "default", fontSize: "1.25rem" }}
-          onClick={() => clickable && onClick(i)}
-        />
-      );
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    let starClass = "bi-star";
+
+    if (i <= Math.floor(rating)) {
+      starClass = "bi-star-fill"; 
+    } else if (i - rating <= 0.5) {
+      starClass = "bi-star-half";
     }
-    return stars;
-  };
+
+    stars.push(
+      <i
+        key={i}
+        className={`bi ${starClass} ${starClass !== "bi-star" ? "text-warning" : "text-secondary"} ${clickable ? "cursor-pointer" : ""}`}
+        style={{ cursor: clickable ? "pointer" : "default", fontSize: "1.25rem" }}
+        onClick={() => clickable && onClick(i)}
+      />
+    );
+  }
+  return stars;
+};
+
 
   if (!product) return <div>Loading...</div>;
 
@@ -134,6 +143,7 @@ const ProductPage = () => {
 
       <div className="mb-3 d-flex align-items-center">
         <div>{renderStars(product.rating.averageRating)}</div>
+        <div className="ms-2">{product.rating.averageRating}</div>
         <div className="ms-2">({product.rating.totalReviews} reviews)</div>
       </div>
 

@@ -76,6 +76,13 @@ const SearchPage = () => {
     return "text-danger";
   };
 
+  const getStockIcon = (stock) => {
+  if (stock > 10) return "bi-check-circle";
+  if (stock > 0) return "bi-exclamation-triangle";
+  return "bi-x-circle";
+};
+
+
   return (
     <div className="container mt-4">
       <div className="row mt-4">
@@ -206,7 +213,8 @@ const SearchPage = () => {
                   <p className="card-text">
                     <strong>${product.unitPrice?.toFixed(2)}</strong>
                   </p>
-                  <p className={`fw-semibold ${getStockClass(product.quantity)}`}>
+                  <p className={`fw-semibold d-flex align-items-center ${getStockClass(product.quantity)}`}>
+                    <i class={`bi ${getStockIcon(product.quantity)} me-2`}></i>
                     {getStockMessage(product.quantity)}
                   </p>
                   <p>{product.rating.averageRating}/5({product.rating.totalReviews})</p>
