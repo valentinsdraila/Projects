@@ -61,5 +61,10 @@ namespace ProductService.DataLayer
         /// </summary>
         /// <returns></returns>
         Task<List<string>> GetCategories();
+        /// <summary>
+        /// Gets the newest.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Product>> GetNewest(int numberOfProducts);
     }
 }

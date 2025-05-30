@@ -9,8 +9,9 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <param name="cartItem">The cart item.</param>
         /// <returns>The product dto.</returns>
-        public static CartItemDto CreateProductDto(CartItem cartItem)
+        public static CartItemDto CreateCartItemDto(CartItem cartItem)
         {
+            
             return new CartItemDto
             {
                 Id = cartItem.ProductId,

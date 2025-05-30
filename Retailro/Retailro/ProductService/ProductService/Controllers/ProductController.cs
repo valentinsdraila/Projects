@@ -160,6 +160,19 @@ namespace ProductService.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
+        [HttpGet("newest")]
+        public async Task<IActionResult> GetNewestProducts()
+        {
+            try
+            {
+                var newest = await _productService.GetNewest();
+                return Ok(new { newest });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
 
+        }
     }
 }

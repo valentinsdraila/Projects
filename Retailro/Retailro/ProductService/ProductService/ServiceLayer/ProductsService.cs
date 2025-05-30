@@ -151,5 +151,24 @@ namespace ProductService.ServiceLayer
         {
             await this._productRepository.Update(product);
         }
+        public async Task<List<ProductDto>> GetNewest(int numberOfProducts = 4)
+        {
+            var products = await this._productRepository.GetNewest(numberOfProducts);
+                
+            return products.Select(p => new ProductDto()
+            {
+                Description = p.Description,
+                Id = p.Id,
+                Image = p.Image,
+                Name = p.Name,
+                Quantity = p.Quantity,
+                UnitPrice = p.UnitPrice,
+                Rating = new ProductRatingDto
+                {
+                    AverageRating = p.Rating.AverageRating,
+                    TotalReviews = p.Rating.TotalReviews
+                }
+            }).ToList(); ;
+        }
     }
 }

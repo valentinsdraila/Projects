@@ -48,7 +48,7 @@ namespace ProductService.ServiceLayer
         public async Task<Cart?> GetCartByUserId(Guid userId)
         {
             var cart = await cartRepository.GetByUserId(userId);
-            if(cart == null)
+            if (cart == null)
                 cart = new Cart();
             return cart;
         }
@@ -64,11 +64,8 @@ namespace ProductService.ServiceLayer
                 Cart cart = await cartRepository.GetByUserId(userId);
                 if (cart == null)
                 {
-                    if(cart == null)
-    {
-                        cart = new Cart { Id = Guid.NewGuid(), UserId = userId, Products = new List<CartItem>() };
-                        await cartRepository.Add(cart);
-                    }
+                    cart = new Cart { Id = Guid.NewGuid(), UserId = userId, Products = new List<CartItem>() };
+                    await cartRepository.Add(cart);
                 }
 
                 if (cart.Products == null)
@@ -84,6 +81,8 @@ namespace ProductService.ServiceLayer
                 }
                 var cartItem = ProductsFactory.CreateCartItem(product);
                 cart.Products.Add(cartItem);
+                Console.WriteLine(cartItem.ProductId + " :CartItem.ProductId");
+                Console.WriteLine(cart.Products[0].ProductId + " :Cart.Products[0].ProductId");
                 await cartRepository.Update(cart);
             }
             catch (Exception ex)
@@ -96,15 +95,15 @@ namespace ProductService.ServiceLayer
         {
             var cart = await cartRepository.GetByUserId(userId);
             if (cart.Products == null)
-                cart.Products=new List<CartItem>();
-            List<CartItemDto> productDtos = cart.Products.Select(p => ProductsFactory.CreateProductDto(p)).ToList();
+                cart.Products = new List<CartItem>();
+            List<CartItemDto> productDtos = cart.Products.Select(p => ProductsFactory.CreateCartItemDto(p)).ToList();
             return productDtos;
         }
 
         public async Task RemoveProductFromCart(Guid productId, Guid userId)
         {
             var cart = await cartRepository.GetByUserId(userId);
-            cart.Products.RemoveAll(p=>p.ProductId == productId);
+            cart.Products.RemoveAll(p => p.ProductId == productId);
             await cartRepository.Update(cart);
         }
 

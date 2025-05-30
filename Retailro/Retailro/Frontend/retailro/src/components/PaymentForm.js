@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import dropin from "braintree-web-drop-in";
 
 function PaymentForm({ amount, orderId }) {
   const [dropinInstance, setDropinInstance] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let instance;
@@ -45,6 +47,8 @@ function PaymentForm({ amount, orderId }) {
                     .then((result) => {
                       alert("Payment successful!");
                     })
+                    .then(() => navigate("/home"))
+                    
                     .catch(console.error);
                 });
               });

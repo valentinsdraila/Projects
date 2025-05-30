@@ -123,5 +123,13 @@ namespace ProductService.DataLayer
             this.context.Entry<Product>(product).State = EntityState.Modified;
             await this.SaveChangesAsync();
         }
+        public async Task<List<Product>> GetNewest(int numberOfProducts)
+        {
+            return await context.Set<Product>()
+                .OrderByDescending(p => p.CreatedAt)
+                .Take(numberOfProducts)
+                .Include(p => p.Rating)
+                .ToListAsync();
+        }
     }
 }

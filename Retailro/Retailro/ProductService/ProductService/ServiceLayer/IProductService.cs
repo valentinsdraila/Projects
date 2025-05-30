@@ -56,5 +56,11 @@ namespace ProductService.ServiceLayer
         /// </summary>
         /// <returns></returns>
         Task<List<string>> GetCategories();
+        /// <summary>
+        /// Gets the newest products.
+        /// </summary>
+        /// <param name="numberOfProducts">The number of products.</param>
+        /// <returns></returns>
+        Task<List<ProductDto>> GetNewest(int numberOfProducts = 4);
     }
 }

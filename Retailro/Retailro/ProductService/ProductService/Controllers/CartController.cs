@@ -53,7 +53,7 @@ namespace ProductService.Controllers
         /// <param name="productId">The product identifier.</param>
         /// <returns></returns>
         [HttpPost("products/{productId}")]
-        public async Task<ActionResult> AddProductToCart(Guid productId)
+        public async Task<IActionResult> AddProductToCart(Guid productId)
         {
             try
             {
