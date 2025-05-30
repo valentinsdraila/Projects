@@ -46,5 +46,15 @@ namespace ProductService.ServiceLayer
         /// <param name="query">The query.</param>
         /// <returns></returns>
         Task<List<ProductDto>> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice, string sort);
+        /// <summary>
+        /// Gets the brands.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> GetBrands();
+        /// <summary>
+        /// Gets the categories.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> GetCategories();
     }
 }

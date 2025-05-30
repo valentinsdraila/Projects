@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FuzzySharp;
+using Microsoft.EntityFrameworkCore;
 using ProductService.Model;
 using ProductService.Model.Exceptions;
 using System.Xml.Linq;
@@ -40,12 +41,28 @@ namespace ProductService.DataLayer
             return await context.Set<Product>().ToListAsync();
         }
 
+        public async Task<List<string>> GetBrands()
+        {
+            return await context.Set<Product>()
+                .Select(p => p.Brand)
+                .Distinct()
+                .ToListAsync();
+        }
+
         public async Task<Product?> GetById(Guid id)
         {
             return await context.Set<Product>()
                 .Include(p => p.Reviews)
                 .Include(p => p.Rating)
                 .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<List<string>> GetCategories()
+        {
+            return await context.Set<Product>()
+                .Select(p => p.Category)
+                .Distinct()
+                .ToListAsync();
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -65,12 +82,32 @@ namespace ProductService.DataLayer
         {
             var products = context.Products.AsQueryable();
             if (!string.IsNullOrEmpty(query))
-                products = products.Where(p => p.Name.ToLower().Contains(query) || p.Description.ToLower().Contains(query));
+            {
+                var words = query.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var productList = context.Products.Include(p => p.Rating).ToList();
 
+                products = context.Products
+                    .AsEnumerable()
+                    .Select(p =>
+                    {
+                        var name = p.Name.ToLower();
+                        var matchScores = words.Select(w => Fuzz.PartialRatio(w, name)).ToList();
+                        var avgScore = matchScores.Average();
+                        var strongMatches = matchScores.Count(s => s >= 75);
+
+                        return new { Product = p, AvgScore = avgScore, StrongMatches = strongMatches };
+                    })
+                    .Where(r => r.StrongMatches >= 1 && r.AvgScore >= 50)
+                    .OrderByDescending(r => r.AvgScore)
+                    .Select(r => r.Product)
+                    .AsQueryable();
+
+
+            }
             if (!string.IsNullOrEmpty(category))
                 products = products.Where(p => p.Category.ToLower() == category.ToLower());
 
-            if(!string.IsNullOrEmpty(brand))
+            if (!string.IsNullOrEmpty(brand))
                 products = products.Where(p => p.Brand.ToLower() == brand.ToLower());
 
             if (minPrice.HasValue)

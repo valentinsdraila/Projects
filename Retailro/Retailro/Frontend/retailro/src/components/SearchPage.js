@@ -81,6 +81,28 @@ const SearchPage = () => {
   if (stock > 0) return "bi-exclamation-triangle";
   return "bi-x-circle";
 };
+const renderStars = (rating, clickable = false, onClick = () => {}) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    let starClass = "bi-star";
+
+    if (i <= Math.floor(rating)) {
+      starClass = "bi-star-fill"; 
+    } else if (i - rating <= 0.5) {
+      starClass = "bi-star-half";
+    }
+
+    stars.push(
+      <i
+        key={i}
+        className={`bi ${starClass} ${starClass !== "bi-star" ? "text-warning" : "text-secondary"} ${clickable ? "cursor-pointer" : ""}`}
+        style={{ cursor: clickable ? "pointer" : "default", fontSize: "1.25rem" }}
+        onClick={() => clickable && onClick(i)}
+      />
+    );
+  }
+  return stars;
+};
 
 
   return (
@@ -207,6 +229,7 @@ const SearchPage = () => {
                   src={`https://localhost:7007/images/${product.image}`}
                   alt={product.name}
                   className="img-fluid"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
@@ -217,7 +240,11 @@ const SearchPage = () => {
                     <i class={`bi ${getStockIcon(product.quantity)} me-2`}></i>
                     {getStockMessage(product.quantity)}
                   </p>
-                  <p>{product.rating.averageRating}/5({product.rating.totalReviews})</p>
+                  <div className="mb-3 d-flex align-items-center">
+                    <div>{renderStars(product.rating.averageRating)}</div>
+                    <div className="ms-2">{product.rating.averageRating}</div>
+                    <div className="ms-2">({product.rating.totalReviews} reviews)</div>
+                  </div>
                 </div>
               </div>
             </div>

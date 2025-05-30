@@ -51,5 +51,15 @@ namespace ProductService.DataLayer
         /// <param name="query">The query.</param>
         /// <returns></returns>
         IQueryable<Product> SearchProducts(string query, string category, string brand, decimal? minPrice, decimal? maxPrice);
+        /// <summary>
+        /// Gets the brands.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> GetBrands();
+        /// <summary>
+        /// Gets the categories.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> GetCategories();
     }
 }

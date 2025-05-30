@@ -45,6 +45,8 @@ namespace ProductService.ServiceLayer
                 Quantity = dto.Stock,
                 UnitPrice = dto.Price,
                 Image = imageUrl,
+                Brand = dto.Brand,
+                Category = dto.Category,
                 CreatedAt = DateTime.UtcNow
             };
             await this._productRepository.Add(product);
@@ -64,6 +66,16 @@ namespace ProductService.ServiceLayer
         public async Task<List<Product>> GetAllProducts()
         {
             return await this._productRepository.GetAll();
+        }
+
+        public async Task<List<string>> GetBrands()
+        {
+            return await _productRepository.GetBrands();
+        }
+
+        public async Task<List<string>> GetCategories()
+        {
+            return await _productRepository.GetCategories();
         }
 
         public async Task<ProductDto> GetProduct(Guid productId)
@@ -104,7 +116,7 @@ namespace ProductService.ServiceLayer
             query = query.ToLower();
             var products = _productRepository.SearchProducts(query, category, brand, minPrice, maxPrice);
 
-            var productsList = await products.ToListAsync();
+            var productsList = products.ToList();
             var productIds = productsList.Select(p => p.Id).ToList();
             var numberOfReviewsList = await _ratingRepository.GetNumberOfReviews(productIds);
 

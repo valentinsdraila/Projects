@@ -94,6 +94,16 @@ namespace ProductService.Controllers
             await this._productService.DeleteProductById(id);
             return NoContent();
         }
+        /// <summary>
+        /// Searches the products.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="minPrice">The minimum price.</param>
+        /// <param name="maxPrice">The maximum price.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="brand">The brand.</param>
+        /// <param name="sort">The sort.</param>
+        /// <returns></returns>
         [HttpGet("search")]
         public async Task<IActionResult> SearchProducts(
             string query,
@@ -114,6 +124,40 @@ namespace ProductService.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { message = "Error while fetching the products!", error = ex.Message });
+            }
+        }
+        /// <summary>
+        /// Gets the brands.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetBrands()
+        {
+            try
+            {
+                var brands = await _productService.GetBrands();
+                return Ok(new { brands });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        /// <summary>
+        /// Gets the categories.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            try
+            {
+                var categories = await _productService.GetCategories();
+                return Ok(new { categories });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
             }
         }
 
