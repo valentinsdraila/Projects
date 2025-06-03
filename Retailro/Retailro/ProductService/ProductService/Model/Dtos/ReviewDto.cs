@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductService.Model
+namespace ProductService.Model.Dtos
 {
     public class ReviewDto
     {

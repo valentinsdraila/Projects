@@ -1,4 +1,5 @@
 ﻿using ProductService.Model;
+using ProductService.Model.Dtos;
 
 namespace ProductService.ServiceLayer
 {
@@ -62,5 +63,11 @@ namespace ProductService.ServiceLayer
         /// <param name="numberOfProducts">The number of products.</param>
         /// <returns></returns>
         Task<List<ProductDto>> GetNewest(int numberOfProducts = 4);
+        /// <summary>
+        /// Gets the recommended.
+        /// </summary>
+        /// <param name="productIds">The product ids.</param>
+        /// <returns></returns>
+        Task<List<ProductDto>> GetRecommended(List<Guid> productIds);
     }
 }

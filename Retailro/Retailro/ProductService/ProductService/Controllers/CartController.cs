@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Model;
+using ProductService.Model.Dtos;
 using ProductService.ServiceLayer;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,10 +19,12 @@ namespace ProductService.Controllers
     {
         private readonly ICartService _cartService;
         private readonly IProductService _productService;
-        public CartController(ICartService cartService, IProductService productService)
+        private readonly RabbitMQPublisher _rabbitMQPublisher;
+        public CartController(ICartService cartService, IProductService productService, RabbitMQPublisher rabbitMQPublisher)
         {
             this._cartService = cartService;
             this._productService = productService;
+            _rabbitMQPublisher = rabbitMQPublisher;
         }
         /// <summary>
         /// Gets all products in cart.
@@ -65,6 +68,7 @@ namespace ProductService.Controllers
 
                 Guid userIdGuid = Guid.Parse(userId);
                 await _cartService.AddItemToCart(productId, userIdGuid, _productService);
+                await _rabbitMQPublisher.SendUserInteraction(new UserInteractionMessage { UserId = userIdGuid, ProductId = productId, Action = InteractionType.AddToCart });
                 return Ok(new { status = "success", message = "The product has been added to the cart." });
             }
             catch (Exception ex)

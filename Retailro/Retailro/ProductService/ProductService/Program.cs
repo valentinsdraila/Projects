@@ -18,8 +18,10 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddHostedService<StockUpdateConsumer>();
+builder.Services.AddSingleton<RabbitMQPublisher>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
 
 var jwtSecret = builder.Configuration["JWT_SECRET"];
 var jwtIssuer = builder.Configuration["JWT_ISSUER"];
@@ -42,6 +44,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.WebHost.UseWebRoot("wwwroot");
 
 var app = builder.Build();
+
+var publisher = app.Services.GetRequiredService<RabbitMQPublisher>();
+await publisher.InitializeAsync();
 
 if (app.Environment.IsDevelopment())
 {

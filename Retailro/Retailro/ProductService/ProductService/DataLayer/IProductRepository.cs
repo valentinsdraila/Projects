@@ -66,5 +66,11 @@ namespace ProductService.DataLayer
         /// </summary>
         /// <returns></returns>
         Task<List<Product>> GetNewest(int numberOfProducts);
+        /// <summary>
+        /// Gets the recommended products.
+        /// </summary>
+        /// <param name="productIds">The product ids.</param>
+        /// <returns></returns>
+        Task<List<Product>> GetRecommended(List<Guid> productIds);
     }
 }

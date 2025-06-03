@@ -1,4 +1,4 @@
-﻿namespace ProductService.Model
+﻿namespace ProductService.Model.Dtos
 {
     public class DisplayReviewDto
     {

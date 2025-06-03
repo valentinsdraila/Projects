@@ -211,6 +211,27 @@
       ],
       "UpstreamPathTemplate": "/images/{file}",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/recommendations",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "recommendationservice",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/api/recommendations",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "AddHeadersToRequest": {
+        "x-user-id": "{UserId}"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "CorsPolicy": "AllowSpecificOrigin"
+
     }
   ],
   "GlobalConfiguration": {

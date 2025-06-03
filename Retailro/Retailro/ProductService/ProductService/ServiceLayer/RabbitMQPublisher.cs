@@ -1,10 +1,9 @@
-﻿using PaymentService.Model.Messages;
-using RabbitMQ.Client;
-using System.Text;
+﻿using RabbitMQ.Client;
 using System.Text.Json;
-using System.Threading.Channels;
+using System.Text;
+using ProductService.Model;
 
-namespace PaymentService.Services
+namespace ProductService.ServiceLayer
 {
     /// <summary>
     /// Contains methods for publishing messages through the RabbitMQ amqp.
@@ -19,36 +18,14 @@ namespace PaymentService.Services
             var factory = new ConnectionFactory { HostName = "rabbitmq", Port = 5672 };
             _connection = await RetryAsync(() => factory.CreateConnectionAsync());
             _channel = await _connection.CreateChannelAsync();
-            await _channel.QueueDeclareAsync(queue: "payment_update", durable: true, exclusive: false, autoDelete: false, arguments: null);
             await _channel.QueueDeclareAsync(queue: "product_user_interaction", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
         }
 
         /// <summary>
-        /// Sends the payment status update message to OrderService.
+        /// Sends the user interaction message to RecommendationService.
         /// </summary>
-        /// <param name="paymentStatusUpdateMessage">The order stock update message.</param>
-        
-        public async Task SendPaymentStatus(PaymentStatusUpdateMessage paymentStatusUpdateMessage)
-        {
-            var json = JsonSerializer.Serialize(paymentStatusUpdateMessage);
-            var body = Encoding.UTF8.GetBytes(json);
-
-            await _channel.BasicPublishAsync(exchange: string.Empty,
-                                      routingKey: "payment_update",
-                                      body: body);
-            Console.WriteLine($"[PaymentService] Sent payment status update for the Order {paymentStatusUpdateMessage.Id}");
-        }
-
-        public async Task SendStockRollback(StockRollbackMessage stockRollbackMessage)
-        {
-            var json = JsonSerializer.Serialize(stockRollbackMessage);
-            var body = Encoding.UTF8.GetBytes(json);
-
-            await _channel.BasicPublishAsync(exchange: string.Empty,
-                                      routingKey: "stock_rollback",
-                                      body: body);
-            Console.WriteLine($"[PaymentService] Sent stock rollback for the Order {stockRollbackMessage.OrderId}");
-        }
+        /// <param name="userInteractionMessage">The order stock update message.</param>
 
         public async Task SendUserInteraction(UserInteractionMessage userInteractionMessage)
         {
@@ -58,7 +35,8 @@ namespace PaymentService.Services
             await _channel.BasicPublishAsync(exchange: string.Empty,
                                       routingKey: "product_user_interaction",
                                       body: body);
-            Console.WriteLine($"[PaymentService] Sent user interaction message. User:{userInteractionMessage.UserId}, Product:{userInteractionMessage.ProductId}, Action: Paid");
+            Console.WriteLine($"[ProductService] Sent user interaction message. User:{userInteractionMessage.UserId}, Product:{userInteractionMessage.ProductId}, Action:{userInteractionMessage.Action}");
+
         }
 
         public async ValueTask DisposeAsync()

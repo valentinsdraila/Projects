@@ -1,4 +1,4 @@
-﻿namespace ProductService.Model
+﻿namespace ProductService.Model.Dtos
 {
     /// <summary>
     /// Data transfer object used for displaying products for the user.

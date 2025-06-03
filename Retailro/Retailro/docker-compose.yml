@@ -123,6 +123,27 @@ services:
     networks:
       - app-network
 
+  recommendationservice:
+    build:
+      context: ./RecommendationService
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=recommendationdb;Database=RecommendationsDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+    depends_on:
+      - recommendationdb
+      - rabbitmq
+    networks:
+      - app-network
+
+  recommendationdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1437:1433"
+    networks:
+      - app-network
+
   redis:
     image: redis:alpine
     networks:

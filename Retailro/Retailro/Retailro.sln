@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "UserService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentService\PaymentService.csproj", "{FCE8296C-B7F1-4A98-8992-393539D8EFAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecommendationService", "RecommendationService\RecommendationService.csproj", "{C7400E73-2127-4151-B79B-823CD3C8E6C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FCE8296C-B7F1-4A98-8992-393539D8EFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCE8296C-B7F1-4A98-8992-393539D8EFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCE8296C-B7F1-4A98-8992-393539D8EFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

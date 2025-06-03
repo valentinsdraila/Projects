@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Model;
+using ProductService.Model.Dtos;
 using ProductService.ServiceLayer;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
@@ -18,9 +19,11 @@ namespace ProductService.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly RabbitMQPublisher _rabbitMQPublisher;
+        public ProductController(IProductService productService, RabbitMQPublisher rabbitMQPublisher)
         {
             this._productService = productService;
+            this._rabbitMQPublisher = rabbitMQPublisher;
         }
         /// <summary>
         /// Gets all products.
@@ -49,11 +52,19 @@ namespace ProductService.Controllers
         {
             try
             {
+                var userId = Request.Headers["x-user-id"].FirstOrDefault();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized(new { message = "User ID not found in request." });
+                }
+                Guid userIdGuid = Guid.Parse(userId);
+
                 var product = await _productService.GetProduct(id);
                 if (product == null)
                 {
                     return NotFound();
                 }
+                await _rabbitMQPublisher.SendUserInteraction(new UserInteractionMessage { UserId = userIdGuid, ProductId = id, Action = InteractionType.View });
                 return Ok(product);
             }
             catch (Exception ex) {
@@ -173,6 +184,19 @@ namespace ProductService.Controllers
                 return BadRequest(new { error = ex.Message });
             }
 
+        }
+        [HttpGet("recommended")]
+        public async Task<IActionResult> GetRecommendedProducts([FromQuery(Name = "ids")] List<Guid> productIds)
+        {
+            try
+            {
+                var recommended = await _productService.GetRecommended(productIds);
+                return Ok(new { recommended });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

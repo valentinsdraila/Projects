@@ -131,5 +131,12 @@ namespace ProductService.DataLayer
                 .Include(p => p.Rating)
                 .ToListAsync();
         }
+        public async Task<List<Product>> GetRecommended(List<Guid> productIds)
+        {
+            return await context.Set<Product>()
+                .Where(p => productIds.Contains(p.Id))
+                .Include(p => p.Rating)
+                .ToListAsync();
+        }
     }
 }

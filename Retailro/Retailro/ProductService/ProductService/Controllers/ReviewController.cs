@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductService.Model;
+using ProductService.Model.Dtos;
 using ProductService.ServiceLayer;
 using System.Data;
 using System.Security.Claims;

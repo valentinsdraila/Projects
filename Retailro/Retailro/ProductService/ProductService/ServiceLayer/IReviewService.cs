@@ -1,4 +1,5 @@
 ﻿using ProductService.Model;
+using ProductService.Model.Dtos;
 
 namespace ProductService.ServiceLayer
 {

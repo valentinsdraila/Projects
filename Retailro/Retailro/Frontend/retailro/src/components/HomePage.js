@@ -3,20 +3,47 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://localhost:7007/api/products/newest", {
-      method: "GET",
-      credentials: "include"
+
+  fetch("https://localhost:7007/api/products/newest", {
+    method: "GET",
+    credentials: "include"
+  })
+    .then(response => {
+      if (!response.ok) throw new Error("Failed to fetch products");
+      return response.json();
     })
-      .then(response => {
-        if (!response.ok) throw new Error("Failed to fetch products");
-        return response.json();
-      })
-      .then(data => setProducts(data.newest))
-      .catch(error => console.error(error));
-  }, []);
+    .then(data => setProducts(data.newest))
+    .catch(error => console.error(error));
+
+  fetch("https://localhost:7007/api/recommendations", {
+    method: "GET",
+    credentials: "include"
+  })
+    .then(response => {
+      if (!response.ok) throw new Error("Failed to fetch recommended product ids");
+      return response.json();
+    })
+    .then(data => {
+      const query = data.map(product => `ids=${product.id}`).join("&");
+
+      return fetch(`https://localhost:7007/api/products/recommended?${query}`, {
+        credentials: "include",
+        method: "GET"
+      });
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("Failed to fetch recommended products");
+      return response.json();
+    })
+    .then(data => setRecommendedProducts(data.recommended))
+    .catch(error => console.error(error));
+
+}, []);
+
 
   const getStockMessage = (stock) => {
   if (stock > 10) return "In stock";
@@ -98,6 +125,37 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
       </div>
       <div className="row mt-4">
         <h3 className="shadow-sm bg-light rounded px-3 py-2 mb-3 border-start border-5 border-secondary">Recommended for You</h3>
+        {recommendedProducts.map(product => (
+          <div key={product.id} className="col-12 col-sm-6 col-md-3 mb-4">
+              <div
+                className="card h-100"
+                onClick={() => navigate(`/products/${product.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  src={`https://localhost:7007/images/${product.image}`}
+                  alt={product.name}
+                  className="img-fluid"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">
+                    <strong>${product.unitPrice?.toFixed(2)}</strong>
+                  </p>
+                  <p className={`fw-semibold d-flex align-items-center ${getStockClass(product.quantity)}`}>
+                    <i className={`bi ${getStockIcon(product.quantity)} me-2`}></i>
+                    {getStockMessage(product.quantity)}
+                  </p>
+                  <div className="mb-3 d-flex align-items-center">
+                    <div>{renderStars(product.rating.averageRating)}</div>
+                    <div className="ms-2">{product.rating.averageRating}</div>
+                    <div className="ms-2">({product.rating.totalReviews} reviews)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        ))}
       </div>
     </div>
   );
