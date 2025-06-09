@@ -23,9 +23,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 
-var jwtSecret = builder.Configuration["JWT_SECRET"];
-var jwtIssuer = builder.Configuration["JWT_ISSUER"];
-var jwtAudience = builder.Configuration["JWT_AUDIENCE"];
+var jwtSecret = builder.Configuration["JwtSettings:Secret"];
+var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
+var jwtAudience = builder.Configuration["JwtSettings:Audience"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Bearer", options =>

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigateway
+  namespace: retailro
+  labels:
+    app: apigateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apigateway
+  template:
+    metadata:
+      labels:
+        app: apigateway
+    spec:
+      containers:
+        - name: apigateway
+          image: valentinsdraila/retailro-apigateway:latest
+          ports:
+            - containerPort: 443
+          envFrom:
+            - secretRef:
+                name: app-secrets
+          env:
+            - name: ASPNETCORE_Kestrel__Endpoints__Https__Url
+              value: "https://+:443"
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+              value: "/https/aspnetapp.pfx"
+            - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: CERT_PASSWORD
+          volumeMounts:
+            - name: https-cert-volume
+              mountPath: /https
+              readOnly: true
+      volumes:
+        - name: https-cert-volume
+          secret:
+            secretName: https-cert-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigateway
+  namespace: retailro
+spec:
+  selector:
+    app: apigateway
+  type: LoadBalancer
+  ports:
+    - name: https
+      port: 443
+      targetPort: 443

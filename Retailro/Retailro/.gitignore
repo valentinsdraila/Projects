@@ -6,6 +6,8 @@
 # dotenv files
 .env
 
+k8s/secrets.yaml
+
 # User-specific files
 *.rsuser
 *.suo
@@ -483,3 +485,4 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 *.cer
+

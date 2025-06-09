@@ -20,9 +20,10 @@ namespace RecommendationService.ServiceLayer
 
         public async Task<IDataView> PrepareTrainingData()
         {
+
             using (var scope = serviceProvider.CreateScope())
             {
-                var userInteractionRepository = serviceProvider.GetRequiredService<IUserInteractionRepository>();
+                var userInteractionRepository = scope.ServiceProvider.GetRequiredService<IUserInteractionRepository>();
                 var entities = await userInteractionRepository.GetAll();
                 var interactions = Mapper.MapToTrainerInput(entities);
                 return _mlContext.Data.LoadFromEnumerable(interactions);

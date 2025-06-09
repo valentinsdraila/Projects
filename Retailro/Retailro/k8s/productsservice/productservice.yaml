@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservice
+  namespace: retailro
+  labels:
+    app: productservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productservice
+  template:
+    metadata:
+      labels:
+        app: productservice
+    spec:
+      containers:
+        - name: productservice
+          image: valentinsdraila/retailro-productservice:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: product-images
+              mountPath: /app/wwwroot/images
+          env:
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SA_PASSWORD
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=productdb;Database=ProductsDatabase;User=sa;Password=$(SA_PASSWORD);Encrypt=True;TrustServerCertificate=True"
+            - name: JwtSettings__Secret
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_SECRET
+            - name: JwtSettings__Issuer
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_ISSUER
+            - name: JwtSettings__Audience
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_AUDIENCE
+            - name: JwtSettings__ExpiryMinutes
+              value: "60"
+      volumes:
+        - name: product-images
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productservice
+  namespace: retailro
+spec:
+  selector:
+    app: productservice
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000 
+  type: ClusterIP
+

@@ -108,7 +108,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "productsservice",
+          "Host": "productservice",
           "Port": 5000
         }
       ],
@@ -125,7 +125,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "productsservice",
+          "Host": "productservice",
           "Port": 5000
         }
       ],
@@ -142,7 +142,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "productsservice",
+          "Host": "productservice",
           "Port": 5000
         }
       ],
@@ -205,7 +205,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "productsservice",
+          "Host": "productservice",
           "Port": 5000
         }
       ],

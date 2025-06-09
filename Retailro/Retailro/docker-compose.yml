@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   apigateway:
     build:
@@ -20,7 +18,7 @@ services:
     depends_on:
       - userservice
       - orderservice
-      - productsservice
+      - productservice
       - paymentservice
     networks:
       - app-network
@@ -70,23 +68,23 @@ services:
     networks:
       - app-network
 
-  productsservice:
+  productservice:
     build:
       context: ./ProductService/ProductService
     environment:
-      - ConnectionStrings__DefaultConnection=Server=productsdb;Database=ProductsDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
-      - JWT_SECRET=${JWT_SECRET}
-      - JWT_ISSUER=${JWT_ISSUER}
-      - JWT_AUDIENCE=${JWT_AUDIENCE}
+      - ConnectionStrings__DefaultConnection=Server=productdb;Database=ProductsDatabase;User=sa;Password=${SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+      - JwtSettings__Secret=${JWT_SECRET}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
     depends_on:
-      - productsdb
+      - productdb
       - rabbitmq
     volumes:
       - ./ProductService/wwwroot/images:/app/wwwroot/images
     networks:
       - app-network
 
-  productsdb:
+  productdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       SA_PASSWORD: ${SA_PASSWORD}

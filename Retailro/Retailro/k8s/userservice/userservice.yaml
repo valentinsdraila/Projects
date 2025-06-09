@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+  namespace: retailro
+  labels:
+    app: userservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      containers:
+        - name: userservice
+          image: valentinsdraila/retailro-userservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SA_PASSWORD
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=userdb;Database=UsersDatabase;User=sa;Password=$(SA_PASSWORD);Encrypt=True;TrustServerCertificate=True"
+            - name: JwtSettings__Secret
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_SECRET
+            - name: JwtSettings__Issuer
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_ISSUER
+            - name: JwtSettings__Audience
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_AUDIENCE
+            - name: JwtSettings__ExpiryMinutes
+              value: "60"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice
+  namespace: retailro
+spec:
+  selector:
+    app: userservice
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000 
+  type: ClusterIP
+

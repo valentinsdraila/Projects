@@ -171,6 +171,10 @@ namespace ProductService.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
+        /// <summary>
+        /// Gets the newest products.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("newest")]
         public async Task<IActionResult> GetNewestProducts()
         {
@@ -185,6 +189,11 @@ namespace ProductService.Controllers
             }
 
         }
+        /// <summary>
+        /// Gets the recommended products.
+        /// </summary>
+        /// <param name="productIds">The product ids.</param>
+        /// <returns></returns>
         [HttpGet("recommended")]
         public async Task<IActionResult> GetRecommendedProducts([FromQuery(Name = "ids")] List<Guid> productIds)
         {

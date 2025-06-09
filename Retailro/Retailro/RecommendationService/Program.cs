@@ -27,17 +27,32 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-
-var manager = app.Services.GetRequiredService<ModelManager>();
-await manager.TrainAndSaveModelAsync();
-
-manager.LoadModel();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+var manager = app.Services.GetRequiredService<ModelManager>();
+
+var delay = TimeSpan.FromSeconds(5);
+var numberOfTries = 0;
+while (numberOfTries < 3)
+{
+    try
+    {
+        await manager.TrainAndSaveModelAsync();
+        manager.LoadModel();
+        break;
+    }
+    catch (Exception ex)
+    {
+        numberOfTries++;
+        Console.WriteLine($"{ex.Message}. Retrying to train the model in {delay} seconds");
+        await Task.Delay(delay);
+        delay *= 2;
+    }
+}
 
 app.Run();
