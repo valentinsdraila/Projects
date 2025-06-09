@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentservice
+  namespace: retailro
+  labels:
+    app: paymentservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentservice
+  template:
+    metadata:
+      labels:
+        app: paymentservice
+    spec:
+      containers:
+        - name: paymentservice
+          image: valentinsdraila/retailro-paymentservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SA_PASSWORD
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=paymentdb;Database=PaymentsDatabase;User=sa;Password=$(SA_PASSWORD);Encrypt=True;TrustServerCertificate=True"
+            - name: Braintree__Environment
+              valueFrom: 
+                secretKeyRef:
+                  name: app-secrets
+                  key: BRAINTREE_ENVIRONMENT
+            - name: Braintree__MerchantId
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: BRAINTREE_MERCHANT_ID
+            - name: Braintree__PublicKey
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: BRAINTREE_PUBLIC_KEY
+            - name: Braintree__PrivateKey
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: BRAINTREE_PRIVATE_KEY
+            - name: Redis__ConnectionString
+              value: redis:6379
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paymentservice
+  namespace: retailro
+spec:
+  selector:
+    app: paymentservice
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000 
+  type: ClusterIP
+

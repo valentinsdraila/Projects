@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendationservice
+  namespace: retailro
+  labels:
+    app: recommendationservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendationservice
+  template:
+    metadata:
+      labels:
+        app: recommendationservice
+    spec:
+      containers:
+        - name: recommendationservice
+          image: valentinsdraila/retailro-recommendationservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SA_PASSWORD
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=recommendationdb;Database=RecommendationsDatabase;User=sa;Password=$(SA_PASSWORD);Encrypt=True;TrustServerCertificate=True"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendationservice
+  namespace: retailro
+spec:
+  selector:
+    app: recommendationservice
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000 
+  type: ClusterIP
+

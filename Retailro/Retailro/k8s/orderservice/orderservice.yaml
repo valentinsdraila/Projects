@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderservice
+  namespace: retailro
+  labels:
+    app: orderservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orderservice
+  template:
+    metadata:
+      labels:
+        app: orderservice
+    spec:
+      containers:
+        - name: orderservice
+          image: valentinsdraila/retailro-orderservice:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SA_PASSWORD
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=orderdb;Database=OrdersDatabase;User=sa;Password=$(SA_PASSWORD);Encrypt=True;TrustServerCertificate=True"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderservice
+  namespace: retailro
+spec:
+  selector:
+    app: orderservice
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000 
+  type: ClusterIP
+

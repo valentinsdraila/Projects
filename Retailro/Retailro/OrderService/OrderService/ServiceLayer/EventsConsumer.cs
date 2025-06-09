@@ -36,6 +36,7 @@ namespace OrderService.ServiceLayer
             await channel.ExchangeDeclareAsync("stock_confirmation_exchange", ExchangeType.Fanout);
 
             await channel.QueueDeclareAsync(queue: "order_stock_confirmation", durable: true, exclusive: false, autoDelete: false, arguments: null);
+            await channel.QueueDeclareAsync(queue: "payment_update", durable: true, exclusive: false, autoDelete: false, arguments: null);
             await channel.QueueBindAsync("order_stock_confirmation", "stock_confirmation_exchange", routingKey: string.Empty);
 
             var stockConfirmationConsumer = new AsyncEventingBasicConsumer(channel);
