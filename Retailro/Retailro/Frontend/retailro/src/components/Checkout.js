@@ -6,13 +6,23 @@ export default function Checkout() {
   const { orderId, amount } = state || {};
 
   if (!orderId || !amount) {
-    return <p>Error: Missing payment info</p>;
+    return <div className="container mt-5 text-danger">Error: Missing payment info</div>;
   }
 
   return (
-    <div>
-      <h2>Checkout</h2>
-      <PaymentForm amount={amount} orderId={orderId} />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8 col-lg-6">
+          <div className="card shadow-sm border-0">
+            <div className="card-header bg-primary text-white">
+              <h4 className="mb-0">Checkout</h4>
+            </div>
+            <div className="card-body">
+              <PaymentForm amount={amount} orderId={orderId} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

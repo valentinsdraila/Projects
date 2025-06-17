@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import regions from "../data/regions.json";
-import '../styles/AddDeliveryAddress.css';
 
 const AddDeliveryAddress = ({ onClose, onAddressAdded }) => {
   const [fullName, setFullName] = useState("");
@@ -69,68 +68,97 @@ const AddDeliveryAddress = ({ onClose, onAddressAdded }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="close-btn" onClick={onClose}>X</button>
-        <h2>Add Delivery Address</h2>
+    <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Add Delivery Address</h5>
+            <button type="button" className="btn-close" onClick={onClose}></button>
+          </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+          <div className="modal-body">
+            {error && <div className="alert alert-danger">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder="Full name"
-          />
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Full Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Name"
+                />
+              </div>
 
-          <label>Address:</label>
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Street and house number"
-          />
+              <div className="mb-3">
+                <label className="form-label">Address</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Street and house number"
+                />
+              </div>
 
-          <label>County:</label>
-          <select
-            value={selectedCounty}
-            onChange={(e) => setSelectedCounty(e.target.value)}
-          >
-            <option value="">Select county</option>
-            {counties.map((county) => (
-              <option key={county} value={county}>
-                {county}
-              </option>
-            ))}
-          </select>
+              <div className="mb-3">
+                <label className="form-label">County</label>
+                <select
+                  className="form-select"
+                  value={selectedCounty}
+                  onChange={(e) => setSelectedCounty(e.target.value)}
+                >
+                  <option value="">Select county</option>
+                  {counties.map((county) => (
+                    <option key={county} value={county}>
+                      {county}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-          <label>City:</label>
-          <select
-            value={selectedCity}
-            onChange={(e) => {
-              const cityName = e.target.value;
-              setSelectedCity(cityName);
+              <div className="mb-3">
+                <label className="form-label">City</label>
+                <select
+                  className="form-select"
+                  value={selectedCity}
+                  onChange={(e) => {
+                    const cityName = e.target.value;
+                    setSelectedCity(cityName);
+                    const cityData = cities.find(city => city.name === cityName);
+                    setZipCode(cityData?.zip ?? "");
+                  }}
+                  disabled={!selectedCounty}
+                >
+                  <option value="">Select city</option>
+                  {cities.map((city) => (
+                    <option key={city.name} value={city.name}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-              const cityData = cities.find(city => city.name === cityName);
-              setZipCode(cityData?.zip ?? "");
-            }}
-            disabled={!selectedCounty}
-          >
-            <option value="">Select city</option>
-            {cities.map((city) => (
-              <option key={city.name} value={city.name}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-
-
-          <button type="submit" className="add-delivery-button" disabled={loading}>
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-        </form>
+              <div className="d-flex justify-content-end">
+                <button
+                  type="button"
+                  className="btn btn-secondary me-2"
+                  onClick={onClose}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={loading}
+                >
+                  {loading ? "Submitting..." : "Submit"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

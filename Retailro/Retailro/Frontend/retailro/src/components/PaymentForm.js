@@ -43,13 +43,23 @@ function PaymentForm({ amount, orderId }) {
                       orderId,
                     }),
                   })
-                    .then((res) => res.json())
-                    .then((result) => {
-                      alert("Payment successful!");
+                    .then((res) => {
+                      if (!res.ok) {
+                        return res.json().then(err => {
+                          throw new Error(err.message || "Payment failed.");
+                        });
+                      }
+                      return res.json();
                     })
-                    .then(() => navigate("/home"))
-                    
-                    .catch(console.error);
+                    .then(() => {
+                      alert("Payment successful!");
+                      navigate("/home");
+                    })
+                    .catch((err) => {
+                      console.error("Payment error:", err);
+                      alert(`${err}`);
+                      navigate("/home");
+                    });
                 });
               });
           }
@@ -64,10 +74,15 @@ function PaymentForm({ amount, orderId }) {
   }, [amount, orderId]);
 
   return (
-    <div>
-      <div id="dropin-container"></div>
-      <button class="btn btn-outline-primary mt-2" id="submit-button">Pay ${amount}</button>
-    </div>
+    <>
+      <div id="dropin-container" className="mb-4"></div>
+      <button
+        className="btn btn-primary w-100"
+        id="submit-button"
+      >
+        Pay ${amount}
+      </button>
+    </>
   );
 }
 

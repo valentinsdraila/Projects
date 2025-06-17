@@ -98,7 +98,6 @@ namespace UserService.Controllers
         [HttpGet("me")]
         public IActionResult GetCurrentUsernameAndRole()
         {
-            // Get the JWT from the HTTP-only cookie
             var token = Request.Cookies["jwt"];
 
             if (string.IsNullOrEmpty(token))
@@ -107,9 +106,8 @@ namespace UserService.Controllers
             }
 
             var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token); // Decode JWT
+            var jwtToken = handler.ReadJwtToken(token); 
 
-            // Retrieve the username using ClaimTypes.Name
             var username = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
             var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 

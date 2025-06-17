@@ -119,7 +119,7 @@ const ProductPage = () => {
       <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>Back</button>
       <div className="row">
         <div className="col-md-6">
-          <img src={`https://localhost:7007/images/${product.image}`} alt={product.name} className="img-fluid" />
+          <img src={`https://localhost:7007/images/${product.image}`} alt={product.name} className="img-fluid" width="70%" height="70%" />
         </div>
         <div className="col-md-6">
           <h2>{product.name}</h2>

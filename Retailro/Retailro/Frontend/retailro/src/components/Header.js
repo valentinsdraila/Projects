@@ -36,20 +36,35 @@ const Header = ({ username, onLogout, onSearch }) => {
         </form>
 
         <div className="dropdown">
-          <button 
-            className="btn btn-secondary dropdown-toggle" 
-            type="button" 
-            id="userDropdown" 
-            data-bs-toggle="dropdown"
+          <button
+            className="btn btn-link text-dark"
+            onClick={() => navigate("/cart")}
+            aria-label="Cart"
+            title="Cart"
           >
-            {username || "Guest"}
+            <i className="bi bi-cart3 fs-4"></i>
           </button>
-          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a className="dropdown-item" href="/cart">Shopping Cart</a></li>
-            <li><a className="dropdown-item" href="/myorders">My Orders</a></li>
-            <li><a className="dropdown-item" href="/profile">Profile</a></li>
-            <li><button className="dropdown-item" onClick={onLogout}>Logout</button></li>
-          </ul>
+
+          <button
+            className="btn btn-link text-dark"
+            onClick={() => navigate("/profile")}
+            aria-label="Profile"
+            title="Profile"
+          >
+            <i className="bi bi-person-circle fs-4"></i>
+          </button>
+
+          <button
+            className="btn btn-link text-dark"
+            onClick={() => {
+              if (onLogout) onLogout();
+              navigate("/login");
+            }}
+            aria-label="Logout"
+            title="Logout"
+          >
+            <i className="bi bi-box-arrow-right fs-4"></i>
+          </button>
         </div>
       </div>
     </header>

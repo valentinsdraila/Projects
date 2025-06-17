@@ -7,7 +7,7 @@ const RegisterPage = () => {
         password: '',
         confirmPassword: '',
         email: '',
-        phone: '',
+        phoneNumber: '',
         firstName: '',
         name: ''
     });
@@ -34,9 +34,9 @@ const RegisterPage = () => {
         newErrors.email = 'Invalid email format.';
     }
 
-    const phoneRegex = /^\+?[0-9]{7,15}$/;
-    if (!phoneRegex.test(formData.phone)) {
-        newErrors.phone = 'Invalid phone number.';
+    const phoneNumberRegex = /^\+?[0-9]{7,15}$/;
+    if (!phoneNumberRegex.test(formData.phoneNumber)) {
+        newErrors.phoneNumber = 'Invalid phoneNumber number.';
     }
 
     if (!formData.firstName.trim()) {
@@ -160,12 +160,12 @@ const RegisterPage = () => {
                     <input
                         type="text"
                         className="form-control"
-                        name="phone"
-                        value={formData.phone}
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
                         onChange={handleChange}
                         required
                     />
-                    {errors.phone && <p className="text-danger">{errors.phone}</p>}
+                    {errors.phoneNumber && <p className="text-danger">{errors.phoneNumber}</p>}
                 </div>
                 <div className="mb-3">
                     <label className="form-label">First Name:</label>

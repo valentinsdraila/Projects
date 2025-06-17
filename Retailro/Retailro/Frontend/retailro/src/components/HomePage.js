@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import '../styles/CardHover.css';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -94,7 +95,7 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
         {products.map(product => (
           <div key={product.id} className="col-12 col-sm-6 col-md-3 mb-4">
               <div
-                className="card h-100"
+                className="card h-100 productcard"
                 onClick={() => navigate(`/products/${product.id}`)}
                 style={{ cursor: "pointer" }}
               >
@@ -102,7 +103,7 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
                   src={`https://localhost:7007/images/${product.image}`}
                   alt={product.name}
                   className="img-fluid"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '50%', objectFit: 'cover' }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
@@ -128,7 +129,7 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
         {recommendedProducts.map(product => (
           <div key={product.id} className="col-12 col-sm-6 col-md-3 mb-4">
               <div
-                className="card h-100"
+                className="card h-100 productcard"
                 onClick={() => navigate(`/products/${product.id}`)}
                 style={{ cursor: "pointer" }}
               >
@@ -136,7 +137,7 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
                   src={`https://localhost:7007/images/${product.image}`}
                   alt={product.name}
                   className="img-fluid"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '50%', objectFit: 'cover' }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>

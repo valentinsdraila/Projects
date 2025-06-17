@@ -91,7 +91,9 @@ namespace ProductService.DataLayer
                     .Select(p =>
                     {
                         var name = p.Name.ToLower();
+                        var category = p.Category.ToLower();
                         var matchScores = words.Select(w => Fuzz.PartialRatio(w, name)).ToList();
+                        matchScores.AddRange(words.Select(w=> Fuzz.PartialRatio(w, category)));
                         var avgScore = matchScores.Average();
                         var strongMatches = matchScores.Count(s => s >= 75);
 

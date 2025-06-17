@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import '../styles/CardHover.css';
+
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -8,6 +10,8 @@ const SearchPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const productsPerPage = 20;
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const query = searchParams.get("query") || "";
   const minPrice = searchParams.get("minPrice") || "";
@@ -48,7 +52,42 @@ const SearchPage = () => {
       })
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
-  }, [query, category, brand, minPrice, maxPrice, sort]);
+  
+    const fetchBrands = async () => {
+      try {
+        const response = await fetch("https://localhost:7007/api/products/brands", {
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch brands");
+        }
+        const data = await response.json();
+        setBrands(data.brands);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+        setBrands([]);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("https://localhost:7007/api/products/categories", {
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const data = await response.json();
+        setCategories(data.categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setCategories([]);
+      }
+    };
+
+    fetchBrands();
+    fetchCategories();
+    }, [query, category, brand, minPrice, maxPrice, sort]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -121,22 +160,26 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
           onChange={(e) => updateFilter("category", e.target.value)}
         >
           <option value="">All Categories</option>
-          <option value="hoodies">Hoodies</option>
-          <option value="shoes">Shoes</option>
+          {categories.map((category) => (
+            <option name={category} value={category}>{category}</option>
+          ))}
         </select>
       </div>
 
       <div className="mb-3">
         <label className="form-label">Brand</label>
         <select
-          className="form-select"
-          value={brand}
-          onChange={(e) => updateFilter("brand", e.target.value)}
-        >
-          <option value="">All Brands</option>
-          <option value="Nike">Nike</option>
-          <option value="Jordan">Jordan</option>
-        </select>
+      className="form-select"
+      value={brand}
+      onChange={(e) => updateFilter("brand", e.target.value)}
+    >
+      <option value="">All Brands</option>
+      {brands.map((brandName) => (
+        <option key={brandName} value={brandName}>
+          {brandName}
+        </option>
+      ))}
+    </select>
       </div>
 
       <div className="mb-3">
@@ -221,7 +264,7 @@ const renderStars = (rating, clickable = false, onClick = () => {}) => {
           {currentProducts.map((product) => (
             <div key={product.id} className="col-md-4 mb-4">
               <div
-                className="card h-100"
+                className="card h-100 productcard"
                 onClick={() => navigate(`/products/${product.id}`)}
                 style={{ cursor: "pointer" }}
               >

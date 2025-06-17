@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddDeliveryAddress from '../components/AddDeliveryAddress';
 
 const ProfilePage = () => {
@@ -6,6 +7,7 @@ const ProfilePage = () => {
   const [deliveryAddresses, setDeliveryAddresses] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [addressToDelete, setAddressToDelete] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -59,19 +61,33 @@ const ProfilePage = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">User Profile</h1>
 
-      <div className="card mb-4 shadow-sm">
+      <div className="bg-light p-4 rounded mb-4 shadow-sm d-flex justify-content-between align-items-center">
+        <div>
+          <h1 className="h4 d-flex align-items-center mb-1">
+            <i className="bi bi-person-circle me-2"></i> Profile
+          </h1>
+          <p className="text-muted mb-0">Manage your account and delivery details</p>
+        </div>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => navigate('/myorders')}
+        >
+          <i className="bi bi-bag me-1"></i> My Orders
+        </button>
+      </div>
+
+      <div className="card mb-4 shadow-sm border-start border-4">
         <div className="card-body d-flex justify-content-between align-items-center">
           <div>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Phone:</strong> {user.phoneNumber}</p>
-          <p><strong>Created At:</strong> {new Date(user.createdAt).toLocaleString()}</p>
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Phone:</strong> {user.phoneNumber}</p>
+            <p><strong>Created At:</strong> {new Date(user.createdAt).toLocaleString()}</p>
           </div>
           <button className="btn btn-outline-primary btn-sm" onClick={handleEditUser}>
-            <i className="bi bi-pencil"> Edit</i>
+            <i className="bi bi-pencil me-1"></i> Edit
           </button>
         </div>
       </div>
@@ -88,7 +104,7 @@ const ProfilePage = () => {
                 <div className="card shadow-sm">
                   <div className="card-body d-flex justify-content-between align-items-center">
                     <div>
-                      <p className="mb-1">
+                      <p className="mb-1 small">
                         {address.street || address.address}, {address.city}, {address.county}
                       </p>
                       {address.notes && (
@@ -110,7 +126,7 @@ const ProfilePage = () => {
 
         <div className="mt-4">
           <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-            Add New Address
+            <i className="bi bi-plus-lg me-1"></i> Add New Address
           </button>
         </div>
       </div>
