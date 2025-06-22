@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecommendationService", "RecommendationService\RecommendationService.csproj", "{C7400E73-2127-4151-B79B-823CD3C8E6C6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RetailroTests", "RetailroTests", "{7EFDA730-D052-489A-B6A6-CF2AB7FAFFBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServiceTests", "ProductServiceTests\ProductServiceTests.csproj", "{98E08D6A-DCC5-4D08-8F78-E3C34C697290}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,8 +49,15 @@ Global
 		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7400E73-2127-4151-B79B-823CD3C8E6C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98E08D6A-DCC5-4D08-8F78-E3C34C697290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98E08D6A-DCC5-4D08-8F78-E3C34C697290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98E08D6A-DCC5-4D08-8F78-E3C34C697290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98E08D6A-DCC5-4D08-8F78-E3C34C697290}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{98E08D6A-DCC5-4D08-8F78-E3C34C697290} = {7EFDA730-D052-489A-B6A6-CF2AB7FAFFBB}
 	EndGlobalSection
 EndGlobal

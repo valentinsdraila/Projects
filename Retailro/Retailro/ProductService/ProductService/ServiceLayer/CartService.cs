@@ -60,36 +60,28 @@ namespace ProductService.ServiceLayer
         }
         public async Task AddItemToCart(Guid productId, Guid userId, IProductService productService)
         {
-            try
+            Cart cart = await cartRepository.GetByUserId(userId);
+            if (cart == null)
             {
-                Cart cart = await cartRepository.GetByUserId(userId);
-                if (cart == null)
-                {
-                    cart = new Cart { Id = Guid.NewGuid(), UserId = userId, Products = new List<CartItem>() };
-                    await cartRepository.Add(cart);
-                }
-
-                if (cart.Products == null)
-                {
-                    cart.Products = new List<CartItem>();
-                }
-
-                ProductDto product = await productService.GetProduct(productId);
-                if (product == null)
-                {
-                    Console.WriteLine("Product not found: " + productId);
-                    return;
-                }
-                var cartItem = ProductsFactory.CreateCartItem(product);
-                cart.Products.Add(cartItem);
-                Console.WriteLine(cartItem.ProductId + " :CartItem.ProductId");
-                Console.WriteLine(cart.Products[0].ProductId + " :Cart.Products[0].ProductId");
-                await cartRepository.Update(cart);
+                cart = new Cart { Id = Guid.NewGuid(), UserId = userId, Products = new List<CartItem>() };
+                await cartRepository.Add(cart);
             }
-            catch (Exception ex)
+
+            if (cart.Products == null)
             {
-                Console.WriteLine("Error adding product to cart: \n" + ex);
+                cart.Products = new List<CartItem>();
             }
+
+            ProductDto product = await productService.GetProduct(productId);
+            if (product == null)
+            {
+                throw new Exception("The product was not found!");
+            }
+            var cartItem = ProductsMapper.CreateCartItem(product);
+            cart.Products.Add(cartItem);
+            Console.WriteLine(cartItem.ProductId + " :CartItem.ProductId");
+            Console.WriteLine(cart.Products[0].ProductId + " :Cart.Products[0].ProductId");
+            await cartRepository.Update(cart);
         }
 
         public async Task<List<CartItemDto>> GetProductsInCart(Guid userId)
@@ -97,7 +89,7 @@ namespace ProductService.ServiceLayer
             var cart = await cartRepository.GetByUserId(userId);
             if (cart.Products == null)
                 cart.Products = new List<CartItem>();
-            List<CartItemDto> productDtos = cart.Products.Select(p => ProductsFactory.CreateCartItemDto(p)).ToList();
+            List<CartItemDto> productDtos = cart.Products.Select(p => ProductsMapper.CreateCartItemDto(p)).ToList();
             return productDtos;
         }
 

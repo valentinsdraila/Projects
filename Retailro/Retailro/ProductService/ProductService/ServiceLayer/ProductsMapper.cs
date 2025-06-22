@@ -3,7 +3,7 @@ using ProductService.Model.Dtos;
 
 namespace ProductService.ServiceLayer
 {
-    public class ProductsFactory
+    public class ProductsMapper
     {
         /// <summary>
         /// Creates the product dto.

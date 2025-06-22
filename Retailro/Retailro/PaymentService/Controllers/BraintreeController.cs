@@ -63,6 +63,9 @@ namespace PaymentService.Controllers
             {
                 case OrderStatus.Valid:
                     {
+                        var orderAmount = await redis.GetOrderAsync(request.OrderId);
+                        if (orderAmount.Total != request.Amount)
+                            return BadRequest(new { message = "The amount to pay is different from the actual amount, the payment is declined!" });
                         var result = await _gateway.Transaction.SaleAsync(new TransactionRequest
                         {
                             Amount = request.Amount,

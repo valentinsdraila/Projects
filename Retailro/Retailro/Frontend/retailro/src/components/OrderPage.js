@@ -44,7 +44,6 @@ const OrderPage = () => {
       className="container mt-5"
       style={{ fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif", color: "#222" }}
     >
-      <h2 style={{ marginBottom: "15px" }}>Order #{order.id}</h2>
 
       <div
         style={{
@@ -57,7 +56,7 @@ const OrderPage = () => {
       >
         <div>
           <strong>Placed on:</strong>{" "}
-          <span style={{ color: "#555" }}>{new Date(order.createdAt).toLocaleString()}</span>
+          <span style={{ color: "#555" }}> {new Date(new Date(order.createdAt).getTime() + 3 * 60 * 60 * 1000).toLocaleString()}</span>
         </div>
         <div>
           <strong>Status:</strong>{" "}
